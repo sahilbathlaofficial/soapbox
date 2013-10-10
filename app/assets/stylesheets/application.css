@@ -11,3 +11,20 @@
  *= require_self
  *= require_tree .
  */
+
+ #createGroupTextField
+ {
+  width:10em;
+ }
+
+ #createGroup
+ {
+  display: none;
+  margin-top:1em;
+ }
+
+ #createGroup form
+ {
+  margin:0em;
+  padding:0em;
+ }

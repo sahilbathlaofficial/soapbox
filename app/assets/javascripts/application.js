@@ -15,3 +15,14 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+groupHandler = function(){
+  $('#createGroupLink').click(function(e) {
+    console.log('clicked');
+    e.preventDefault();
+    $('#createGroup').show();
+  });
+}
+
+$(document).ready(groupHandler);
+$(document).on('page:change', groupHandler);

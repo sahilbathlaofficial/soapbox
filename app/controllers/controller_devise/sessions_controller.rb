@@ -7,9 +7,8 @@ class ControllerDevise::SessionsController < Devise::SessionsController
     filter.extract_connection
   end
 
-  after_filter :only => :create do
-    current_user.connection = Connection.find(session[:connection])
-    current_user.save
+  after_filter :only => :create do |filter|
+    filter.assign_connection_to_user
   end
 
 end

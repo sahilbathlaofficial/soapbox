@@ -6,6 +6,11 @@ class ControllerDevise::RegistrationsController < Devise::RegistrationsControlle
     filter.extract_connection
   end
 
+  after_filter :only => :create do |filter|
+    filter.assign_connection_to_user
+  end
+
+
   layout "sign_in_sign_up"
 
   protected

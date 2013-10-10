@@ -6,6 +6,35 @@
   =require twitter-bootstrap-static/fontawesome
   */
 
+ .span0
+ {
+  display:inline-block;
+  max-width:1.8em;
+ } 
+
+ #left-sidebar
+ {
+  padding-top: 2em;
+  border-right: 1px solid #ccc;
+  min-height: 40em;
+ } 
+
+ #left-sidebar-titles
+ {
+  min-width: 1em;
+  padding:0px;
+ }
+
+ #group
+ {
+  margin-left: -0.7em;
+ }
+
+ #group a
+ {  
+  color: #222;
+ }
+
 .sidebar-nav
 {
   margin-top:1.6em;
@@ -17,7 +46,13 @@
   color:white ;
 }
 
-.brand, .nav-header, .appLinks
+.nav-header
+{
+  color:#222;
+  font-size: 0.9em;
+}
+
+.brand, .appLinks
 {
   color:white !important;
 }
