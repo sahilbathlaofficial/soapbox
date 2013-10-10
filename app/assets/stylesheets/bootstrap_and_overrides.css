@@ -1,0 +1,52 @@
+/*
+  =require twitter-bootstrap-static/bootstrap
+
+  Use Font Awesome icons (default)
+  To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
+  =require twitter-bootstrap-static/fontawesome
+  */
+
+.sidebar-nav
+{
+  margin-top:1.6em;
+}
+
+.navbar-inner, .sidebar-nav
+{
+  background: #333;
+  color:white ;
+}
+
+.brand, .nav-header, .appLinks
+{
+  color:white !important;
+}
+
+.navbar-inner
+{
+  background-color: #333;
+}
+
+.userHeading
+{
+  margin-top: 10px;
+  text-align: right;
+  width:10em;
+  margin-left: 70em;
+}
+
+#avatarHolder,#formHolder
+{
+  display:inline-block;
+}
+
+body 
+{
+  background: none;
+}
+
+.hero-unit
+{
+  background: #333;
+  margin-top:em;
+}

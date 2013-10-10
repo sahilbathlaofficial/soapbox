@@ -1,0 +1,28 @@
+// Place all the styles related to the users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#miniProfile
+{
+  text-align:center;
+  padding:1em;
+  color:white;
+}
+
+#avatarHolder
+{
+  border: 0.2em solid #e9e9e4;
+  border-radius: 5px;
+}
+
+#avatarContainer
+{
+  position:absolute;
+  top:12em;
+  right:23em;
+}
+
+#formHolder
+{
+  margin-left:-6em;
+}

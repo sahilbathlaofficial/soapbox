@@ -1,0 +1,12 @@
+
+<div class="page-header">
+  <div id="miniProfile" class="hero-unit">
+    <div id="avatarHolder">
+      <%= image_tag current_user.avatar.url(:medium) %>
+    </div>
+    <div id="profileDetails">
+      <span id="firstname"><%= current_user.firstname %></span>
+      <span id="lasttname"><%= current_user.lastname %></span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+module ControllerDevise::RegistrationsHelper
+end
