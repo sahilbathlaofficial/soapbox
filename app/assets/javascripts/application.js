@@ -25,4 +25,4 @@ groupHandler = function(){
 }
 
 $(document).ready(groupHandler);
-$(document).on('page:change', groupHandler);
+$(document).on('page:change', groupHandler);  

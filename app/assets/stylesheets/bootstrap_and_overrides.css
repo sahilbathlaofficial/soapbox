@@ -25,15 +25,6 @@
   padding:0px;
  }
 
- #group
- {
-  margin-left: -0.7em;
- }
-
- #group a
- {  
-  color: #222;
- }
 
 .sidebar-nav
 {
@@ -62,18 +53,6 @@
   background-color: #333;
 }
 
-.userHeading
-{
-  margin-top: 10px;
-  text-align: right;
-  width:10em;
-  margin-left: 70em;
-}
-
-#avatarHolder,#formHolder
-{
-  display:inline-block;
-}
 
 body 
 {
@@ -83,5 +62,7 @@ body
 .hero-unit
 {
   background: #333;
-  margin-top:em;
+  margin-top:-1em;
+  height: 7em; 
+  padding:1em;
 }

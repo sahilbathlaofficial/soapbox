@@ -11,6 +11,20 @@
  *= require_self
  *= require_tree .
  */
+ #group
+ {
+  margin-left: -0.7em;
+ }
+
+ #group a
+ {  
+  color: #222;
+ }
+
+ #group li
+ {
+  margin-top: 0.3em;
+ }
 
  #createGroupTextField
  {
@@ -28,3 +42,23 @@
   margin:0em;
   padding:0em;
  }
+
+ .userHeading
+{
+  position:absolute;
+  right:4em;
+  margin-top: 10px;
+  text-align: right;
+  width:10em;
+}
+
+.smallText
+{
+  font-size:0.7em; 
+}
+
+.higlightPicture
+{
+  border: 0.2em solid #e9e9e4;
+  border-radius: 5px;
+}

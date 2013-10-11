@@ -10,11 +10,11 @@
   margin-top:-1em;
 }
 
-#avatarHolder
+#avatarHolder,#formHolder
 {
-  border: 0.2em solid #e9e9e4;
-  border-radius: 5px;
+  display:inline-block;
 }
+
 
 #avatarContainer
 {

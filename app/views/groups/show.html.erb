@@ -1,0 +1,14 @@
+<div class="page-header">
+  <div id="groupDescriptionContainer" class="hero-unit">
+    <img src="http://png-4.findicons.com/files/icons/1607/ruby_on_rails/256/ror_folder_256_v3.png" width="75" height="75" class="higlightPicture"/>
+    <div id="groupTitle">
+      <span><%= @group.name.humanize %></span>
+    </div>
+    <!-- <div class="type">
+    <p class="smallText"></p>
+    </div> -->
+    <div class="description">
+      <span class="smallText"><%= @group.description.try(:humanize) %>Sample Description</span>
+    </div>
+  </div>  
+</div>

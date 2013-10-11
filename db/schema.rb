@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131010131212) do
+ActiveRecord::Schema.define(version: 20131011121405) do
 
   create_table "connections", force: true do |t|
     t.string   "name"
@@ -29,6 +29,11 @@ ActiveRecord::Schema.define(version: 20131010131212) do
   end
 
   add_index "groups", ["connection_id"], name: "index_groups_on_connection_id", using: :btree
+
+  create_table "groups_users", force: true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

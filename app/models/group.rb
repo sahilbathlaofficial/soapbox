@@ -1,4 +1,6 @@
 class Group < ActiveRecord::Base
   belongs_to :connection
-  validates :name, :connection_id, presence: true 
+  has_and_belongs_to_many :users
+
+  validates :name, presence: true
 end
