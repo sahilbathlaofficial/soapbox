@@ -63,6 +63,8 @@ body
 {
   background: #333;
   margin-top:-1em;
-  height: 7em; 
+  height: 5.3em; 
   padding:1em;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }

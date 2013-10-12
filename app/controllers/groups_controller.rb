@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
     params[:group][:name].gsub!(/[^0-9a-z ]+/i, '')
   end
 
-  before_action :set_group, only: [:show]  
+  before_action :set_group, only: [:show, :user_add]  
 
   def create
     @group = Group.new(group_params)
@@ -20,14 +20,27 @@ class GroupsController < ApplicationController
   def show
   end
 
+  def user_add
+    @group.users << current_user
+    respond_to do |format|
+      format.html { redirect_to @group, notice: "User #{current_user.firstname} was successfully added." }
+    end
+  end  
+
   protected
 
   def group_params
-    (params.require(:group).permit(:name)).merge(connection_id: current_user.connection_id)
+    extra_params = {connection_id: current_user.connection_id, admin_id: current_user.id}
+    (params.require(:group).permit(:name)).merge(extra_params)
   end
 
   def set_group
     @group = Group.find(params[:id])
+    if !(current_user.groups.include?(@group))
+     respond_to do |format|
+        format.html { redirect_to '/', notice: "Group doesn't exist" }
+      end 
+    end  
   end
 
 end

@@ -54,11 +54,58 @@
 
 .smallText
 {
-  font-size:0.7em; 
+  font-size:0.7em !important; 
+}
+
+.normalText
+{
+  font-size:0.8em !important; 
 }
 
 .higlightPicture
 {
   border: 0.2em solid #e9e9e4;
   border-radius: 5px;
+}
+
+.hero-unit-extend
+{
+  border: 0.2em solid black;
+  border-radius: 0.3em;
+  border-top-right-radius:0em;
+  border-top-left-radius:0em;  
+  width:inherit;
+  margin-top: -2.2em;
+  border-top: none;
+  background: #eee;
+  height: 2.8em;
+}
+
+
+.hero-unit-extend ul
+{
+  margin: 0em;
+  display:inline-block;
+}
+
+.hero-unit-extend li
+{
+  vertical-align: text-top;
+  margin-top: 0.4em;
+  border-right: 0.2em solid #aaa;
+  height: 2em;
+  padding-bottom: 0.5em;
+}
+
+.hero-unit-extend li a
+{
+  color:black;
+}
+
+
+.rightAlign
+{
+  display:inline-block;
+  float:right;
+  margin: 0.5em 1em 0em 0em;
 }

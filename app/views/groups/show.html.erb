@@ -1,6 +1,6 @@
-<div class="page-header">
+<div class="page-header" id="groupPage">
   <div id="groupDescriptionContainer" class="hero-unit">
-    <img src="http://png-4.findicons.com/files/icons/1607/ruby_on_rails/256/ror_folder_256_v3.png" width="75" height="75" class="higlightPicture"/>
+    <img src="http://png-4.findicons.com/files/icons/1607/ruby_on_rails/256/ror_folder_256_v3.png" width="50" height="50" class="higlightPicture"/>
     <div id="groupTitle">
       <span><%= @group.name.humanize %></span>
     </div>
@@ -11,4 +11,30 @@
       <span class="smallText"><%= @group.description.try(:humanize) %>Sample Description</span>
     </div>
   </div>  
+  <div class="hero-unit-extend">
+    <ul class="nav nav-pills normalText">
+      <li><a href="#"><%= pluralize(@group.users.size, "Member") %> </a></li>
+      <li><a href="#"><%= pluralize(@group.posts.size, "Conversation") %> </a></li>
+    </ul>
+    <div class="rightAlign"><%= button_to "Join us", user_add_group_path(@group) %></div>
+  </div>
+
+  <div id="postContainer">
+    <%= form_tag '/posts',id: 'postForm' do %>
+      <%= text_field_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText" %> 
+      <%= hidden_field_tag 'post[group_id]', @group.id  %>
+    <% end %>
+
+    <div id="groupPosts">
+      <div class="normalText groupPosts ">
+        <% for post in extract_posts %>
+          <%= image_tag User.find(post.user_id).avatar,height: '25px', width: '25px' %>
+          <span class="postAuthor"><%= User.find(post.user_id).firstname %></span>
+          <div class="postContent"><%= post.content %></div>
+          <hr>
+        <% end %>
+        <div id="groupPageFinished">End of posts</div>
+      </div>
+    </div>
+  </div>
 </div>
