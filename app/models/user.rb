@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
 
   belongs_to :connection
+  has_many :followings
+  has_many :followees, through: :followings
+  has_many :inverse_followings, class_name: 'Following', foreign_key: 'followee_id'
+  has_many :followers, through: :inverse_followings, source: :user
   has_and_belongs_to_many :groups
   has_many :groups_owned, foreign_key: 'admin_id', class_name: 'Group', dependent: :destroy
   has_many :posts, dependent: :destroy

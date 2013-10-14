@@ -1,5 +1,7 @@
 VTweet::Application.routes.draw do
 
+  resources :followings
+
   get "posts/create"
   get "posts/show"
   root :to => 'connection#show'

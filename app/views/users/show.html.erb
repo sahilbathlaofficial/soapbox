@@ -5,18 +5,18 @@
       <%= image_tag current_user.avatar, width: '75px', height: '75px' %>
     </div>
     <div id="profileDetails">
-      <span id="firstname"><%= current_user.firstname %></span>
-      <span id="lasttname"><%= current_user.lastname %></span>
+      <span id="firstname"><%= @user.firstname %></span>
+      <span id="lasttname"><%= @user.lastname %></span>
     </div>
   </div>
 
   <div class="hero-unit-extend">
     <ul class="nav nav-pills normalText">
-      <li><a href="#"><%= pluralize(0, "Follower") %> </a></li>
-      <li><a href="#"><%= pluralize(0, "Following") %> </a></li>
+      <li><a href="#"><%= pluralize(current_user.followers.count, "Follower") %> </a></li>
+      <li><a href="#"><%= pluralize(current_user.followees.count, "Following") %> </a></li>
     </ul>
     <div class="rightAlign">
-      <%= button_to('Follow') if (current_user != @user) %>
+     <%= render partial:  'following_status', locals: {user: @user }  %>
     </div>
   </div>
 

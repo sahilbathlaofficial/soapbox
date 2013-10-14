@@ -1,0 +1,7 @@
+ <% if (current_user != user) %>
+  <% if (current_user.followees.include?(user)) %>
+    <%= button_to('Following', following_path(followee_id: user.id), method: :delete )  %>
+  <% else %>
+    <%= button_to('Follow', followings_path(followee_id: user.id) )  %>
+  <% end %>
+<% end %>
