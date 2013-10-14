@@ -7,9 +7,8 @@ VTweet::Application.routes.draw do
   resources :posts
   resources :users
   resources :connection
-  resources :groups do
-    post 'user_add', on: :member
-  end
+  resources :groups 
+  resources :group_membership
 
   devise_for :user, controllers: {
     omniauth_callbacks: "controller_devise/omniauth_callback", 

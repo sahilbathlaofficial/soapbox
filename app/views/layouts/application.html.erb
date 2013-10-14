@@ -92,7 +92,7 @@
                   <% for group in fetch_group_names %>
                     <li><%= link_to group.name.capitalize, group %></li>
                   <% end %>
-
+                  <li><%= link_to '-All Company Groups-', groups_path %></li>
                   <li>
                     <div id="createGroup">
                       <%= form_tag '/groups' do %>
@@ -102,6 +102,7 @@
                     </div>
                     <%=link_to "+ Create group",'', id: 'createGroupLink' %>
                   </li>
+
               <!-- End of Listing Groups -->  
               </ul>
             </ul>

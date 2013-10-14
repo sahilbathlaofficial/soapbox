@@ -1,0 +1,5 @@
+<% if(group.users.exists?(current_user)) %>
+  <%= button_to "Joined", group_membership_path(group), method: :delete, confirm: 'Are you sure you want to quit this group?' %>
+<% else %>
+  <%= button_to "Join us", {controller: :group_membership, action: :create, id: group.id}%>
+<% end %>

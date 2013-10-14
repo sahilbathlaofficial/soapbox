@@ -4,13 +4,17 @@ class GroupsController < ApplicationController
     params[:group][:name].gsub!(/[^0-9a-z ]+/i, '')
   end
 
-  before_action :set_group, only: [:show, :user_add]  
+  before_action :set_group, only: [:show] 
+
+  def index
+    @groups = Group.where("connection_id = ?", current_user.connection_id)
+  end 
 
   def create
     @group = Group.new(group_params)
     respond_to do |format|
       if current_user.groups << @group
-        format.html { redirect_to '/', notice: "Group #{@group.name} was successfully created." }
+        format.html { redirect_to @group, notice: "Group #{@group.name} was successfully created." }
       else
         format.html { redirect_to '/' }
       end
@@ -19,13 +23,6 @@ class GroupsController < ApplicationController
 
   def show
   end
-
-  def user_add
-    @group.users << current_user
-    respond_to do |format|
-      format.html { redirect_to @group, notice: "User #{current_user.firstname} was successfully added." }
-    end
-  end  
 
   protected
 
@@ -36,7 +33,7 @@ class GroupsController < ApplicationController
 
   def set_group
     @group = Group.find(params[:id])
-    if !(current_user.groups.include?(@group))
+    if !(@group.connection_id == current_user.connection_id)
      respond_to do |format|
         format.html { redirect_to '/', notice: "Group doesn't exist" }
       end 

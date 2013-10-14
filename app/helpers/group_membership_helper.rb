@@ -1,0 +1,2 @@
+module GroupMembershipHelper
+end

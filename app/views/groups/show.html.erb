@@ -16,25 +16,32 @@
       <li><a href="#"><%= pluralize(@group.users.size, "Member") %> </a></li>
       <li><a href="#"><%= pluralize(@group.posts.size, "Conversation") %> </a></li>
     </ul>
-    <div class="rightAlign"><%= button_to "Join us", user_add_group_path(@group) %></div>
-  </div>
-
-  <div id="postContainer">
-    <%= form_tag '/posts',id: 'postForm' do %>
-      <%= text_field_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText" %> 
-      <%= hidden_field_tag 'post[group_id]', @group.id  %>
-    <% end %>
-
-    <div id="groupPosts">
-      <div class="normalText groupPosts ">
-        <% for post in extract_posts %>
-          <%= image_tag User.find(post.user_id).avatar,height: '25px', width: '25px' %>
-          <span class="postAuthor"><%= User.find(post.user_id).firstname %></span>
-          <div class="postContent"><%= post.content %></div>
-          <hr>
-        <% end %>
-        <div id="groupPageFinished">End of posts</div>
-      </div>
+    <div class="rightAlign">
+      <%= render :partial => 'join_us', locals:{ group: @group } %>
     </div>
   </div>
+
+  <% if current_user.groups.include?(@group) %>
+    <div id="postContainer">
+      <%= form_tag '/posts',id: 'postForm' do %>
+        <%= text_field_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText" %> 
+        <%= hidden_field_tag 'post[group_id]', @group.id  %>
+      <% end %>
+
+      <div id="groupPosts">
+        <div class="normalText groupPosts ">
+          <% for post in extract_posts %>
+            <%= link_to image_tag(post.user.avatar,height: '25px', width: '25px'), post.user %>
+            <span class="postAuthor"><%= link_to post.user.firstname, post.user %></span>
+            <div class="postContent"><%= post.content %></div>
+            <hr>
+          <% end %>
+          <div class="groupPageFinished">End of posts</div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <hr/>
+    <div class="groupPageFinished">Join to view group details</div>  
+  <% end %>
 </div>

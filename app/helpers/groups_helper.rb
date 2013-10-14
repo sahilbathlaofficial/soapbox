@@ -1,5 +1,6 @@
 module GroupsHelper
   def extract_posts
-    @group.posts.limit 5 
+    posts = @group.posts;
+    posts.limit(5)
   end
 end

@@ -1,15 +1,8 @@
 class UsersController < ApplicationController
 
-  before_filter :set_user, :only => [:edit,  :update]
+  before_filter :set_user, :only => [:edit,  :update, :show]
 
   def show
-    if(current_user)
-      @user = User.find(current_user)
-    else
-      respond_to do |format|
-        format.html { redirect_to new_user_session_path }
-      end
-    end
   end
 
 
@@ -27,7 +20,7 @@ class UsersController < ApplicationController
   protected
 
   def set_user
-    @user = current_user
+    @user = User.find(params[:id])
   end
 
   def user_params

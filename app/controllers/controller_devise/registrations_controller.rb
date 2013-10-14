@@ -1,12 +1,13 @@
 class ControllerDevise::RegistrationsController < Devise::RegistrationsController
   include AuthenticationConcern
-  before_filter :only => :create do |filter|
+  skip_before_action :authorize
+  before_action :only => :create do |filter|
     filter.generate_error("Sign Up error")
     filter.configure_permitted_parameters
     filter.extract_connection
   end
 
-  after_filter :only => :create do |filter|
+  after_action :only => :create do |filter|
     filter.assign_connection_to_user
   end
 
