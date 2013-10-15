@@ -26,7 +26,7 @@ changeOriginalButtonClass = function() {
     $('.hovered-button').closest('form').show();
   });
 
-  $('.hovered-button').closest('form').bind('mouseleave',function(){
+  $('.hovered-button').closest('form').bind('mouseleave', function(){
      $(this).closest('form').hide();
     $('.original-button').closest('form').show();
   });

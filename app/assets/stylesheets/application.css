@@ -97,10 +97,16 @@
   margin-right: 1em;
 }
 
-.siteLink
+.siteLink, .siteLink:visited
 {
   color:white;
   font-size:1.1em;
+}
+
+#groupPosts a, .siteLink, .siteLink:visited 
+{
+  background: none !important;
+  text-decoration: none !important;
 }
 
 
