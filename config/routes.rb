@@ -1,9 +1,10 @@
 VTweet::Application.routes.draw do
 
-  resources :followings
+  #resources :followings
 
-  get "posts/create"
-  get "posts/show"
+  post 'followings/:followee_id', to: 'followings#create', as: 'followings'
+  delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
+
   root :to => 'users#show'
   resources :posts
 

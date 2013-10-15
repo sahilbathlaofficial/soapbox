@@ -1,6 +1,9 @@
 class GroupMembershipController < ApplicationController
  
-before_action :set_group, only: [:create,:destroy]
+before_action :set_group, only: [:create, :destroy, :index]
+
+  def index
+  end
 
   def create
     @group.users << current_user
@@ -23,7 +26,6 @@ before_action :set_group, only: [:create,:destroy]
   protected
 
   def set_group
-    #render text: params
     @group = Group.find(params[:id])
   end
 

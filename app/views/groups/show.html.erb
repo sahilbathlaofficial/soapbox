@@ -13,7 +13,7 @@
   </div>  
   <div class="hero-unit-extend">
     <ul class="nav nav-pills normalText">
-      <li><a href="#"><%= pluralize(@group.users.size, "Member") %> </a></li>
+      <li><%= link_to pluralize(@group.users.size, "Member"), group_membership_index_path(id: @group) %></li>
       <li><a href="#"><%= pluralize(@group.posts.size, "Conversation") %> </a></li>
     </ul>
     <div class="rightAlign">

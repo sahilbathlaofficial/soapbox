@@ -1,0 +1,12 @@
+<div id="memberList" class="normalText showList"> 
+  <span>Listing all the members of this group</span> 
+  <%for user in @group.users %>
+    <hr/>
+    <div class="floatLeft"><%= link_to image_tag(user.avatar,width:"50", height: "50", class: "higlightPicture"), user  %></div>
+    <div class="rightAlign"><%= render :partial => 'users/following_status', locals: { user: user } %></div>
+    <div><%=link_to (user.firstname + ' ' + user.lastname).humanize, user %></div>
+    <div>This is a sample description</div>
+    <hr/>
+  <% end %>
+</div>
+<div class="groupPageFinished normalText">End of page</div>
