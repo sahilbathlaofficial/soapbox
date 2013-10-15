@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :set_user, :only => [:edit,  :update, :show]
+  before_filter :set_user, :only => [:edit,  :update, :show, :show_followees, :show_followers]
 
   def show
   end
@@ -17,10 +17,23 @@ class UsersController < ApplicationController
     end
   end
 
+  def show_followees
+    @followees = @user.followees
+  end
+
+  def show_followers
+    @followers = @user.followers
+  end
+
   protected
 
+
   def set_user
-    @user = User.find(params[:id])
+    if(params[:id])
+      @user = User.find(params[:id])
+    else
+      redirect_to(current_user)
+    end
   end
 
   def user_params

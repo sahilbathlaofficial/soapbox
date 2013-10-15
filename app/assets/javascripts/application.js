@@ -14,7 +14,29 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
+//= require jquery.turbolinks
 //= require_tree .
+
+changeOriginalButtonClass = function() {
+  $('.btn-success, .btn-danger').width(75);
+  $('.hovered-button').closest('form').hide();
+
+  $('.original-button').closest('form').hover(function(){
+    $(this).closest('form').hide();
+    $('.hovered-button').closest('form').show();
+  });
+
+  $('.hovered-button').closest('form').bind('mouseleave',function(){
+     $(this).closest('form').hide();
+    $('.original-button').closest('form').show();
+  });
+
+}
+
+sideBarHeightHandler = function() {
+  height = $('body').height() - 50;
+  $('#left-sidebar').height(height);
+}
 
 groupHandler = function(){
   $('#createGroupLink').click(function(e) {
@@ -24,5 +46,8 @@ groupHandler = function(){
   });
 }
 
-$(document).ready(groupHandler);
-$(document).on('page:change', groupHandler);  
+$(document).ready(function(){
+  sideBarHeightHandler();
+  groupHandler(); 
+  changeOriginalButtonClass();
+}); 

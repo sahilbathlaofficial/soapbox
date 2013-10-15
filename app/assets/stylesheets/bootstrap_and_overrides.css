@@ -5,28 +5,33 @@
   To use Glyphicons sprites instead of Font Awesome, replace with "require twitter-bootstrap-static/sprites"
   =require twitter-bootstrap-static/fontawesome
   */
-a:hover
+
+
+#groupPosts a, .siteLink, .siteLink:visited 
 {
-  text-decoration: none;
+  background: none !important;
+  text-decoration: none !important;
 }
- .span0
- {
+
+.span0
+{
   display:inline-block;
   max-width:1.8em;
- } 
+} 
 
- #left-sidebar
- {
+
+#left-sidebar
+{
   padding-top: 2em;
   border-right: 1px solid #ccc;
-  min-height: 40em;
- } 
+  height: inherit;
+} 
 
- #left-sidebar-titles
- {
+#left-sidebar-titles
+{
   min-width: 1em;
   padding:0px;
- }
+}
 
 
 .sidebar-nav

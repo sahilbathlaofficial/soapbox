@@ -4,10 +4,14 @@ VTweet::Application.routes.draw do
 
   get "posts/create"
   get "posts/show"
-  root :to => 'connection#show'
-
+  root :to => 'users#show'
   resources :posts
-  resources :users
+
+  resources :users do
+    get 'show_followees' , on: :member
+    get 'show_followers' , on: :member
+  end
+  
   resources :connection
   resources :groups 
   resources :group_membership

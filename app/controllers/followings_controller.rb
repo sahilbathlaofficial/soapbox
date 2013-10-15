@@ -1,6 +1,9 @@
 class FollowingsController < ApplicationController
   before_action :set_following, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @followings = current_user.followings
+  end
 
   def create
     @following = current_user.followings.build(following_params)

@@ -2,7 +2,7 @@
 <div class="page-header">
   <div id="miniProfile" class="hero-unit">
     <div id="avatarHolder" class="higlightPicture">
-      <%= image_tag current_user.avatar, width: '75px', height: '75px' %>
+      <%= image_tag @user.avatar, width: '75px', height: '75px' %>
     </div>
     <div id="profileDetails">
       <span id="firstname"><%= @user.firstname %></span>
@@ -12,12 +12,37 @@
 
   <div class="hero-unit-extend">
     <ul class="nav nav-pills normalText">
-      <li><a href="#"><%= pluralize(current_user.followers.count, "Follower") %> </a></li>
-      <li><a href="#"><%= pluralize(current_user.followees.count, "Following") %> </a></li>
+      <li><%= link_to pluralize(@user.followers.count, "Follower"), show_followers_user_path(@user) %></li>
+      <li><%= link_to pluralize(@user.followees.count, "Following"), show_followees_user_path(@user) %></li>
     </ul>
     <div class="rightAlign">
      <%= render partial:  'following_status', locals: {user: @user }  %>
     </div>
   </div>
+
+  <div id="postContainer">
+      <% if(current_user.id == @user.id) %>
+        <%= form_tag '/posts',id: 'postForm' do %>
+          <%= text_field_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText" %> 
+          <% groups_array = current_user.groups.map { |group| [group.name, group.id] } %>
+          <div class="rightAlign"> 
+            <span> Group </span> 
+            <%= select_tag 'post[group_id]', options_for_select(groups_array), class: 'selectBoxSmall', id: "groupSelect" %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div id="groupPosts">
+        <div class="normalText groupPosts ">
+          <% for post in @user.posts %>
+            <%= link_to image_tag(post.user.avatar,height: '25px', width: '25px'), post.user %>
+            <span class="postAuthor"><%= link_to post.user.firstname, post.user %></span>
+            <div class="postContent"><%= post.content %></div>
+            <hr>
+          <% end %>
+          <div class="groupPageFinished">End of posts</div>
+        </div>
+      </div>
+    </div>
 
 </div>

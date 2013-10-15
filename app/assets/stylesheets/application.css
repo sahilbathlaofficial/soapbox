@@ -11,6 +11,8 @@
  *= require_self
  *= require_tree .
  */
+
+
  #group
  {
   margin-left: -0.7em;
@@ -43,6 +45,11 @@
   padding:0em;
  }
 
+.selectBoxSmall
+{
+  width:5em;
+}
+
  .userHeading
 {
   position:absolute;
@@ -51,6 +58,8 @@
   text-align: right;
   width:10em;
 }
+
+/* Formatting classes */
 
 .smallText
 {
@@ -68,6 +77,34 @@
   border-radius: 5px;
 }
 
+
+.rightAlign
+{
+  display:inline-block;
+  float:right;
+  margin: 0.5em 1em 0em 0em;
+}
+
+.centerAlignText
+{
+  width:100%;
+  text-align:center;
+}
+
+.floatLeft
+{
+  float:left;
+  margin-right: 1em;
+}
+
+.siteLink
+{
+  color:white;
+  font-size:1.1em;
+}
+
+
+
 .hero-unit-extend
 {
   border: 0.2em solid black;
@@ -75,7 +112,7 @@
   border-top-right-radius:0em;
   border-top-left-radius:0em;  
   width:inherit;
-  margin-top: -2.2em;
+  margin-top: -2.4em;
   border-top: none;
   background: #eee;
   height: 2.8em;
@@ -103,21 +140,11 @@
 }
 
 
-.rightAlign
-{
-  display:inline-block;
-  float:right;
-  margin: 0.5em 1em 0em 0em;
-}
 
-.floatLeft
-{
-  float:left;
-  margin-right: 1em;
-}
+/* Show list class to list the data on website(users, groups, events etc) */
 
-.siteLink
+.showList
 {
-  color:white;
-  font-size:1.1em;
+  margin-top:2em;
+  width:100%
 }

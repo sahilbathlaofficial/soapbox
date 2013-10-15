@@ -67,3 +67,5 @@ gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+
+gem 'jquery-turbolinks'

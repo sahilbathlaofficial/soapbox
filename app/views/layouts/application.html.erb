@@ -57,11 +57,11 @@
                 <!-- Start of drop down -->
                 <div class="dropdown">
 
-                  <a id="dropdownMenu1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                  <a id="dropdownMenu1" href="#" role="button" class="dropdown-toggle siteLink" data-toggle="dropdown">
                     <span>
                       <%= image_tag current_user.avatar.url, width: '25px', height: '25px' %>
                     </span>
-                    <span class="siteLink">Settings</span>
+                    <span>Settings</span>
                   </a>
 
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="settingsList">
@@ -79,7 +79,7 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" id="AllContentHolder">
       <div class="row-fluid">
         <div class="span0"></div>
         <div class="span2" id="left-sidebar">
@@ -109,7 +109,7 @@
           </div><!--/.well -->
         </div><!--/span-->
 
-        <div class="span6">
+        <div class="span6" id="mainContent">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
