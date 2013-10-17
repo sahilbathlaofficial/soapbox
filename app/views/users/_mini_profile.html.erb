@@ -1,0 +1,19 @@
+<div id="miniProfile" class="hero-unit">
+  <div id="avatarHolder" class="higlightPicture">
+    <%= image_tag user.avatar, width: '75px', height: '75px' %>
+  </div>
+  <div id="profileDetails">
+    <span id="firstname"><%= user.firstname %></span>
+    <span id="lasttname"><%= user.lastname %></span>
+  </div>
+</div>
+
+<div class="hero-unit-extend">
+  <ul class="nav nav-pills normalText">
+    <li><%= link_to pluralize(user.followers.count, "Follower"), show_followers_user_path(user) %></li>
+    <li><%= link_to pluralize(user.followees.count, "Following"), show_followees_user_path(user) %></li>
+  </ul>
+  <div class="rightAlign">
+   <%= render partial:  'following_status', locals: {user: user }  %>
+  </div>
+</div>

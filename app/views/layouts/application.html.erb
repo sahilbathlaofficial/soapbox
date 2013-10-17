@@ -98,6 +98,7 @@
                       <%= form_tag '/groups' do %>
                         <%= text_field_tag  'group[name]', '', id: 'createGroupTextField', placeholder: 'Group Name' %>
                         <%= hidden_field_tag 'group[connection_id]', "#{current_user.connection_id}" %> 
+                        <span id="cancelCreateGroup" class="rightAlign">x</span>
                       <% end %>
                     </div>
                     <%=link_to "+ Create group",'', id: 'createGroupLink' %>

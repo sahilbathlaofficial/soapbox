@@ -1,1 +1,4 @@
-<%= render(partial: 'list_users', object: @followers) %>
+<div class="page-header">
+  <%= render partial: 'mini_profile', locals: {user: @user} %>
+  <%= render(partial: 'list_users', object: @followers) %>
+</div>

@@ -1,24 +1,6 @@
 
 <div class="page-header">
-  <div id="miniProfile" class="hero-unit">
-    <div id="avatarHolder" class="higlightPicture">
-      <%= image_tag @user.avatar, width: '75px', height: '75px' %>
-    </div>
-    <div id="profileDetails">
-      <span id="firstname"><%= @user.firstname %></span>
-      <span id="lasttname"><%= @user.lastname %></span>
-    </div>
-  </div>
-
-  <div class="hero-unit-extend">
-    <ul class="nav nav-pills normalText">
-      <li><%= link_to pluralize(@user.followers.count, "Follower"), show_followers_user_path(@user) %></li>
-      <li><%= link_to pluralize(@user.followees.count, "Following"), show_followees_user_path(@user) %></li>
-    </ul>
-    <div class="rightAlign">
-     <%= render partial:  'following_status', locals: {user: @user }  %>
-    </div>
-  </div>
+ <%= render partial: 'mini_profile', locals: {user: @user} %>
 
   <div id="postContainer">
       <% if(current_user.id == @user.id) %>
@@ -32,16 +14,15 @@
         <% end %>
       <% end %>
 
-      <div id="groupPosts">
-        <div class="normalText groupPosts ">
-          <% for post in @user.posts %>
-            <%= link_to image_tag(post.user.avatar,height: '25px', width: '25px'), post.user %>
-            <span class="postAuthor"><%= link_to post.user.firstname, post.user %></span>
-            <div class="postContent"><%= post.content %></div>
-            <hr>
-          <% end %>
+      <div id="postsContainer">
+        <% for post in @user.posts %>
+          <div class="normalText posts ">
+            <%= link_to image_tag(post.user.avatar,height: '40px', width: '40px'), post.user %>
+            <span class="postAuthorContainer"><%= link_to post.user.name, post.user,class: 'postAuthor' %></span>
+            <div class="postContent largeText"><%= post.content %></div>
+          </div>
+        <% end %>
           <div class="groupPageFinished">End of posts</div>
-        </div>
       </div>
     </div>
 

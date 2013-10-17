@@ -23,12 +23,12 @@ changeOriginalButtonClass = function() {
 
   $('.original-button').closest('form').hover(function(){
     $(this).closest('form').hide();
-    $('.hovered-button').closest('form').show();
+    $(this).closest('form').next('form').show();
   });
 
   $('.hovered-button').closest('form').bind('mouseleave', function(){
-     $(this).closest('form').hide();
-    $('.original-button').closest('form').show();
+    $(this).closest('form').hide();
+    $(this).closest('form').prev('form').show();
   });
 
 }
@@ -40,9 +40,11 @@ sideBarHeightHandler = function() {
 
 groupHandler = function(){
   $('#createGroupLink').click(function(e) {
-    console.log('clicked');
     e.preventDefault();
     $('#createGroup').show();
+  });
+  $('#cancelCreateGroup').on('click', function(e) {
+    $('#createGroup').hide();
   });
 }
 

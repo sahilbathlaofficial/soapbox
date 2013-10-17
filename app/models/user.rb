@@ -45,6 +45,10 @@ class User < ActiveRecord::Base
         user.save!
     end
     user
-end
+  end
+
+  def name
+    firstname + ' ' + lastname
+  end
 
 end

@@ -29,5 +29,13 @@ module AuthenticationConcern
       #session[:connection] = nil
     end
   end
+
+  def provide_dummy_names
+    if(current_user)
+      current_user.firstname = 'vTweet User'
+      current_user.lastname = current_user.id.to_s
+      current_user.save
+    end
+  end
     
 end
