@@ -21,15 +21,14 @@ changeOriginalButtonClass = function() {
   $('.btn-success, .btn-danger').width(75);
   $('.hovered-button').closest('form').hide();
 
-  $('.original-button').closest('form').hover(function(){
-    $(this).closest('form').hide();
-    $(this).closest('form').next('form').show();
+  $('.buttonToggle').mouseenter(function(e){
+    $(this).children().first().hide();
+    $(this).children().last().show();
+  }).mouseleave(function(e){
+    $(this).children().first().show();
+    $(this).children().last().hide();
   });
 
-  $('.hovered-button').closest('form').bind('mouseleave', function(){
-    $(this).closest('form').hide();
-    $(this).closest('form').prev('form').show();
-  });
 
 }
 

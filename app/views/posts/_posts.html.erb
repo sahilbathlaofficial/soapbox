@@ -1,0 +1,10 @@
+<div id="postsContainer">
+  <% for post in posts %>
+    <div class="normalText posts ">
+      <%= link_to image_tag(post.user.avatar,height: '40px', width: '40px'), post.user %>
+      <span class="postAuthorContainer"><%= link_to post.user.firstname, post.user,class: 'postAuthor' %></span>
+      <div class="postContent largeText"><%= post.content %></div>
+    </div>
+  <% end %>
+    <div class="groupPageFinished">End of posts</div>
+</div>

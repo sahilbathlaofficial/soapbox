@@ -1,12 +1,15 @@
 <div id="groupList" class="normalText showList"> 
-  <span>Listing all the groups in your connection</span> 
-<%for group in @groups %>
-  <hr/>
-  <div class="floatLeft"><%= link_to image_tag("http://png-4.findicons.com/files/icons/1607/ruby_on_rails/256/ror_folder_256_v3.png",width:"50", height: "50", class: "higlightPicture"), group %></div>
-  <div class="rightAlign"><%= render :partial => 'join_us', locals:{ group: group } %></div>
-  <div><%=link_to group.name.humanize, group %></div>
-  <div>This is a sample description</div>
-  <hr/>
-<% end %>
+  <div class="showListItem">Listing all the groups in your connection</div> 
+  <%for group in @groups %>
+    <div class="showListItem">
+      <div class="floatLeft"><%= link_to image_tag("http://png-4.findicons.com/files/icons/1607/ruby_on_rails/256/ror_folder_256_v3.png",width:"100", height: "100", class: "higlightPicture"), group %>
+      </div>
+      <div class="middleContent">
+        <div><%=link_to group.name.humanize, group %></div>
+        <div>This is a sample description</div>
+      </div>
+      <div class="floatRight"><%= render :partial => 'join_us', locals:{ group: group } %></div>
+    </div>
+  <% end %>
 </div>
 <div class="groupPageFinished normalText">End of page</div>

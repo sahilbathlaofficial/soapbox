@@ -1,17 +1,25 @@
 <div class="page-header" id="groupPage">
   <%= render partial:'groups/group_profile', locals: {group: @group} %>
   <div id="memberList" class="normalText showList"> 
-    <div>Listing all the members of this group</div> 
-    <hr/>
+    <div class="showListItem">Listing all the members of this group</div> 
     
     <%for user in @group.users %>
-      <div class="floatLeft"><%= link_to image_tag(user.avatar,width:"50", height: "50", class: "higlightPicture"), user  %></div>
-      <div class="rightAlign"><%= render :partial => 'users/following_status', locals: { user: user } %></div>
-      <div><%=link_to (user.firstname + ' ' + user.lastname).humanize, user %></div>
-      <div>This is a sample description</div>
-      <hr/>
+      <div class="showListItem">
+        <div class="floatLeft">
+          <%= link_to image_tag(user.avatar,width:"50", height: "50", class: "higlightPicture"), user  %>
+        </div>
+
+        <div class="middleContent">      
+          <div><%=link_to (user.firstname + ' ' + user.lastname).humanize, user %></div>
+          <div>This is a sample description</div>
+        </div>
+
+        <div class="floatRight">
+          <%= render :partial => 'users/following_status', locals: { user: user } %>
+        </div>
+      </div>
     <% end %>
+
   </div>
   <div class="groupPageFinished normalText">End of page</div>
-  <hr/>
 </div>

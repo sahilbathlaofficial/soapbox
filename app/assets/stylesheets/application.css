@@ -95,12 +95,29 @@
   width:100%;
   text-align:center;
 }
+/* My style for handling lists */
 
 .floatLeft
 {
-  float:left;
+  display:inline-block;
   margin-right: 1em;
+  width:10%;
 }
+
+.middleContent
+{
+  display: inline-block;
+  width:70%;
+}
+
+.floatRight
+{
+  position: relative;
+  display: inline-block;
+  width:10%;
+}
+
+/* end of handling lists */
 
 .siteLink, .siteLink:visited
 {
@@ -113,8 +130,6 @@
   background: none !important;
   text-decoration: none !important;
 }
-
-
 
 .hero-unit-extend
 {
@@ -156,15 +171,15 @@
 .showList
 {
   margin-top:2em;
-  width:100%
+  width:100%;
 }
 
 /* Posts styling */
 
-.posts
+.posts, .showListItem
 {
   background-color: #eee;
-  width:95%;
+  width:98%;
   padding:1em;
   border-radius: 0.8em;
   margin: 0.5em 0em 1em 0em;
@@ -176,6 +191,7 @@
   vertical-align: top;
   margin-left: 0.5em;
 }
+
 .postAuthor
 {
   color:black;

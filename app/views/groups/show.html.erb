@@ -8,18 +8,7 @@
         <%= hidden_field_tag 'post[group_id]', @group.id  %>
       <% end %>
 
-      <div id="groupPosts">
-        <div class="normalText groupPosts ">
-          <% for post in extract_posts %>
-            <%= link_to image_tag(post.user.avatar,height: '25px', width: '25px'), post.user %>
-            <span class="postAuthor"><%= link_to post.user.firstname, post.user %></span>
-            <div class="postContent"><%= post.content %></div>
-            <hr>
-          <% end %>
-          <div class="groupPageFinished">End of posts</div>
-        </div>
-      </div>
-    </div>
+      <%= render partial: 'posts/posts', locals: {posts: @group.posts} %>
   <% else %>
     <hr/>
     <div class="groupPageFinished">Join to view group details</div>  
