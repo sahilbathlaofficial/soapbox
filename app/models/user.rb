@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :groups
   has_many :groups_owned, foreign_key: 'admin_id', class_name: 'Group', dependent: :destroy
   has_many :posts, order: "created_at DESC", dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   has_attached_file :avatar, :styles => { :large=> "200x200>", :medium => "100x100>", :thumb => "25x25>" }, :default_url => ActionController::Base.helpers.asset_path('missing.png')
 

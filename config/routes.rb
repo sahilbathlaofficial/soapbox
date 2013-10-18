@@ -1,5 +1,6 @@
 VTweet::Application.routes.draw do
 
+  resources :likes
   #resources :followings
 
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
