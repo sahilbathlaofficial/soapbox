@@ -9,7 +9,7 @@
         <% if ( (current_user.likes & post.likes).empty? ) %>
           <%= link_to 'Like', likes_path(post_id: post.id, user_id: current_user.id),  method: :post, remote: true  , class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
           <% else %>
-            <%= link_to 'Unlike', like_path(post_id: post.id, user_id: current_user.id),  method: :delete, class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
+            <%= link_to 'Unlike', like_path(post_id: post.id, user_id: current_user.id),  method: :delete,remote: true, class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
         <%end%>
 
         <%= link_to 'Comment', '', class: 'postOptionsLink'  %>
