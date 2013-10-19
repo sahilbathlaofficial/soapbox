@@ -25,6 +25,13 @@ class UsersController < ApplicationController
     @followers = @user.followers
   end
 
+  def autocomplete
+    @users = User.where('LOWER(firstname) like ? or LOWER(lastname) like ?', params[:query].downcase, params[:query].downcase).limit(5).pluck('firstname')
+    respond_to do |format|
+      format.json { render json: @users }
+    end
+  end
+
   protected
 
 

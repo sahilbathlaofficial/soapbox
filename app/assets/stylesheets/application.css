@@ -53,12 +53,17 @@
  .userHeading
 {
   position:absolute;
-  right:4em;
-  margin-top: 10px;
+  right:2em;
+  margin-top: 0.5em;
   text-align: right;
-  width:10em;
+  width:30em;
 }
 
+#userAutoCompleteSearch,.dropdown
+{
+  display:inline-block;
+  margin-right: 2em;
+}
 /* Formatting classes */
 
 .smallText
@@ -87,13 +92,25 @@
 {
   display:inline-block;
   float:right;
-  margin: 0.5em 1em 0em 0em;
+  margin-right: 1em;
 }
 
 .centerAlignText
 {
   width:100%;
   text-align:center;
+}
+
+.verticalAlign20
+{
+  position:relative;
+  top: 20%;
+}
+
+.verticalAlign50
+{
+  position: relative;
+  top: 50%;
 }
 /* My style for handling lists */
 
@@ -169,7 +186,6 @@
 {
   color:blue;
   background: none !important;
-  font-style: italic;
 }
 
 
@@ -182,7 +198,7 @@
   width:100%;
 }
 
-/* Posts styling */
+/* Posts & Comment styling */
 
 .posts, .showListItem
 {
@@ -191,6 +207,11 @@
   padding:1em;
   border-radius: 0.8em;
   margin: 0.5em 0em 1em 0em;
+}
+
+.posts
+{
+  padding-bottom: 0em;
 }
 
 .postUserImage
@@ -225,7 +246,6 @@
 
 .posts a:hover
 {
-  font-style: italic;
   color:blue;
 }
 
@@ -251,9 +271,14 @@
 
 .comments
 {
-  padding: 0em 0.5em;
+  padding: 0em 0.5em 0.5em 0em;
   border-bottom: 0.1em solid #eee;  
   margin-bottom: 0.3em; 
+}
+
+.createComment
+{
+  margin-top: 0.8em;
 }
 
 .commentText

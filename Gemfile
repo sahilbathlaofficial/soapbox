@@ -25,7 +25,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 #Jquery UI
-
 gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -66,6 +65,12 @@ gem 'omniauth-google-oauth2'
 # Use twitter bootstrap
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
+# For image upload
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 
+#jQuery turbolinks issue solver
 gem 'jquery-turbolinks'
+
+#Auto complete gems
+#gem 'rails3-jquery-autocomplete'
+gem 'rails_autocomplete'

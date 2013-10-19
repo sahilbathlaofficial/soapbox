@@ -1,11 +1,13 @@
 <% for comment in post.comments %>
 <div class="comments">
   <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
-  <%= link_to comment.user.name.humanize, comment.user %>:
+  <%= link_to comment.user.name, comment.user %>:
   <%= comment.content  %>
+  <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
 </div>
 <% end %>
-
-<%= form_tag comments_path(post_id: post.id) do %>
-  <%= text_field_tag :content,'',id: 'content1', placeholder: 'Enter your comment..',class: 'commentText smallText' %>
-<% end %>
+<div class="createComment">
+  <%= form_tag comments_path(post_id: post.id) do %>
+    <%= text_field_tag :content,'',id: 'content1', placeholder: 'Enter your comment..',class: 'commentText smallText' %>
+  <% end %>
+</div>

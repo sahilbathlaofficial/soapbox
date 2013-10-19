@@ -15,7 +15,7 @@
     <li><%= link_to pluralize(group.users.size, "Member"), group_membership_index_path(id: group) %></li>
     <li><%= link_to pluralize(group.posts.size, "Conversation"), group %></li>
   </ul>
-  <div class="rightAlign">
+  <div class="rightAlign verticalAlign20">
     <%= render :partial => 'groups/join_us', locals: {group: group } %>
   </div>
 </div>

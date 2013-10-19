@@ -51,9 +51,15 @@
             <ul class="nav">
               <li><%= link_to "Me", user_path(current_user), class: :appLinks  %></li>
             </ul>
+
             <div class="userHeading">
+
+              <div id="userAutoCompleteSearch">
+                <%= text_field_tag :user,'', id:"fetchNames",placeholder: 'Search Users' %>
+              </div>
+
               <% if current_user %>
-              
+
                 <!-- Start of drop down -->
                 <div class="dropdown">
 

@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    firstname + ' ' + lastname
+    firstname.capitalize + ' ' + lastname.capitalize
   end
 
 end

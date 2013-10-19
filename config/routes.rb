@@ -9,6 +9,7 @@ VTweet::Application.routes.draw do
   resources :users do
     get 'show_followees' , on: :member
     get 'show_followers' , on: :member
+    get 'autocomplete', on: :collection
   end
   
   resources :connection

@@ -15,7 +15,10 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require jquery.turbolinks
+//= require jquery.ui.all
 //= require_tree .
+
+users = []
 
 changeOriginalButtonClass = function() {
   $('.btn-success, .btn-danger').width(75);
@@ -47,8 +50,25 @@ groupHandler = function(){
   });
 }
 
+autoFetchUsers = function() {
+
+  element = $('#fetchNames')
+  $('#fetchNames').bind('keyup', function(){
+    query = element.val() + '%';
+    console.log(query)
+    $.getJSON("/users/autocomplete", {query: query }).done(function(data){
+      console.log(data);
+    });
+  })
+
+  // $("#fetchNames").autocomplete({
+  //     source: users
+  // });
+}
+
 $(document).ready(function(){
   sideBarHeightHandler();
   groupHandler(); 
   changeOriginalButtonClass();
+  autoFetchUsers();
 }); 
