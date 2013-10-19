@@ -1,8 +1,5 @@
 VTweet::Application.routes.draw do
 
-  resources :likes
-  #resources :followings
-
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 
@@ -17,6 +14,8 @@ VTweet::Application.routes.draw do
   resources :connection
   resources :groups 
   resources :group_membership
+  resources :likes
+  resources :comments
 
   devise_for :user, controllers: {
     omniauth_callbacks: "controller_devise/omniauth_callback", 

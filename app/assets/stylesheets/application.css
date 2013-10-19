@@ -102,6 +102,7 @@
   display:inline-block;
   margin-right: 1em;
   width:10%;
+  vertical-align: top;
 }
 
 .middleContent
@@ -133,13 +134,13 @@
 
 .hero-unit-extend
 {
-  border: 0.2em solid black;
+  width:100%;
   border-radius: 0.3em;
   border-top-right-radius:0em;
   border-top-left-radius:0em;  
   margin-top: -2.4em;
   border-top: none;
-  background: #eee;
+  background: white;
   height: 2.8em;
 }
 
@@ -154,7 +155,7 @@
 {
   vertical-align: text-top;
   margin-top: 0.4em;
-  border-right: 0.2em solid #aaa;
+  border-right: 0.2em solid #ddd;
   height: 2em;
   padding-bottom: 0.5em;
 }
@@ -162,6 +163,13 @@
 .hero-unit-extend li a
 {
   color:black;
+}
+
+.hero-unit-extend li a:hover, hero-unit-extend li a:visited
+{
+  color:blue;
+  background: none !important;
+  font-style: italic;
 }
 
 
@@ -185,11 +193,21 @@
   margin: 0.5em 0em 1em 0em;
 }
 
+.postUserImage
+{
+  margin-top: 1em;
+}
+
 .postAuthorContainer
 {
   display:inline-block;
   vertical-align: top;
-  margin-left: 0.5em;
+}
+
+.postContent
+{
+  display: inline-block;
+  width:80%;
 }
 
 .postAuthor
@@ -211,18 +229,39 @@
   color:blue;
 }
 
-.postOptions
+.postOptions, .commentsContainer
 {
-  margin: 0.7em 0.2em;
+  margin: 0.7em 0em ;
   padding-top: 0.6em; 
   border-top: 0.1em solid #eee;
 }
+
 
 .postOptionsLink
 {
   margin-right: 0.4em;
 }
 
+
+.commentsContainer form
+{
+  margin:0em;
+  padding:0em;
+}
+
+.comments
+{
+  padding: 0em 0.5em;
+  border-bottom: 0.1em solid #eee;  
+  margin-bottom: 0.3em; 
+}
+
+.commentText
+{
+  width:70%;
+  vertical-align: top;
+  padding: 0em 0.4em !important;
+}
 
 /* images height */
 
@@ -235,7 +274,7 @@
 .mediumImage
 {
   height:40px;
-  width:40px;
+  width:50px;
 }
 
 .largeImage

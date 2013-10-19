@@ -1,22 +1,36 @@
 <div id="postsContainer">
   <% for post in posts %>
     <div class="normalText posts ">
-      <%= link_to image_tag(post.user.avatar,class: 'mediumImage'), post.user %>
-      <span class="postAuthorContainer"><%= link_to post.user.firstname, post.user,class: 'postAuthor' %></span>
-      <div class="postContent largeText"><%= post.content %></div>
-      <div class="postOptions">
-
-        <% if ( (current_user.likes & post.likes).empty? ) %>
-          <%= link_to 'Like', likes_path(post_id: post.id, user_id: current_user.id),  method: :post, remote: true  , class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
-          <% else %>
-            <%= link_to 'Unlike', like_path(post_id: post.id, user_id: current_user.id),  method: :delete,remote: true, class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
-        <%end%>
-
-        <%= link_to 'Comment', '', class: 'postOptionsLink'  %>
+      <div class="floatLeft postUserImage">
+        <%= link_to image_tag(post.user.avatar, class: 'mediumImage'), post.user %>
       </div>
-      <div class="postLikes">
-          <%= link_to pluralize(post.likes.count, "Like"),'', id: "like_post_#{post.id.to_s}_count" %>
-      </div>
+      <div class="postContent largeText">
+
+        <div class="postAuthorContainer"><%= link_to post.user.firstname, post.user,class: 'postAuthor' %></div>
+
+        <div><%= post.content %></div>
+     
+        <div class="postOptions">
+
+          <% if ( (current_user.likes & post.likes).empty? ) %>
+            <%= link_to 'Like', likes_path(post_id: post.id, user_id: current_user.id),  method: :post, remote: true  , class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
+            <% else %>
+              <%= link_to 'Unlike', like_path(post_id: post.id, user_id: current_user.id),  method: :delete,remote: true, class: 'postOptionsLink', id: "like_post_#{post.id.to_s}"  %> 
+          <%end%>
+
+          <%= link_to 'Comment', '', class: 'postOptionsLink'  %>
+
+          <div class="postLikes rightAlign">
+            <%= link_to pluralize(post.likes.count, "Like"),'', id: "like_post_#{post.id.to_s}_count" %>
+          </div>
+
+          <div class="commentsContainer" >
+            <%= render partial: 'comments/comments', locals: {post: post} %>
+          </div>
+
+        </div>
+
+      </div><!--end of postContent -->
     </div>
   <% end %>
     <div class="groupPageFinished">End of posts</div>

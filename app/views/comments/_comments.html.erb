@@ -1,0 +1,11 @@
+<% for comment in post.comments %>
+<div class="comments">
+  <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
+  <%= link_to comment.user.name.humanize, comment.user %>:
+  <%= comment.content  %>
+</div>
+<% end %>
+
+<%= form_tag comments_path(post_id: post.id) do %>
+  <%= text_field_tag :content,'',id: 'content1', placeholder: 'Enter your comment..',class: 'commentText smallText' %>
+<% end %>
