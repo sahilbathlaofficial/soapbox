@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    @users = User.where('LOWER(firstname) like ? or LOWER(lastname) like ?', params[:query].downcase, params[:query].downcase).limit(5).pluck('firstname')
+    @users = User.where('LOWER(firstname) like ? or LOWER(lastname) like ?', params[:query].downcase, params[:query].downcase).limit(5).pluck('firstname','lastname', 'id', 'avatar_file_name')
     respond_to do |format|
       format.json { render json: @users }
     end

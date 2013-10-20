@@ -52,10 +52,11 @@
               <li><%= link_to "Me", user_path(current_user), class: :appLinks  %></li>
             </ul>
 
-            <div class="userHeading">
+            <div id="userHeading">
 
               <div id="userAutoCompleteSearch">
                 <%= text_field_tag :user,'', id:"fetchNames",placeholder: 'Search Users' %>
+                <div id="userAutoCompleteSearchResults"></div>
               </div>
 
               <% if current_user %>

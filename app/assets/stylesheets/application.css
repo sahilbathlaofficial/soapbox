@@ -12,6 +12,57 @@
  *= require_tree .
  */
 
+/* Auto Search users */
+
+ #userHeading
+{
+  position:absolute;
+  right:2em;
+  margin-top: 0.5em;
+  text-align: right;
+  width:40em;
+}
+
+#userAutoCompleteSearch,.dropdown
+{
+  display:inline-block;
+  margin-right: 2em;
+}
+
+.dropdown
+{
+  vertical-align: top;
+  margin-top: 0.5em;
+}
+
+#userAutoCompleteSearchResults
+{
+  color:black;
+  width:inherit;
+  background:white;
+  text-align: left;
+  margin-top: -0.7em;
+  padding: 0.4em;
+}
+
+.userAutoCompleteSearchResults div
+{
+  display: inline-block;
+  padding: 0.5em;
+  width:80%;
+}
+
+.userAutoCompleteSearchResults div:hover
+{
+  background-color: #eee ;
+}
+
+.userAutoCompleteSearchResults:hover,.userAutoCompleteSearchResults:visited
+{
+  background: none;
+  text-decoration:none;
+  color:black;
+}
 
  #group
  {
@@ -50,20 +101,6 @@
   width:5em;
 }
 
- .userHeading
-{
-  position:absolute;
-  right:2em;
-  margin-top: 0.5em;
-  text-align: right;
-  width:30em;
-}
-
-#userAutoCompleteSearch,.dropdown
-{
-  display:inline-block;
-  margin-right: 2em;
-}
 /* Formatting classes */
 
 .smallText

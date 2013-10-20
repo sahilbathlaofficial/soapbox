@@ -53,17 +53,56 @@ groupHandler = function(){
 autoFetchUsers = function() {
 
   element = $('#fetchNames')
-  $('#fetchNames').bind('keyup', function(){
-    query = element.val() + '%';
-    console.log(query)
-    $.getJSON("/users/autocomplete", {query: query }).done(function(data){
-      console.log(data);
-    });
+  $('#userAutoCompleteSearchResults').hide();
+
+   $('#userAutoCompleteSearchResults').click(function(e){
+    e.stopPropagation();
+  });
+
+  $('body').click(function(){
+    $('#userAutoCompleteSearchResults').hide();
+  });
+
+  $('#fetchNames').bind('keyup focus', function(){
+    if(element.val().trim() === '')
+      $('#userAutoCompleteSearchResults').hide();
+    else
+    {
+      $('#userAutoCompleteSearchResults').show();
+      query = element.val() + '%';
+      console.log(query)
+
+      $.getJSON("/users/autocomplete", {query: query }).done(function(data){
+        users = data;
+        console.log(users);
+        $('#userAutoCompleteSearchResults').html('');
+        if(users.length === 0)
+        {
+          $('#userAutoCompleteSearchResults').append('<div>No results found</div>')
+        }
+        for(i = 0; i < users.length; i++)
+        {
+          splitted_users= users[i];
+          /*
+          splitted_users[0] = firstname
+          splitted_users[1] = lastname
+          splitted_users[2] = id
+          splitted_users[3] = image_name
+          */
+          if(splitted_users[3] === null)
+            image = '<img class="thumbnailImage" src="/assets/missing.png"></img>';
+          else
+            image = '<img class="thumbnailImage" src="/system/users/avatars/000/000/00'+ splitted_users[2] + '/original/' + splitted_users[3] + '"></img>'
+
+          $('#userAutoCompleteSearchResults').append('<a class="userAutoCompleteSearchResults" href="/users/' + splitted_users[2] + '"></a>')
+            .children('a:last').append('<div>' + splitted_users[0] + ' ' + splitted_users[1] + '</div><br>')
+            .children('div:first').before(image);
+        }
+      });
+    } 
+
   })
 
-  // $("#fetchNames").autocomplete({
-  //     source: users
-  // });
 }
 
 $(document).ready(function(){
