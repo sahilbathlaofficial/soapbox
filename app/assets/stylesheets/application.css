@@ -12,7 +12,7 @@
  *= require_tree .
  */
 
-/* Auto Search users */
+/* Auto Search + Users Settings */
 
  #userHeading
 {
@@ -20,20 +20,22 @@
   right:2em;
   margin-top: 0.5em;
   text-align: right;
-  width:40em;
+  width:45em;
 }
 
-#userAutoCompleteSearch,.dropdown
+
+#userAutoCompleteSearch, .dropdown
 {
   display:inline-block;
-  margin-right: 2em;
 }
 
 .dropdown
 {
   vertical-align: top;
   margin-top: 0.5em;
+  width:12em;
 }
+
 
 #userAutoCompleteSearchResults
 {
@@ -63,6 +65,7 @@
   text-decoration:none;
   color:black;
 }
+/* End of user settings */
 
  #group
  {
