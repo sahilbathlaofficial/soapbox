@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   before_filter :set_user, :only => [:edit,  :update, :show, :show_followees, :show_followers]
 
   def show
+    if(current_user.connection_id != @user.connection_id)
+      redirect_to '/'
+    end
   end
 
 
@@ -26,7 +29,7 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
-    @users = User.where('LOWER(firstname) like ? or LOWER(lastname) like ?', params[:query].downcase, params[:query].downcase).limit(5).pluck('firstname','lastname', 'id', 'avatar_file_name')
+    @users = User.where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND connection_id = ? ', params[:query].downcase, params[:query].downcase, current_user.connection_id).limit(5).pluck('firstname','lastname', 'id', 'avatar_file_name')
     respond_to do |format|
       format.json { render json: @users }
     end
