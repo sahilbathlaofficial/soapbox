@@ -18,8 +18,10 @@ module AuthenticationConcern
     connection_name = extract_domain_from_email
     return false if connection_name.empty?
     connection = Connection.find_by("name=?", connection_name)
-    connection = Connection.create(name: connection_name) if connection.nil?
-    connection.groups << Group.new(name: 'All company')
+    if connection.nil?
+      connection = Connection.create(name: connection_name) 
+      connection.groups << Group.new(name: connection_name.downcase)
+    end
     session[:connection] = connection.id
   end
     
@@ -40,7 +42,7 @@ module AuthenticationConcern
   end
 
   def join_default_group
-    current_user.groups << Group.find_by(name: 'All company')
+    current_user.groups << Group.find_by(name: current_user.connection.name.downcase)
   end
     
 end
