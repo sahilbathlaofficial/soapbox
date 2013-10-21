@@ -19,6 +19,7 @@ module AuthenticationConcern
     return false if connection_name.empty?
     connection = Connection.find_by("name=?", connection_name)
     connection = Connection.create(name: connection_name) if connection.nil?
+    connection.groups << Group.new(name: 'All company')
     session[:connection] = connection.id
   end
     
@@ -36,6 +37,10 @@ module AuthenticationConcern
       current_user.lastname = current_user.id.to_s
       current_user.save
     end
+  end
+
+  def join_default_group
+    current_user.groups << Group.find_by(name: 'All company')
   end
     
 end

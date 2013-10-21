@@ -10,6 +10,7 @@ class ControllerDevise::RegistrationsController < Devise::RegistrationsControlle
   after_action :only => :create do |filter|
     filter.assign_connection_to_user
     filter.provide_dummy_names
+    filter.join_default_group
   end
 
 
