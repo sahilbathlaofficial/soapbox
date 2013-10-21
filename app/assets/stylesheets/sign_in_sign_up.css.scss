@@ -4,7 +4,8 @@ body {
   padding:0px;
   overflow: auto;
   background: image-url('blue_background.jpg');
-  background-repeat:repeat;
+  background-repeat:no-repeat;
+  background-size: 100% 100%;
 }
 
 input:focus

@@ -20,6 +20,24 @@
 
 users = []
 
+showPostOptionsOnClick = function() {
+  $('.composePostContentOptions').hide();
+  $('#composePost').click(function(e) {
+    e.stopPropagation();
+    $('.composePostContentOptions').show();
+  });
+  $('body').click(function() {
+    $('.composePostContentOptions').hide();
+  });
+}
+
+focusOnComments = function() {
+  $('.postOptionsComment').click(function(e){
+    e.preventDefault();
+    $(this).closest('.postOptions').find('.commentText').focus();
+  });
+}
+
 changeOriginalButtonClass = function() {
   $('.btn-success, .btn-danger').width(75);
   $('.hovered-button').closest('form').hide();
@@ -110,4 +128,6 @@ $(document).ready(function(){
   groupHandler(); 
   changeOriginalButtonClass();
   autoFetchUsers();
+  showPostOptionsOnClick();
+  focusOnComments();
 }); 

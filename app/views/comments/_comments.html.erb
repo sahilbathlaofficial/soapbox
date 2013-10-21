@@ -3,7 +3,11 @@
   <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
   <%= link_to comment.user.name, comment.user %>:
   <%= comment.content  %>
+  <% if(comment.user == current_user) %>
+  
   <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
+  <% end %>
+
 </div>
 <% end %>
 <div class="createComment">

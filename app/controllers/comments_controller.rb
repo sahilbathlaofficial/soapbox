@@ -11,9 +11,11 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    if(@comment.destroy)
-      respond_to do |format|
-        format.html { redirect_to :back }
+    if(@comment.user == current_user)
+      if(@comment.destroy)
+        respond_to do |format|
+          format.html { redirect_to :back }
+        end
       end
     end
   end

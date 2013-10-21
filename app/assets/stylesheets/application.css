@@ -302,6 +302,27 @@
   margin-right: 0.4em;
 }
 
+#composePostContent
+{
+  padding: 0.5em;
+  border: none;
+}
+
+.composePostContentOptions
+{
+  background-color: white;
+  border-radius: 0.5em;
+  min-height: 3em;
+  padding-top: 1em;
+  width:100%;
+}
+
+.postButton
+{
+  width:2em;
+  margin: 0.2em 0em 1em 1em;
+}
+
 
 .commentsContainer form
 {
