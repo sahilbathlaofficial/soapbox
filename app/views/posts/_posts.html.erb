@@ -9,6 +9,9 @@
 
         <div class="postAuthorContainer"><%= link_to post.user.name, post.user,class: 'postAuthor' %></div>
 
+        <div class="rightAlign verticalAlign20">
+          <%= link_to('x', post_path(post), method: :delete) if current_user == post.user %>
+        </div>
         <div><%= post.content %></div>
      
         <div class="postOptions">

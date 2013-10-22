@@ -1,4 +1,5 @@
 #FIXME_AB: validations please
+#FIX: To Discuss
 class Like < ActiveRecord::Base
   belongs_to :user
   belongs_to :post

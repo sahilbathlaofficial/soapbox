@@ -4,11 +4,11 @@ class ControllerDevise::RegistrationsController < Devise::RegistrationsControlle
   before_action :only => :create do |filter|
     filter.generate_error("Sign Up error")
     filter.configure_permitted_parameters
-    filter.extract_connection
+    filter.extract_company
   end
 
   after_action :only => :create do |filter|
-    filter.assign_connection_to_user
+    filter.assign_company_to_user
     filter.provide_dummy_names
     filter.join_default_group
   end

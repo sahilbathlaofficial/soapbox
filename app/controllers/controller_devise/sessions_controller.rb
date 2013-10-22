@@ -6,11 +6,11 @@ class ControllerDevise::SessionsController < Devise::SessionsController
   
   before_action :only  => [:create] do |filter|
     filter.generate_error("Invalid email and password combination")
-    filter.extract_connection
+    filter.extract_company
   end
 
   after_action :only => :create do |filter|
-    filter.assign_connection_to_user
+    filter.assign_company_to_user
   end
 
 end

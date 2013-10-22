@@ -14,22 +14,22 @@ module AuthenticationConcern
     email
   end
 
-  def extract_connection
-    connection_name = extract_domain_from_email
-    return false if connection_name.empty?
-    connection = Connection.find_by("name=?", connection_name)
-    if connection.nil?
-      connection = Connection.create(name: connection_name) 
-      connection.groups << Group.new(name: connection_name.downcase)
+  def extract_company
+    company_name = extract_domain_from_email
+    return false if company_name.empty?
+    company = Company.find_by("name=?", company_name)
+    if company.nil?
+      company = Company.create(name: company_name) 
+      company.groups << Group.new(name: company_name.downcase)
     end
-    session[:connection] = connection.id
+    session[:company] = company.id
   end
     
-  def assign_connection_to_user
+  def assign_company_to_user
     if(current_user)
-      current_user.connection = Connection.find(session[:connection])
+      current_user.company = Company.find(session[:company])
       current_user.save
-      #session[:connection] = nil
+      #session[:company] = nil
     end
   end
 
@@ -42,7 +42,7 @@ module AuthenticationConcern
   end
 
   def join_default_group
-    current_user.groups << Group.find_by(name: current_user.connection.name.downcase)
+    current_user.groups << Group.find_by(name: current_user.company.name.downcase)
   end
     
 end

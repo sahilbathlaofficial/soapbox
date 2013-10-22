@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   before_action :set_group, only: [:show] 
 
   def index
-    @groups = Group.where("connection_id = ?", current_user.connection_id)
+    @groups = Group.where("company_id = ?", current_user.company_id)
   end 
 
   def create
@@ -27,13 +27,13 @@ class GroupsController < ApplicationController
   protected
 
   def group_params
-    extra_params = {connection_id: current_user.connection_id, admin_id: current_user.id}
+    extra_params = {company_id: current_user.company_id, admin_id: current_user.id}
     (params.require(:group).permit(:name)).merge(extra_params)
   end
 
   def set_group
     @group = Group.find(params[:id])
-    if !(@group.connection_id == current_user.connection_id)
+    if !(@group.company_id == current_user.company_id)
      respond_to do |format|
         format.html { redirect_to '/', notice: "Group doesn't exist" }
       end 
