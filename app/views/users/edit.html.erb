@@ -1,5 +1,8 @@
 <%- model_class = User -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1>
+<div >
+ <!--  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1> -->
+<!--  <h1> Edit Profile </h1> -->
 </div>
-<%= render :partial => 'form' %>
+<div class="generalContainer">
+  <%= render :partial => 'form' %>
+</div>

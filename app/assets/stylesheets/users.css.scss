@@ -15,18 +15,21 @@
   display:inline-block;
 }
 
+#formHolder
+{
+  width:60%;
+  text-align:left;
+}
 
 #avatarContainer
 {
-  position:absolute;
-  top:12em;
-  right:23em;
+  display:inline-block;
+  border-color:black;
+  position:relative;
+  left:2em;
+  max-width:30%;
 }
 
-#formHolder
-{
-  margin-left:-6em;
-}
 
 #groupSelect
 {
@@ -36,4 +39,20 @@
 #followNoticeBox
 {
   margin-top:1em;
+}
+
+#updateProfile
+{
+  margin-top:-2em;
+}
+
+#updateProfile a
+{
+  color:white;
+}
+
+#updateProfile form
+{
+  margin:0px;
+  padding:0px;
 }

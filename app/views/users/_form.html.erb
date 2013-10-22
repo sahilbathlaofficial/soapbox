@@ -2,46 +2,49 @@
 
   <div id="formHolder">
     <div class="control-group">
-      <%= f.label :firstname, :class => 'control-label' %>
-      <div class="controls">
+      <%= f.label :firstname, :class => '""' %>
+      <div class="">
         <%= f.text_field :firstname, :class => 'text_field' %>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label :lastname, :class => 'control-label' %>
-      <div class="controls">
+      <%= f.label :lastname, :class => '""' %>
+      <div class="">
         <%= f.text_field :lastname, :class => 'text_field' %>
       </div>
     </div>
 
     <div class="control-group">
-      <%= f.label :email, :class => 'control-label' %>
-      <div class="controls">
+      <%= f.label :email, :class => '""' %>
+      <div class="">
         <%= f.text_field :email, :class => 'text_field' %>
       </div>
     </div>  
 
-    <div class="control-group">
-      <br>
-      <%= f.label :picture, :class => 'control-label' %>
-      <div class="controls">  
-        <%= f.file_field :avatar %>
-      </div>
-    </div>
     
   </div> 
 
-  <div id="avatarContainer">
-    <div id="avatarHolder">
-      <%= image_tag current_user.avatar.url(:large) %>
-    </div>
+  <div id="avatarContainer" class=" highlightPicture rightAlign verticalAlign20">
+    <%= image_tag current_user.avatar.url(:large) %>
   </div>
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                user_path(@user), :class => 'btn' %>
+  <div>
+    <%= f.label :picture, :class => '""' %>
+    
+    <div>  
+      <%= f.file_field :avatar %>
+    </div>
+
+    <div class="rightAlign" id="updateProfile">
+    <%= f.submit 'Update', :class => 'btn btn-success' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(@user), :class => 'btn btn-success colorWhite' %>
+    </div>
+
   </div>
+
+  
+
+  
 
 <% end %>

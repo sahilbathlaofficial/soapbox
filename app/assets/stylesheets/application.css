@@ -121,7 +121,7 @@
   font-size:1.2em !important; 
 }
 
-.higlightPicture
+.highlightPicture
 {
   border: 0.2em solid #e9e9e4;
   border-radius: 5px;
@@ -243,8 +243,8 @@
 .posts, .showListItem
 {
   background-color: white;
-  width:96%;
-  padding:1em;
+  width:92%;
+  padding:2em;
   border-radius: 0.8em;
   margin: 0.5em 0em 1em 0em;
 }
@@ -375,4 +375,12 @@
 {
   border-top: 1px solid white;
   padding-top: 1em;
+}
+
+.generalContainer
+{
+  background: white;
+  padding: 3em;
+  border-radius: 0.5em;
+  width:100%;
 }
