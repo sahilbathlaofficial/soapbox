@@ -104,7 +104,6 @@
                     <div id="createGroup">
                       <%= form_tag '/groups' do %>
                         <%= text_field_tag  'group[name]', '', id: 'createGroupTextField', placeholder: 'Group Name' %>
-                        <%= hidden_field_tag 'group[company_id]', "#{current_user.company_id}" %> 
                         <span id="cancelCreateGroup" class="rightAlign">x</span>
                       <% end %>
                     </div>

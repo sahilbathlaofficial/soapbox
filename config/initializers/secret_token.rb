@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-VTweet::Application.config.secret_key_base = '57835d71f7b1e4ed9a10f517ee897a16a2aed8e9f30bfa5aa9dd05fde9a5ec40491f8bd6de5b463f32bbba240c05587ac4bb2c7bccbe3e9d8d884181bb509865'
+AppName.constantize::Application.config.secret_key_base = '57835d71f7b1e4ed9a10f517ee897a16a2aed8e9f30bfa5aa9dd05fde9a5ec40491f8bd6de5b463f32bbba240c05587ac4bb2c7bccbe3e9d8d884181bb509865'
