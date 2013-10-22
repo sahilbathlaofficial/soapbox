@@ -28,7 +28,6 @@ class GroupsController < ApplicationController
 
   def group_params
     extra_params = { company_id: current_user.company_id, admin_id: current_user.id }
-    Rails.logger.debug (params.require(:group).permit(:name)).merge(extra_params)
     (params.require(:group).permit(:name)).merge(extra_params)
   end
 

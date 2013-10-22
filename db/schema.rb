@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131019054243) do
+ActiveRecord::Schema.define(version: 20131022184215) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20131019054243) do
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "connections", force: true do |t|
+  create_table "companies", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -41,13 +41,13 @@ ActiveRecord::Schema.define(version: 20131019054243) do
     t.string   "name"
     t.string   "type"
     t.string   "description"
-    t.integer  "connection_id"
+    t.integer  "company_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admin_id"
   end
 
-  add_index "groups", ["connection_id"], name: "index_groups_on_connection_id", using: :btree
+  add_index "groups", ["company_id"], name: "index_groups_on_company_id", using: :btree
 
   create_table "groups_users", force: true do |t|
     t.integer "group_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20131019054243) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "company_id"
   end
 
   add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
@@ -94,7 +95,7 @@ ActiveRecord::Schema.define(version: 20131019054243) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
-    t.integer  "connection_id"
+    t.integer  "company_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-VTweet::Application.load_tasks
+SoapBox::Application.load_tasks

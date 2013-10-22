@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:content, :group_id)
+    params.require(:post).permit(:content, :group_id).merge({ company_id: session[:company] })
   end
 
 end
