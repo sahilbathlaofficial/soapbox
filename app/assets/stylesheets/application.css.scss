@@ -1,0 +1,442 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+
+/* Auto Search + Users Settings */
+
+ #userHeading
+{
+  position:absolute;
+  right:2em;
+  margin-top: 0.5em;
+  text-align: right;
+  width:45em;
+}
+
+
+#userAutoCompleteSearch, .dropdown
+{
+  display:inline-block;
+}
+
+
+#userAutoCompleteSearchResults
+{
+  color:black;
+  width:inherit;
+  background:white;
+  text-align: left;
+  margin-top: -0.7em;
+  padding: 0.4em;
+}
+
+#userSettingContainer
+{
+  vertical-align: top;
+  width:12em;
+}
+
+
+#userSettingContainer img
+{
+  margin-bottom: 2em;
+}
+
+#userSettingContainer ul
+{
+  margin-top: -2em;
+}
+
+
+.userAutoCompleteSearchResults div
+{
+  display: inline-block;
+  padding: 0.5em;
+  width:80%;
+}
+
+.userAutoCompleteSearchResults div:hover
+{
+  background-color: #eee ;
+}
+
+.userAutoCompleteSearchResults:hover,.userAutoCompleteSearchResults:visited
+{
+  background: none;
+  text-decoration:none;
+  color:black;
+}
+/* End of user settings */
+
+ #group
+ {
+  margin-left: -0.7em;
+ }
+
+ #group a
+ {  
+  color: #222;
+ }
+
+ #group li
+ {
+  margin-top: 0.3em;
+ }
+
+ #createGroupTextField
+ {
+  width:10em;
+ }
+
+ #createGroup
+ {
+  display: none;
+  margin-top:1em;
+ }
+
+ #createGroup form
+ {
+  margin:0em;
+  padding:0em;
+ }
+
+.selectBoxSmall
+{
+  width:5em;
+}
+
+/* Formatting classes */
+
+.smallText
+{
+  font-size:0.7em !important; 
+}
+
+.normalText
+{
+  font-size:0.9em !important; 
+}
+
+.largeText
+{
+  font-size:1.2em !important; 
+}
+
+.highlightPicture
+{
+  border: 0.2em solid #e9e9e4;
+  border-radius: 5px;
+}
+
+
+.rightAlign
+{
+  display:inline-block;
+  float:right;
+  margin-right: 1em;
+}
+
+.centerAlignText
+{
+  width:100%;
+  text-align:center;
+}
+
+.verticalAlign20
+{
+  position:relative;
+  top: 20%;
+}
+
+.verticalAlign50
+{
+  position: relative;
+  top: 50%;
+}
+/* My style for handling 3 divs */
+
+.floatLeft
+{
+  display:inline-block;
+  margin-right: 1em;
+  width:10%;
+  vertical-align: top;
+}
+
+.middleContent
+{
+  display: inline-block;
+  width:70%;
+}
+
+.floatRight
+{
+  position: relative;
+  display: inline-block;
+  width:10%;
+}
+
+/* end of handling 3 divs */
+
+.siteLink, .siteLink:visited
+{
+  color:white;
+  font-size:1.1em;
+}
+
+#groupPosts a, .siteLink, .siteLink:visited 
+{
+  background: none !important;
+  text-decoration: none !important;
+}
+
+.hero-unit-extend
+{
+  width:100%;
+  border-radius: 0.3em;
+  border-top-right-radius:0em;
+  border-top-left-radius:0em;  
+  margin-top: -2.4em;
+  border-top: none;
+  background: white;
+  height: 2.8em;
+}
+
+
+.hero-unit-extend ul
+{
+  margin: 0em;
+  display:inline-block;
+}
+
+.hero-unit-extend li
+{
+  vertical-align: text-top;
+  margin-top: 0.4em;
+  border-right: 0.2em solid #ddd;
+  height: 2em;
+  padding-bottom: 0.5em;
+}
+
+.hero-unit-extend li a
+{
+  color:black;
+}
+
+.hero-unit-extend li a:hover, hero-unit-extend li a:visited
+{
+  color:blue;
+  background: none !important;
+}
+
+
+
+/* Show list class to list the data on website(users, groups, events etc) */
+
+.showList
+{
+  margin-top:2em;
+  width:100%;
+}
+
+/* Posts & Comment styling */
+
+.posts, .showListItem
+{
+  background-color: white;
+  width:92%;
+  padding:2em;
+  border-radius: 0.8em;
+  margin: 0.5em 0em 1em 0em;
+}
+
+.posts
+{
+  padding-bottom: 0em;
+}
+
+.postUserImage
+{
+  margin-top: 1em;
+}
+
+.postAuthorContainer
+{
+  display:inline-block;
+  vertical-align: top;
+}
+
+.postContent
+{
+  display: inline-block;
+  width:80%;
+}
+
+.postAuthor
+{
+  color:black;
+  vartical-align:top;
+}
+
+.posts a:hover,.posts a:visited
+{
+  color:black;
+  text-decoration: none;
+  background: none;
+}
+
+.posts a:hover
+{
+  color:blue;
+}
+
+.postOptions, .commentsContainer
+{
+  margin: 0.7em 0em ;
+  padding-top: 0.6em; 
+  border-top: 0.1em solid #eee;
+}
+
+
+.postOptionsLink
+{
+  margin-right: 0.4em;
+}
+
+#composePostContent
+{
+  padding: 0.5em;
+  border: none;
+}
+
+.composePostContentOptions
+{
+  background-color: white;
+  border-radius: 0.5em;
+  min-height: 3em;
+  padding-top: 1em;
+  width:100%;
+}
+
+.postButton
+{
+  width:2em;
+  margin: 0.2em 0em 1em 1em;
+}
+
+
+.commentsContainer form
+{
+  margin:0em;
+  padding:0em;
+}
+
+.comments
+{
+  padding: 0em 0.5em 0.5em 0em;
+  border-bottom: 0.1em solid #eee;  
+  margin-bottom: 0.3em; 
+}
+
+.createComment
+{
+  margin-top: 0.8em;
+}
+
+.commentText
+{
+  width:70%;
+  vertical-align: top;
+  padding: 0em 0.4em !important;
+}
+
+/* images height */
+
+.thumbnailImage
+{
+  height:25px;
+  width:25px;
+}
+
+.mediumImage
+{
+  height:50px;
+  width:50px;
+}
+
+.largeImage
+{
+  height:75px;
+  width:75px;
+}
+
+/* Generalized border */
+
+.borderAbove
+{
+  border-top: 1px solid white;
+  padding-top: 1em;
+}
+
+/* Genralized container */
+
+.generalContainer
+{
+  background: white;
+  padding: 3em;
+  border-radius: 0.5em;
+  width:100%;
+}
+
+/*Sprites classes*/
+
+.settingsImage
+{
+  display:inline-block;
+  background: image-url('twitter_sprite.png');
+  background-position: 450px 1250px;
+  height:30px;
+  width:40px;
+}
+
+.settingsImage:hover
+{
+  background-position: 450px 1220px;
+}
+
+.meSprite
+{
+  display:inline-block;
+  background: image-url('twitter_sprite.png');
+  background-position: 490px 1255px;
+  height:30px;
+  width:40px;
+}
+
+.meSpriteContent
+{
+  display: inline-block;
+  margin-left: 3em;
+  margin-top: 0.5em;
+}
+
+.meSpriteContent a:hover
+{
+  text-decoration: none ;
+  background: none ;
+}
+
+.meSprite:hover
+{
+  background-position: 490px 1225px;
+}

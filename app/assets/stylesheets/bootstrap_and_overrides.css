@@ -6,13 +6,17 @@
   =require twitter-bootstrap-static/fontawesome
   */
 
-
 .span0
 {
   display:inline-block;
   max-width:1.8em;
 } 
 
+#dropdownMenu1
+{
+  border: none !important;
+  background-color:white;
+}
 
 #left-sidebar
 {
