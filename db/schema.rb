@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022184215) do
+ActiveRecord::Schema.define(version: 20131023191211) do
 
   create_table "comments", force: true do |t|
     t.string   "content"
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 20131022184215) do
 
   add_index "likes", ["post_id"], name: "index_likes_on_post_id", using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
+  create_table "notifications", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "posts", force: true do |t|
     t.string   "content"

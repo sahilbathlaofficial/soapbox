@@ -7,6 +7,9 @@ class FollowingsController < ApplicationController
 
     respond_to do |format|
       if @following.save
+        followee = User.find(params[:followee_id])
+        notification = '<a>' + current_user.name + '</a>  started following you' 
+        followee.notifications << Notification.new(content: notification)
         format.html { redirect_to :back, notice: "You are now following #{ @following.followee.firstname } " }
         format.json { render action: 'show', status: :created, location: @following }
       else

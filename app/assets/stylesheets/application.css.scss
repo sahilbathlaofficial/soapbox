@@ -106,6 +106,11 @@
   color: #222;
  }
 
+ #group a:hover
+ {
+  background-color:white !important;
+ }
+
  #group li
  {
   margin-top: 0.3em;
@@ -344,12 +349,20 @@
   min-height: 3em;
   padding-top: 1em;
   width:100%;
+  text-align:right;
+}
+
+
+#groupSelect
+{
+  margin-left:0.5em;
+  width:20%;
 }
 
 .postButton
 {
-  width:2em;
-  margin: 0.2em 0em 1em 1em;
+  width:10%;
+  margin: 0.2em 1em 1em 1em;
 }
 
 

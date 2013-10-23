@@ -1,0 +1,7 @@
+<% if !(@notifications.empty?) %>
+  <% @notifications.each do |notification| %>
+    alert('<%= raw(notification.content) %>');
+  <% end %> 
+<% else %>
+  alert('none');
+<%end%>

@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :notifications,dependent: :destroy
 
   #FIXME_AB: No need to use ActionController::Base.helpers.asset_path just pass 'missing.jpg' because in any way we will be using image_tag to display the image, which will take care of this
   #FIX: Oh okay, fixed !!
