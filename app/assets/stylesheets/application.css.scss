@@ -12,6 +12,24 @@
  *= require_tree .
  */
 
+#siteLogo
+{
+  position:absolute;
+  top:0.5%;
+  left:2%;
+}
+
+#menuLinksContainer
+{
+  position:absolute;
+  top:0.5%;
+  left:10%;
+}
+
+#menuLinksContainer li
+{
+ margin-left:2em;
+}
 /* Auto Search + Users Settings */
 
  #userHeading
@@ -416,7 +434,6 @@
 
 .meSprite
 {
-  display:inline-block;
   background: image-url('twitter_sprite.png');
   background-position: 490px 1255px;
   height:30px;
@@ -427,7 +444,7 @@
 {
   display: inline-block;
   margin-left: 3em;
-  margin-top: 0.5em;
+  margin-top: 0.7em;
 }
 
 .meSpriteContent a:hover
@@ -438,5 +455,25 @@
 
 .meSprite:hover
 {
-  background-position: 490px 1225px;
+  background-position: 490px 1226px;
+}
+
+.notificationSprite
+{
+  background: image-url('twitter_sprite.png');
+  background-position: 490px 780px;
+  height:30px;
+  width:40px;
+}
+
+.notificationSprite:hover
+{
+  background-position: 490px 750px;
+}
+
+.notificationSpriteContent
+{
+  display: inline-block;
+  margin-left: 3em;
+  margin-top: 0.7em;
 }

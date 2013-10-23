@@ -6,6 +6,13 @@
   =require twitter-bootstrap-static/fontawesome
   */
 
+a:hover
+{
+  background: none !important;
+  border:none !important;
+  text-decoration: none !important;
+}  
+
 .span0
 {
   display:inline-block;
@@ -68,7 +75,7 @@ body
 .hero-unit
 {
   background: #333;
-  margin-top:-1em;
+  margin-top:1em;
   height: 5.3em; 
   padding:1em;
   border-bottom-right-radius: 0px;
@@ -78,4 +85,9 @@ body
 .dropdown
 {
   display: inline-block;
+}
+
+.alert-success
+{
+  margin-bottom: 5%;
 }

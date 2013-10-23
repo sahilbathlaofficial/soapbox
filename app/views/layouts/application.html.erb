@@ -46,12 +46,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">SoapBox</a>
+          <a id="siteLogo" class="brand" href="/">SoapBox</a>
           <div class="container-fluid nav-collapse">
-            <ul class="nav">
+            <ul id="menuLinksContainer"  class="nav">
               <li class="meSprite">
                 <span class="meSpriteContent">
                   <%= link_to "Me", user_path(current_user), class: :appLinks  %>
+                </span>
+              </li>
+              <li class="notificationSprite">
+                <span class="notificationSpriteContent">
+                  <%= link_to "Notifications", notifications_path, class: :appLinks  %>
                 </span>
               </li>
             </ul>

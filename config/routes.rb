@@ -5,6 +5,7 @@ AppName.constantize::Application.routes.draw do
 
   root :to => 'users#show'
   resources :posts
+  resources :notifications, only: [:index]
 
   resources :users do
     get 'show_followees' , on: :member
