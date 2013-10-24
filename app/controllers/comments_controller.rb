@@ -59,8 +59,11 @@ class CommentsController < ApplicationController
   def set_comments
     #FIXME_AB: What if the comment is not found with this id?
     #[Fixed]
-    @comment = Comment.find(params[:id])
-    redirect_to_back_or_default if @comment.nil?
+    begin
+      @comment = Comment.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to_back_or_default
+    end
   end
 
   def comment_params

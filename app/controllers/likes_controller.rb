@@ -3,15 +3,17 @@ class LikesController < ApplicationController
 
   def create
     @like = Like.new(like_params)
-    if(@like.save)
-      respond_to do |format|
+    respond_to do |format|
+      if(@like.save)  
         format.js {}
+      else
+        format.js { falsh[:notice] = 'Like not saved'}
       end
     end
   end
 
   def destroy
-    if(@like[0].destroy)
+    if(@like.destroy)
       respond_to do |format|
         format.js {}
       end
@@ -21,10 +23,16 @@ class LikesController < ApplicationController
   protected
 
   def set_likes
-    @like = Like.where("user_id=? and post_id=?", params[:user_id], params[:post_id])
+    @like = Like.find_by(user_id: params[:user_id], post_id: params[:post_id])
+    redirect_to_back_or_default_url if(@like.nil?)
   end
 
   def like_params
+    begin
+      User.find(params[:user_id])
+      Post.find(params[:post_id])
+    end
     params.permit(:user_id, :post_id)
   end
+
 end

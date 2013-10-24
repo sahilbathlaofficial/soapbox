@@ -39,7 +39,11 @@ class FollowingsController < ApplicationController
   protected
 
     def set_following
-      @following = current_user.followings.find_by(followee_id: params[:followee_id])
+      begin
+        @following = current_user.followings.find_by(followee_id: params[:followee_id])
+      rescue ActiveRecord::RecordNotFound
+        redirect_to_back_or_default_url
+      end
     end
 
     def following_params

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("#like_post_<%= @like[0].post.id %>_count").text("<%= pluralize(@like[0].post.likes.count, 'Like') %>");
-  $("#like_post_<%= @like[0].post.id %>").html('<a class="postOptionsLink" data-method="post" data-remote="true" href="/likes/'
-    + '?post_id=<%= @like[0].post.id %>&amp;user_id=<%= current_user.id %>" id="like_post_<%= @like[0].post.id %>" rel="nofollow">Like</a>');
+  $("#like_post_<%= @like.post.id %>_count").text("<%= pluralize(@like.post.likes.count, 'Like') %>");
+  $("#like_post_<%= @like.post.id %>").html('<a class="postOptionsLink" data-method="post" data-remote="true" href="/likes/'
+    + '?post_id=<%= @like.post.id %>&amp;user_id=<%= current_user.id %>" id="like_post_<%= @like.post.id %>" rel="nofollow">Like</a>');
 });

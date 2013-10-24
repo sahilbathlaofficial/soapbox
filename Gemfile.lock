@@ -131,10 +131,6 @@ GEM
       sprockets-rails (~> 2.0.0)
     rails-observers (0.1.2)
       activemodel (~> 4.0)
-    rails_autocomplete (0.1.0)
-      jquery-rails
-      rails (>= 3.1)
-      twitter-bootstrap-rails (>= 2.1.0)
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -212,7 +208,6 @@ DEPENDENCIES
   paperclip!
   rails (= 4.0.0)
   rails-observers
-  rails_autocomplete
   rspec (~> 2.14.1)
   rspec-rails (~> 2.14.0)
   sass-rails (~> 4.0.0)
