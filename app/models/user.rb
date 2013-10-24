@@ -74,4 +74,8 @@ class User < ActiveRecord::Base
     firstname.capitalize + ' ' + lastname.capitalize
   end
 
+  def to_param
+    "#{id}-#{firstname}".parameterize
+  end
+
 end

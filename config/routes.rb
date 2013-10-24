@@ -1,7 +1,7 @@
 AppName.constantize::Application.routes.draw do
 
+root 'users#show'
 
-  root 'users#show'
   get "notifications/index"
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
@@ -21,11 +21,19 @@ AppName.constantize::Application.routes.draw do
   resources :likes
   resources :comments
 
+
   devise_for :user, controllers: {
     omniauth_callbacks: "controller_devise/omniauth_callback", 
     registrations: "controller_devise/registrations",
     sessions: "controller_devise/sessions"
   }
+
+
+  get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
+  get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }
+  get ':name/:controller/:id/:action' => 'controller#action', constraints: { name: /\w+/ }
+  get ':name' => 'users#show'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
