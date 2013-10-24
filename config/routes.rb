@@ -1,10 +1,11 @@
 AppName.constantize::Application.routes.draw do
 
+
+  root 'users#show'
   get "notifications/index"
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 
-  root :to => 'users#show'
   resources :posts
   resources :notifications, only: [:index]
 
@@ -14,7 +15,7 @@ AppName.constantize::Application.routes.draw do
     get 'autocomplete', on: :collection
   end
   
-  resources :connection
+  resources :company
   resources :groups 
   resources :group_membership
   resources :likes

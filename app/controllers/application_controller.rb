@@ -21,12 +21,18 @@ class ApplicationController < ActionController::Base
     ! anonymous?
   end
 
-  def redirect_to_back_or_default_url(url = '/')
+  def redirect_to_back_or_default_url(url = root_path)
     if request.referer
       redirect_to :back 
     else
       redirect_to url
     end
   end
+
+  def current_company
+    @current_company ||= Company.find(session[:company]) 
+  end
+
+  helper_method :current_company 
 
 end

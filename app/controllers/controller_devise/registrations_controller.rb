@@ -12,7 +12,6 @@ class ControllerDevise::RegistrationsController < Devise::RegistrationsControlle
     filter.provide_dummy_names
   end
 
-
   layout "sign_in_sign_up"
 
   protected
@@ -20,5 +19,6 @@ class ControllerDevise::RegistrationsController < Devise::RegistrationsControlle
     def configure_permitted_parameters
       devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :password, :confirm_passwords) }
     end
+
 
 end
