@@ -14,20 +14,26 @@ before_action :set_group, only: [:create, :destroy, :index]
 
   def destroy
     #FIXME_AB: group.admin?(current_user)
-    if(current_user == @group.admin)
-      @group.destroy
+    #[Fixed]
+    flash[:notice] = "You were not able to unjoin this group due to some reason"
+    if(@group.admin?(current_user))
+      flash[:notice] = "You deleted your own group" if(@group.destroy)
     else
-      @group.users.destroy(current_user)
+      flash[:notice] = "You are not following the group #{ @group.name.humanize }" if ( @group.users.destroy(current_user) )
     end
     respond_to do |format|
-      format.html { redirect_to current_user }
+      format.html { redirect_to_back_or_default_url }
     end  
   end
 
   protected
 
   def set_group
-    @group = Group.find(params[:id])
+    begin
+      @group = Group.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to_back_or_default_url
+    end 
   end
 
 end

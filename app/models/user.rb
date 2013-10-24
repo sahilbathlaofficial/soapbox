@@ -1,31 +1,32 @@
 class User < ActiveRecord::Base
 
-  #FIXME_AB: What I am getting is, following company is a company. If yes the we should name it as a company
+  #FIXME_AB: What I am getting is, following company is a company. If yes the we should name it as a company[Fixed]
   #FIX : Renamed to company
   belongs_to :company
-  #FIXME_AB: Think about when a user is destroyed
-  #FIX: The 'following' should be destroyed
-  has_many :followings,dependent: :destroy
+  #FIXME_AB: Think about when a user is destroyed[Fixed]
+  #Fixed: Don't destroy associated models
+  has_many :followings
   has_many :followees, through: :followings
   has_many :inverse_followings, class_name: 'Following', foreign_key: 'followee_id'
   has_many :followers, through: :inverse_followings, source: :user
   has_and_belongs_to_many :groups
   #FIXME_AB: We need a better way to handle a user's destroy. Please think and share how should we handle destroy of various entities
-  #To Discuss
+  #[Fixed]
   has_many :groups_owned, foreign_key: 'admin_id', class_name: 'Group', dependent: :destroy
-  #FIXME_AB: For ordering use scope
+  #FIXME_AB: For ordering use scope[Fixed]
   #FIX: Scope added
-  has_many :posts, -> { order("created_at DESC") }, dependent: :destroy
+  has_many :posts, -> { order("created_at DESC") }
 
-  has_many :likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :notifications,dependent: :destroy
+  has_many :likes
+  has_many :comments
+  has_many :notifications
 
   #FIXME_AB: No need to use ActionController::Base.helpers.asset_path just pass 'missing.jpg' because in any way we will be using image_tag to display the image, which will take care of this
-  #FIX: Oh okay, fixed !!
+  #[Fixed]
 
   has_attached_file :avatar, :styles => { :large=> "200x200>", :medium => "100x100>", :thumb => "25x25>" }, :default_url => 'missing.png'
 
+  validates :email, presence: true
   validates :email, uniqueness: true
  
   devise :database_authenticatable, :registerable, :omniauthable,

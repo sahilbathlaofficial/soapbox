@@ -9,9 +9,13 @@ class FollowingsController < ApplicationController
       if @following.save
         followee = User.find(params[:followee_id])
         #FIXME_AB: Should avoid saving html format in db. Just save pointers and generate html when you want to display. We may change the way we display notification in future, so in that case we won't have to bother about what we have in DB
+        #To Discuss
         notification = '<a>' + current_user.name + '</a>  started following you' 
         followee.notifications << Notification.new(content: notification)
-        format.html { redirect_to :back, notice: "You are now following #{ @following.followee.firstname } " }
+        format.html do
+          redirect_to_back_or_default_url 
+          flash[:notice] = "You are now following #{ @following.followee.firstname } " 
+        end
         format.json { render action: 'show', status: :created, location: @following }
       else
         format.html { redirect_to current_user, notice: "An error occured while following #{ @following.followee } " }
@@ -24,7 +28,10 @@ class FollowingsController < ApplicationController
   def destroy
     @following.destroy
     respond_to do |format|
-      format.html { redirect_to  :back, notice: "You are not following #{ @following.followee.firstname } now" }
+      format.html do
+        redirect_to_back_or_default_url
+        flash[:notice] "You are not following #{ @following.followee.firstname } now" 
+      end 
       format.json { head :no_content }
     end
   end

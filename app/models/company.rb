@@ -1,4 +1,4 @@
-#FIXME_AB: put required validations
+#FIXME_AB: put required validations[Fixed]
 #FIX: company name would be present and unique 
 class Company < ActiveRecord::Base
   has_many :users

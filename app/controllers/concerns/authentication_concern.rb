@@ -17,7 +17,7 @@ module AuthenticationConcern
   def extract_company
     company_name = extract_domain_from_email
     return false if company_name.empty?
-    company = Company.find_by("name=?", company_name)
+    company = Company.find_by("name = ?", company_name)
     company = Company.create(name: company_name)  if company.nil?
     session[:company] = company.id
   end
