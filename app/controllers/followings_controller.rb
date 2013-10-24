@@ -8,6 +8,7 @@ class FollowingsController < ApplicationController
     respond_to do |format|
       if @following.save
         followee = User.find(params[:followee_id])
+        #FIXME_AB: Should avoid saving html format in db. Just save pointers and generate html when you want to display. We may change the way we display notification in future, so in that case we won't have to bother about what we have in DB
         notification = '<a>' + current_user.name + '</a>  started following you' 
         followee.notifications << Notification.new(content: notification)
         format.html { redirect_to :back, notice: "You are now following #{ @following.followee.firstname } " }

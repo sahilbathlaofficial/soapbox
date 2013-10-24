@@ -13,6 +13,7 @@ before_action :set_group, only: [:create, :destroy, :index]
   end
 
   def destroy
+    #FIXME_AB: group.admin?(current_user)
     if(current_user == @group.admin)
       @group.destroy
     else
