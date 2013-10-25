@@ -1,7 +1,8 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = current_user.notifications
+    @notifications = PublicActivity::Activity.all
     respond_to do |format|
+      format.html { render text: @notifications.first.key }
       format.js {}
     end
   end

@@ -74,3 +74,5 @@ gem 'jquery-turbolinks'
 #Auto complete gems
 #gem 'rails3-jquery-autocomplete'
 #gem 'rails_autocomplete'
+
+gem 'public_activity'

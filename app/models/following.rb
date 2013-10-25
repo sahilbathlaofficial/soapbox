@@ -4,6 +4,9 @@
 #FIXME_AB: Please add required indexed in all tables
 #To do
 class Following < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked
+
   belongs_to :user
   belongs_to :followee, class_name: 'User'
   validates :user_id, :followee_id, presence:true

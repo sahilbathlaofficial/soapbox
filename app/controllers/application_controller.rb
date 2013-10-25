@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     #FIXME_AB: if !(current_user) is used to check whether user is logged in or not. So define to method for that, logged_in? and annonymous?
     #[Fixed]
     redirect_to new_user_session_path if anonymous?
-    if(logged_in?)
+    if(logged_in? & request.method.downcase == 'get')
       if !(request.path_parameters[:name] == current_company.name)
         if request.path_parameters[:name].nil?
           redirect_to '/' + current_company.name + request.path 
