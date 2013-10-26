@@ -7,7 +7,7 @@
     <% output = render_activity(notification) %>
     $('#notificationsResult').append('<div class= "notificationsResult"><%= j output%></div>');
   <% end %> 
-  $('.notificationSpriteContent').prepend('<span>Notifications</span>').find('a.appLinks').remove();
+  $('.notificationSpriteContent').prepend('<span id="notificationTitle">Notifications</span>').find('a.appLinks').remove();
   $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
   $('body').bind('click', function(){
     $('#notificationsResult').hide(); 
