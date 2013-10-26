@@ -1,3 +1,5 @@
 <%# by default local variable named as activity %>
-<%= image_tag activity.trackable.user.avatar, class: 'thumbnailImage' %>
-<%= link_to(activity.trackable.user.name, activity.trackable.followee) if !(activity.trackable.nil?) %> is following you
+<% if !(activity.trackable.nil?) %>
+<%= image_tag activity.trackable.user.avatar, class: 'thumbnailImage'  %>
+<%= link_to(activity.trackable.user.name, activity.trackable.followee) %> is following you
+<% end %>

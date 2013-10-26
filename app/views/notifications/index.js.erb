@@ -3,19 +3,20 @@
   <% @notifications.each do |notification| %>
     <% notification.seen = true %>
     <% notification.save! %>
-    <% Rails.logger.debug "#{notification.inspect}\n"*8 %>
     <% output = render_activity(notification) %>
-    $('#notificationsResult').append('<div class= "notificationsResult"><%= j output%></div>');
+    <% if output != '' %>
+      $('#notificationsResult').append('<div class= "notificationsResult"><%= j output%></div>');
+    <% end %>
   <% end %> 
   $('.notificationSpriteContent').prepend('<span id="notificationTitle">Notifications</span>').find('a.appLinks').remove();
   $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
   $('body').bind('click', function(){
     $('#notificationsResult').hide(); 
-  })
+  });
   $('.notificationSpriteContent').bind('click', function(event) {
     event.stopPropagation();
     $('#notificationsResult').show();
-  })
+  });
 <% else %>
   alert('No notifications for you!!');
-<%end%>
+<% end %>
