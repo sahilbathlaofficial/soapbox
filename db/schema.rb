@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20131025124928) do
     t.string   "owner_type"
     t.string   "key"
     t.text     "parameters"
+    t.boolean  "seen",           default: false
     t.integer  "recipient_id"
     t.string   "recipient_type"
     t.datetime "created_at"

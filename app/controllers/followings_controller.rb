@@ -10,6 +10,7 @@ class FollowingsController < ApplicationController
         #FIXME_AB: Should avoid saving html format in db. Just save pointers and generate html when you want to display. We may change the way we display notification in future, so in that case we won't have to bother about what we have in DB
         #[Fixed] Added public activities
         format.html do
+          @following.create_activity key: 'following.create', owner: @following.followee
           flash[:notice] = "You are now following #{ @following.followee.firstname } " 
           redirect_to_back_or_default_url 
         end

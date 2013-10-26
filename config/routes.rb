@@ -2,7 +2,9 @@ AppName.constantize::Application.routes.draw do
 
 root 'users#show'
 
-  get "notifications/index"
+  get 'notifications/index'
+  get 'notifications/get_new_notifications'
+
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 

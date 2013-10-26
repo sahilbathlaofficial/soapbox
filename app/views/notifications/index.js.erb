@@ -1,7 +1,21 @@
 <% if !(@notifications.empty?) %>
+  $('.notificationSpriteContent').html('').append('<div id="notificationsResult" class="generalContainer"></div>');
   <% @notifications.each do |notification| %>
-    alert('<%= raw(notification.content) %>');
+    <% notification.seen = true %>
+    <% notification.save! %>
+    <% Rails.logger.debug "#{notification.inspect}\n"*8 %>
+    <% output = render_activity(notification) %>
+    $('#notificationsResult').append('<div class= "notificationsResult"><%= j output%></div>');
   <% end %> 
+  $('.notificationSpriteContent').prepend('<span>Notifications</span>').find('a.appLinks').remove();
+  $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
+  $('body').bind('click', function(){
+    $('#notificationsResult').hide(); 
+  })
+  $('.notificationSpriteContent').bind('click', function(event) {
+    event.stopPropagation();
+    $('#notificationsResult').show();
+  })
 <% else %>
-  alert('none');
+  alert('No notifications for you!!');
 <%end%>

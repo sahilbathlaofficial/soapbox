@@ -424,7 +424,8 @@
 .generalContainer
 {
   background: white;
-  padding: 3em;
+  color:black;
+  padding:10%;
   border-radius: 0.5em;
   width:100%;
 }
@@ -484,9 +485,39 @@
   background-position: 490px 750px;
 }
 
+#notificationTitle
+{
+  cursor: hand;
+  cursor: pointer;
+}
+
 .notificationSpriteContent
 {
   display: inline-block;
   margin-left: 3em;
   margin-top: 0.7em;
+}
+
+#notificationsResult
+{
+  margin-top:10%;
+  margin-left:-80%;
+  width:400%;
+  padding:10%;
+}
+
+#newNotificationMsg
+{
+  width:200%;
+}
+
+#notificationsResult a:hover
+{
+  color:blue;
+}
+
+#notificationsResult .notificationsResult
+{
+  border-bottom: 1px solid #eee;
+  padding:2%;
 }
