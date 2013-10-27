@@ -7,12 +7,20 @@
       </div>
       <div class="postContent largeText">
 
-        <div class="postAuthorContainer"><%= link_to post.user.name, post.user,class: 'postAuthor' %></div>
+        <div class="postAuthorContainer"><%= link_to post.user.name, post.user, class: 'postAuthor' %>
+          <div class="postTime smallText">
+            <%= post.created_at.to_formatted_s(:short) %>
+          </div>
+          <br/>
+        </div>
+        <div class="postGroupTag rightAlign normalText">
+            To <%= post.group.nil? ? 'All Company' : link_to(post.group.name.titleize, post.group) %>
+        </div>
 
         <div class="rightAlign verticalAlign20">
           <%= link_to('x', post_path(post), method: :delete) if current_user == post.user %>
         </div>
-        <div><%= post.content %></div>
+        <div><%= post.content.humanize %></div>
      
         <div class="postOptions">
 
@@ -37,5 +45,5 @@
       </div><!--end of postContent -->
     </div>
   <% end %>
-    <div class="groupPageFinished">End of posts</div>
+    <div class="PageFinished borderAbove">End of posts</div>
 </div>

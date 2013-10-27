@@ -49,15 +49,20 @@
           <%= link_to AppName, url_for(root_path),class: 'brand' %></a>
           <div class="container-fluid nav-collapse">
             <ul id="menuLinksContainer"  class="nav">
-              <li class="meSprite">
-                <span class="meSpriteContent">
-                  <%= link_to "Me", user_path(current_user), class: :appLinks  %>
-                </span>
+              <li id="homeSprite">
+                <div id="homeSpriteContent">
+                  <%= link_to "Home", wall_user_path(current_user), class: :appLinks  %>
+                </div>
               </li>
-              <li class="notificationSprite">
-                <span class="notificationSpriteContent">
+              <li id="meSprite">
+                <div id="meSpriteContent">
+                  <%= link_to "Me", user_path(current_user), class: :appLinks  %>
+                </div>
+              </li>
+              <li id="notificationSprite">
+                <div id="notificationSpriteContent">
                   <%= link_to "Notifications", notifications_index_path,remote: true, class: :appLinks  %>
-                </span>
+                </div>
               </li>
             </ul>
 

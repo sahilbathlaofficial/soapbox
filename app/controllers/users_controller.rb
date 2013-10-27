@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :set_user, :only => [:edit,  :update, :show, :show_followees, :show_followers]
+  before_filter :set_user, :only => [:edit,  :update, :show, :wall, :show_followees, :show_followers]
 
   def show
     if(current_user.company_id != @user.company_id)
@@ -18,6 +18,12 @@ class UsersController < ApplicationController
       end
 
     end
+  end
+
+  def wall
+    users = current_user.followees + [current_user]
+    groups = current_user.groups 
+    @posts = Post.where('user_id in (?) or group_id in (?) or group_id is ?', users, groups, nil)
   end
 
   def show_followees
@@ -42,7 +48,7 @@ class UsersController < ApplicationController
     if(params[:id])
       @user = User.find(params[:id])
     else
-      redirect_to(current_user)
+      redirect_to(wall_user_path(current_user))
     end
   end
 

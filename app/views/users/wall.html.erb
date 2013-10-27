@@ -1,0 +1,6 @@
+<div id="postContainer">
+    <!-- if current user can post -->
+    <%= render partial: 'posts/compose_post' %>
+
+    <%= render partial: 'posts/posts', locals: {posts: @posts} %>
+</div>

@@ -1,6 +1,6 @@
 AppName.constantize::Application.routes.draw do
 
-root 'users#show'
+  root'users#wall'
 
   get 'notifications/index'
   get 'notifications/get_new_notifications'
@@ -14,6 +14,7 @@ root 'users#show'
   resources :users do
     get 'show_followees' , on: :member
     get 'show_followers' , on: :member
+    get 'wall', on: :member
     get 'autocomplete', on: :collection
   end
   
@@ -30,11 +31,10 @@ root 'users#show'
     sessions: "controller_devise/sessions"
   }
 
-
-  get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
-  get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }
-  get ':name/:controller/:id/:action' => 'controller#action', constraints: { name: /\w+/ }
-  get ':name' => 'users#show'
+    # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
+    # get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }
+    # get ':name/:controller/:id/:action' => 'controller#action', constraints: { name: /\w+/ }
+    # get ':name' => 'users#show'
 
 
 

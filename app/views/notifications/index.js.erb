@@ -1,5 +1,5 @@
 <% if !(@notifications.empty?) %>
-  $('.notificationSpriteContent').html('').append('<div id="notificationsResult" class="generalContainer"></div>');
+  $('#notificationSpriteContent').html('').append('<div id="notificationsResult" class="generalContainer"></div>');
   <% @notifications.each do |notification| %>
     <% notification.seen = true %>
     <% notification.save! %>
@@ -8,12 +8,12 @@
       $('#notificationsResult').append('<div class= "notificationsResult"><%= j output%></div>');
     <% end %>
   <% end %> 
-  $('.notificationSpriteContent').prepend('<span id="notificationTitle">Notifications</span>').find('a.appLinks').remove();
+  $('#notificationSpriteContent').prepend('<span id="notificationTitle">Notifications</span>').find('a.appLinks').remove();
   $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
   $('body').bind('click', function(){
     $('#notificationsResult').hide(); 
   });
-  $('.notificationSpriteContent').bind('click', function(event) {
+  $('#notificationSpriteContent').bind('click', function(event) {
     event.stopPropagation();
     $('#notificationsResult').show();
   });

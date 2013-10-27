@@ -28,8 +28,9 @@
 
 #menuLinksContainer li
 {
- margin-left:2em;
+  margin-left:3em;
 }
+
 /* Auto Search + Users Settings */
 
  #userHeading
@@ -132,6 +133,14 @@
   margin:0em;
   padding:0em;
  }
+
+ .PageFinished
+{
+  margin-top:5%;
+  text-align:center;
+  width:100%
+}
+
 
 .selectBoxSmall
 {
@@ -446,7 +455,27 @@
   background-position: 450px 1220px;
 }
 
-.meSprite
+#homeSprite
+{
+  background: image-url('twitter_sprite.png');
+  background-position: 310px 1255px;
+  height:30px;
+  width:40px;
+  margin-left:10%;
+}
+
+#homeSprite:hover
+{
+  background-position: 310px 1226px;
+}
+
+#homeSpriteContent
+{
+  display: inline-block;
+  margin:20% 0% 0% 90%;
+}
+
+#meSprite
 {
   background: image-url('twitter_sprite.png');
   background-position: 490px 1255px;
@@ -454,33 +483,28 @@
   width:40px;
 }
 
-.meSpriteContent
+#meSpriteContent
 {
   display: inline-block;
   margin-left: 3em;
   margin-top: 0.7em;
 }
 
-.meSpriteContent a:hover
-{
-  text-decoration: none ;
-  background: none ;
-}
-
-.meSprite:hover
+#meSprite:hover
 {
   background-position: 490px 1226px;
 }
 
-.notificationSprite
+#notificationSprite
 {
   background: image-url('twitter_sprite.png');
   background-position: 490px 780px;
   height:30px;
   width:40px;
+  margin-left:2em !important;
 }
 
-.notificationSprite:hover
+#notificationSprite:hover
 {
   background-position: 490px 750px;
 }
@@ -491,7 +515,7 @@
   cursor: pointer;
 }
 
-.notificationSpriteContent
+#notificationSpriteContent
 {
   display: inline-block;
   margin-left: 3em;
@@ -504,6 +528,7 @@
   margin-left:-80%;
   width:400%;
   padding:10%;
+  border: 2px solid grey;
 }
 
 #newNotificationMsg

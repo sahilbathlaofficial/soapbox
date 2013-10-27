@@ -5,22 +5,7 @@
   <div id="postContainer">
 
     <!-- if current user can post -->
-    <% if(current_user.id == @user.id) %>
-      <div id="composePost">
-        <%= form_tag '/posts',id: 'postForm' do %>
-          <%= text_field_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText" %> 
-          <% groups_array = [['Public', nil]] %>
-          <% groups_array += current_user.groups.map { |group| [group.name.humanize, group.id] } %>
-          <div class="composePostContentOptions">
-            <div> 
-              <span> Group </span> 
-              <%= select_tag 'post[group_id]', options_for_select(groups_array), class: 'selectBoxSmall', id: "groupSelect" %>
-              <%= submit_tag 'Post',class: 'btn-success postButton' %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+    <%= render partial: 'posts/compose_post' %>
 
     <%= render partial: 'posts/posts', locals: {posts: @user.posts} %>
   </div>
