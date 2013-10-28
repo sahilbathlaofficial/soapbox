@@ -135,8 +135,22 @@
           <%= yield %>
         </div>
 
-        <!-- <div class="span3">
-        </div> -->
+        <div class="span3">
+          <div id="recentMembersContainer">
+            <div id="recentMembersTitle">
+              Recent Members
+            </div>
+            <div id="recentMembersContent">
+              <% for member in fetch_members %>
+                <div class="recentMembersContent smallText">
+                  <%= link_to(image_tag(member.avatar, class:'thumbnailImage'), member) %>
+                  <br>
+                  <%= link_to(member.name, member) %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div> 
 
       </div><!--/row-->
 
@@ -144,7 +158,5 @@
       </footer>
 
     </div> <!-- /container -->
-    
-
   </body>
 </html>

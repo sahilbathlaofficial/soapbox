@@ -34,6 +34,13 @@ fetchNotification = function() {
       {
         $('#notificationSpriteContent').html('').append('<a class="appLinks" data-remote="true" href="/notifications/index">Notifications</a>');
         $('#notificationSpriteContent').append('<div id="newNotificationMsg" class="generalContainer">You have new notifications!! </div>');
+        blinkEvent = window.setInterval(function() {
+          $('#notificationSprite').toggleClass('blink');
+        }, 500)
+          $('#notificationSprite').click(function(){
+            window.clearInterval(blinkEvent);
+            $('#notificationSprite').removeClass('blink');
+          })
       }
     });
   }
@@ -150,4 +157,24 @@ $(document).ready(function(){
   showPostOptionsOnClick();
   focusOnComments();
   notificationCheck();
+
+ window.scrollback = {
+  streams:["vinsol"],
+  theme: 'light',
+  ticker: true,
+ };
+ 
+ /***** don't edit below *****/
+ (function(d,s,h,e){e=d.createElement(s);e.async=1;
+ e.src=h+'/client.min.js';scrollback.host=h;
+ d.getElementsByTagName(s)[0].parentNode.appendChild(e);}
+ (document,'script',location.protocol+'//scrollback.io'));
+
+$('body').delegate('.scrollback-title-content','click',function(){
+  $('.scrollback-nick-guest').parent().children('div:first').remove()
+  $('.scrollback-text-wrap').css('left','0px');
+  
+});
+ 
+ 
 }); 

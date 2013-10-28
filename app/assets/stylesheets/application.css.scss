@@ -234,7 +234,6 @@
 
 .hero-unit-extend
 {
-  width:100%;
   border-radius: 0.3em;
   border-top-right-radius:0em;
   border-top-left-radius:0em;  
@@ -286,7 +285,6 @@
 .posts, .showListItem
 {
   background-color: white;
-  width:92%;
   padding:2em;
   border-radius: 0.8em;
   margin: 0.5em 0em 1em 0em;
@@ -347,7 +345,6 @@
 
 #composePostContent
 {
-  padding: 0.5em;
   border: none;
 }
 
@@ -504,7 +501,7 @@
   margin-left:2em !important;
 }
 
-#notificationSprite:hover
+#notificationSprite:hover, #notificationSprite.blink
 {
   background-position: 490px 750px;
 }
@@ -533,7 +530,9 @@
 
 #newNotificationMsg
 {
-  width:200%;
+  min-width:250%;
+  padding:1%;
+  text-align:center;
 }
 
 #notificationsResult a:hover
@@ -545,4 +544,58 @@
 {
   border-bottom: 1px solid #eee;
   padding:2%;
+}
+
+/* chatUser*/
+
+.scrollback-icon.scrollback-icon-pop,.box.logo-box.span1 .logo,#loginbtn
+{
+  display:none;
+}
+
+
+#chatUser
+{
+  background-color: grey;
+  color:black;
+}
+
+/* Recent Members */
+
+#recentMembersContainer
+{
+  margin-top:1%;
+  
+}
+
+#recentMembersTitle
+{
+  background:black;
+  color:white;
+  padding:3% 4%;
+  border-radius: 1em;
+  border-bottom-left-radius: 0em;
+  border-bottom-right-radius: 0em;
+  text-align:center;
+}
+
+#recentMembersContent
+{
+  min-height:10em;
+  padding: 1em;
+  background:white;
+  color:black;
+  border-radius: 1em;
+  border-top-left-radius: 0em;
+  border-top-right-radius: 0em;
+}
+
+.recentMembersContent
+{
+  display: inline-block;
+  margin: 2%;
+  width: 25%;
+  height:5em;
+  vertical-align: top;
+  text-align: center;
 }

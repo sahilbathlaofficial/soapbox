@@ -13,13 +13,15 @@
           </div>
           <br/>
         </div>
-        <div class="postGroupTag rightAlign normalText">
-            To <%= post.group.nil? ? 'All Company' : link_to(post.group.name.titleize, post.group) %>
-        </div>
 
         <div class="rightAlign verticalAlign20">
           <%= link_to('x', post_path(post), method: :delete) if current_user == post.user %>
         </div>
+        
+        <div class="postGroupTag rightAlign normalText">
+            To <%= post.group.nil? ? 'All Company' : link_to(post.group.name.titleize, post.group) %>
+        </div>
+
         <div><%= post.content.humanize %></div>
      
         <div class="postOptions">

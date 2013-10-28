@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def wall
     users = current_user.followees + [current_user]
     groups = current_user.groups 
-    @posts = Post.where('user_id in (?) or group_id in (?) or group_id is ?', users, groups, nil)
+    @posts = Post.where('user_id in (?) or group_id in (?) or group_id is ?', users, groups, nil).order('created_at DESC')
   end
 
   def show_followees
