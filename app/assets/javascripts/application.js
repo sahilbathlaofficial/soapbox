@@ -81,7 +81,7 @@ changeOriginalButtonClass = function() {
 
 sideBarHeightHandler = function() {
   height = $('body').height() - 50;
-  $('#left-sidebar').height(height);
+  $('#left-sidebar, #right-sidebar').height(height); 
 }
 
 groupHandler = function(){
@@ -170,11 +170,11 @@ $(document).ready(function(){
  d.getElementsByTagName(s)[0].parentNode.appendChild(e);}
  (document,'script',location.protocol+'//scrollback.io'));
 
-$('body').delegate('.scrollback-title-content','click',function(){
-  $('.scrollback-nick-guest').parent().children('div:first').remove()
-  $('.scrollback-text-wrap').css('left','0px');
+// $('body').delegate('.scrollback-title-content','click',function(){
+//   $('.scrollback-nick-guest').parent().children('div:first').remove()
+//   $('.scrollback-text-wrap').css('left','0px');
   
-});
+// });
  
  
 }); 

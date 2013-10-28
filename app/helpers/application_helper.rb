@@ -4,7 +4,11 @@ module ApplicationHelper
   end
 
   def fetch_members
-    User.where(company: current_company).limit(7).order('created_at DESC')
+    User.where(company: current_company).limit(6).order('created_at DESC')
+  end
+
+  def fetch_groups
+    Group.where(company: current_company).limit(6).order('created_at DESC')
   end
 
 end

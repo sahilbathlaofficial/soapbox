@@ -135,7 +135,7 @@
           <%= yield %>
         </div>
 
-        <div class="span3">
+        <div class="span3" id="right-sidebar">
           <div id="recentMembersContainer">
             <div id="recentMembersTitle">
               Recent Members
@@ -150,6 +150,22 @@
               <% end %>
             </div>
           </div>
+
+          <div id="suggestedGroupsContainer">
+            <div id="suggestedGroupsTitle">
+              Suggested Groups
+            </div>
+            <div id="suggestedGroupsContent">
+              <% for group in fetch_groups %>
+                <div class="recentMembersContent smallText">
+                  <%= link_to(image_tag('ror.png', class:'thumbnailImage'), group) %>
+                  <br>
+                  <%= link_to(group.name, group) %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
         </div> 
 
       </div><!--/row-->

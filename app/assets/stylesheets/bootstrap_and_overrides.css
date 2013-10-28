@@ -32,6 +32,12 @@ a:hover
   height: inherit;
 } 
 
+#right-sidebar
+{
+  border-left: 1px solid #ccc;
+  padding-left: 2%;
+}
+
 #left-sidebar-titles
 {
   min-width: 1em;

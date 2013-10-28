@@ -553,6 +553,10 @@
   display:none;
 }
 
+.scrollback-stream
+{
+  width:23% !important;
+}
 
 #chatUser
 {
@@ -562,13 +566,17 @@
 
 /* Recent Members */
 
-#recentMembersContainer
+#recentMembersContainer, #suggestedGroupsContainer
 {
   margin-top:1%;
-  
 }
 
-#recentMembersTitle
+#suggestedGroupsContainer
+{
+  margin-top: 10%;
+}
+
+#recentMembersTitle, #suggestedGroupsTitle
 {
   background:black;
   color:white;
@@ -579,9 +587,8 @@
   text-align:center;
 }
 
-#recentMembersContent
+#recentMembersContent, #suggestedGroupsContent
 {
-  min-height:10em;
   padding: 1em;
   background:white;
   color:black;
