@@ -3,10 +3,11 @@ body {
   margin-top: 0px;
   padding:0px;
   overflow: auto;
-  background: image-url('blue_background.jpg');
+  background-image: image-url('blue_background.png');
+  background-position: left 40px;
   background-repeat:no-repeat;
-  min-height:2000px;
-  background-size: 100% 100%;
+  background-color:#C0DEED;
+  min-height:1200px;
 }
 
 input:focus
