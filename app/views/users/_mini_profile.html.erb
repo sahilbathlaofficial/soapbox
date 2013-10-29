@@ -1,6 +1,11 @@
 <div id="miniProfile" class="hero-unit">
   <div id="avatarHolder" class="highlightPicture">
-    <%= image_tag user.avatar, class: 'largeImage' %>
+    <%= link_to(image_tag(user.avatar,class: 'largeImage'), '#profilePicContainer', data: { toggle: 'modal'}, role: "button") %>
+    <div id='profilePicContainer'  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+      <div>
+        <%= image_tag(user.avatar) %>
+      </div>
+    </div>
   </div>
   <div id="profileDetails">
     <span id="firstname"><%= user.firstname %></span>

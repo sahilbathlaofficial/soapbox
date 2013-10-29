@@ -158,6 +158,19 @@ $(document).ready(function(){
   focusOnComments();
   notificationCheck();
 
+  $('#profilePicContainer').ready(function(){
+    $modal = $('#profilePicContainer');
+    div_height = $modal.height();
+    $( "#profilePicContainer img" ).load(function() {
+      content_height = $('#profilePicContainer img').height();
+      margin_height = ((div_height - content_height)/2)
+      $('#profilePicContainer img').css('margin-top', margin_height + 'px')   
+      $('#profilePicContainer').addClass('hide'); 
+    });
+   
+  })
+
+
  window.scrollback = {
   streams:["vinsol"],
   theme: 'light',

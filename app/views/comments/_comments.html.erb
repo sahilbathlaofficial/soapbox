@@ -12,6 +12,6 @@
 <% end %>
 <div class="createComment">
   <%= form_tag comments_path(post_id: post.id) do %>
-    <%= text_field_tag :content,'',id: 'content1', placeholder: 'Enter your comment..',class: 'commentText smallText' %>
+    <%= text_field_tag :content,'',id: 'content1', placeholder: 'Enter your comment..',class: 'commentText smallText',autocomplete: "off" %>
   <% end %>
 </div>

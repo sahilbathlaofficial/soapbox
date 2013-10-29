@@ -417,6 +417,18 @@
   width:75px;
 }
 
+#profilePicContainer
+{
+  background: black;
+  border: 3px solid white !important;
+  height: 80%;
+}
+
+#profilePicContainer div
+{
+  vertical-align: middle;
+}
+
 /* Generalized border */
 
 .borderAbove
@@ -431,7 +443,7 @@
 {
   background: white;
   color:black;
-  padding:10%;
+  padding:2%;
   border-radius: 0.5em;
   width:100%;
 }
