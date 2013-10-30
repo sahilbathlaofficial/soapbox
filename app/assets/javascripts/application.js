@@ -23,7 +23,9 @@ search_terms = []
 checkUrlPresence = function(text)
 {
   console.log(text);
-  if(text.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/))
+  if(x = text.match(/((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?/))
+    $.get("/posts/extract_url_content",{url: x[0] }).done(function() {})
+    .fail(function(){});
 }
 
 extractUrlSynopsis = function() {

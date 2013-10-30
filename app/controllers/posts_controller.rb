@@ -18,6 +18,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def extract_url_content
+    params[:url] = 'http://' + params[:url] if(params[:url][0..3].downcase == 'www.')
+    @doc = Nokogiri::HTML(open(params[:url]))
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   protected
 
   def set_post

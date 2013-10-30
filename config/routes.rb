@@ -4,6 +4,7 @@ AppName.constantize::Application.routes.draw do
 
   get 'notifications/index'
   get 'notifications/get_new_notifications'
+  get 'posts/extract_url_content'
 
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
