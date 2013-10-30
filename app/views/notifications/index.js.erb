@@ -10,13 +10,19 @@
   <% end %> 
   $('#notificationSpriteContent').prepend('<span id="notificationTitle">Notifications</span>').find('a.appLinks').remove();
   $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
-  $('body').bind('click', function(){
+ 
+  // on click on body hide the notificationResult
+  $('body').bind('click keyup', function(event){
+    if(event.type == 'click' || event.keyCode == 27)
     $('#notificationsResult').hide(); 
   });
+ 
+ // on click on the tab show the notificationResult
   $('#notificationSpriteContent').bind('click', function(event) {
     event.stopPropagation();
     $('#notificationsResult').show();
   });
+
 <% else %>
   alert('No notifications for you!!');
 <% end %>

@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
       respond_to do |format|
         #FIXME_AB: Don't use redirect_to :back. Instead you should make a helper method redirect_to_back_or_default. Which will check if HTTP_REFERER is present then will do the redirect_to :back else will redirect to the url passed to this funciton. Default will be root_path
         #[Fixed]
+        @post.comments.last.create_activity key: 'comment.create', owner: @post.user
         format.html { redirect_to_back_or_default_url }
       end
     else

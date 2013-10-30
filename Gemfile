@@ -75,4 +75,8 @@ gem 'jquery-turbolinks'
 #gem 'rails3-jquery-autocomplete'
 #gem 'rails_autocomplete'
 
+# Public activity for notifications
 gem 'public_activity'
+
+# Link Extraction
+#gem "pismo", "~> 0.7.4"

@@ -4,6 +4,7 @@
 #FIXME_AB: Put required validations[Fixed]
 #FIX : Comment content should be present
 class Comment < ActiveRecord::Base
+  include PublicActivity::Common
   belongs_to :user
   belongs_to :post
   validates :content, :user_id, :post_id, presence: true

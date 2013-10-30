@@ -18,6 +18,10 @@ before_action :set_group, only: [:create, :destroy, :index]
     flash[:notice] = "You were not able to unjoin this group due to some reason"
     if(@group.admin?(current_user))
       flash[:notice] = "You deleted your own group" if(@group.destroy)
+      respond_to do |format|
+        format.html { redirect_to current_user }
+      end
+      return false
     else
       flash[:notice] = "You are not following the group #{ @group.name.humanize }" if ( @group.users.destroy(current_user) )
     end

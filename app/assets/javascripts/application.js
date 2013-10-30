@@ -20,8 +20,35 @@
 
 search_terms = []
 
+checkUrlPresence = function(text)
+{
+  console.log(text);
+  if(text.match(/^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/))
+}
+
+extractUrlSynopsis = function() {
+  $('#composePostContent').keyup(function(){
+    checkUrlPresence($(this).val())
+  })
+}
+
+setModalMargin =  function() {
+  $('#profilePicContainer').ready(function() {
+    $modal = $('#profilePicContainer');
+    div_height = $modal.height();
+
+    $( "#profilePicContainer img" ).load(function() {
+      content_height = $('#profilePicContainer img').height();
+      margin_height = ((div_height - content_height)/2)
+      $('#profilePicContainer img').css('margin-top', margin_height + 'px')   
+      $('#profilePicContainer').addClass('hide'); 
+    });
+ 
+  });
+}
+
 notificationCheck = function() {
-  window.setInterval(fetchNotification,1000);
+  window.setInterval(fetchNotification, 1000);
 }
 
 
@@ -88,6 +115,7 @@ groupHandler = function(){
   $('#createGroupLink').click(function(e) {
     e.preventDefault();
     $('#createGroup').show();
+    $('#createGroupTextField').focus();
   });
   $('#cancelCreateGroup').on('click', function(e) {
     $('#createGroup').hide();
@@ -132,9 +160,9 @@ autoFetchUsers = function() {
           search_term = search_terms[i];
           display_result = search_term[1] + ' ' + search_term[2];
           /*
-          search_term[0] = firstname
-          search_term[1] = lastname
-          search_term[2] = id
+          search_term[0] = id
+          search_term[1] = firstname
+          search_term[2] = lastname
           search_term[3] = image_name
           */
           if(search_term.length === 2)
@@ -168,19 +196,8 @@ $(document).ready(function(){
   showPostOptionsOnClick();
   focusOnComments();
   notificationCheck();
-
-  $('#profilePicContainer').ready(function(){
-    $modal = $('#profilePicContainer');
-    div_height = $modal.height();
-    $( "#profilePicContainer img" ).load(function() {
-      content_height = $('#profilePicContainer img').height();
-      margin_height = ((div_height - content_height)/2)
-      $('#profilePicContainer img').css('margin-top', margin_height + 'px')   
-      $('#profilePicContainer').addClass('hide'); 
-    });
-   
-  })
-
+  setModalMargin();
+  extractUrlSynopsis();
 
  window.scrollback = {
   streams:["vinsol"],
