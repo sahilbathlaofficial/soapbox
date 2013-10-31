@@ -282,6 +282,17 @@
 
 /* Posts & Comment styling */
 
+#postPreview 
+{
+  text-align:center;  
+}
+
+#postPreview a:hover
+{
+  background:none;
+  color:blue;
+}
+
 .posts, .showListItem
 {
   background-color: white;
@@ -415,6 +426,12 @@
 {
   height:75px;
   width:75px;
+}
+
+.atMaxLargeImage
+{
+ max-height:100px;
+ max-width:125px;
 }
 
 #profilePicContainer

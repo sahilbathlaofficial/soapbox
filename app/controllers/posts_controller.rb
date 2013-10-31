@@ -19,11 +19,21 @@ class PostsController < ApplicationController
   end
 
   def extract_url_content
-    params[:url] = 'http://' + params[:url] if(params[:url][0..3].downcase == 'www.')
-    @doc = Nokogiri::HTML(open(params[:url]))
-    respond_to do |format|
-      format.js {}
+    @url = params[:url][0..-2] #remove the space
+    @url = 'http://' + @url if(@url[0..3].downcase == 'www.')
+    begin
+      @doc = Nokogiri::HTML(open(@url))
+      respond_to do |format|
+        format.js {}
+      end
+    rescue
+      @url = @url.sub('http://', 'https://')
+      @doc = Nokogiri::HTML(open(@url))
+      respond_to do |format|
+        format.js {}
+      end
     end
+    
   end
 
   protected

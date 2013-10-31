@@ -1,1 +1,14 @@
-console.log(' <%= j raw(@doc.css("a")[0].to_s) %>');  
+$('.composePostContentOptions').prepend('<div id="postPreview"></div><hr> ');
+<% if /(\.(jpg|png|gif))/ =~ @url%>
+   $('#postPreview').append('<div><img src="<%=@url%>"></img></div>')  
+<% else %>
+  <% @image =  j(raw(@doc.css("img")[0].attributes["src"].value)) %>
+  <% @image = (@url + @image) if !(@image.include?('://')) %>
+  var image = '<%= @image %>';    
+
+  var url = '<%= link_to @doc.title, @url %>';
+  var sub_url = '<%= link_to @url, @url,class: "smallText" %>';
+ 
+  $('#postPreview').append('<div><img class="atMaxLargeImage" src=' + image + '></img></div>')
+  .append('<div class="verticalAlign20"><div><div>' + url + '</div><div>' + sub_url + '</div></div></div>');
+<% end %>
