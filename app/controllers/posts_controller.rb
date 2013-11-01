@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   before_action :set_post, only: :destroy
 
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params)  
+    @post.url_parsed_content << URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
     current_user.posts << @post
     respond_to do |format|
       format.html { redirect_to :back }
@@ -41,9 +42,12 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   end
+  def set_parsed_content
+    params.require(:post).permit(:extra_content => [])
+  end
 
   def post_params
-    params.require(:post).permit(:content, :group_id).merge({ company_id: session[:company] })
+    params.require(:post).permit(:content, :group_id).merge({ company_id: current_company.id })
   end
 
 end

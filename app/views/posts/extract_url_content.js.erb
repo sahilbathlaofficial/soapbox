@@ -6,7 +6,9 @@ if($('#postPreview').length != 1 )
  
   // if a you tube video
   <% if @url.include?('youtube.com/watch?v=') %>
-    var VIDEO_ID = '<%= @url.split("watch?v=")[1].split("&")[0] %>'
+    
+    <% @video_id = @url.split("watch?v=")[1].split("&")[0] %>
+    var VIDEO_ID = '<%= @video_id %>'
     
     $('#postPreview').append('<iframe class="youtube-player" type="text/html"'
     + 'width="400" height="300" src="http://www.youtube.com/embed/' +
@@ -21,9 +23,9 @@ if($('#postPreview').length != 1 )
     // normal url parse
     <% else %>
       // extract first displayable image
-      <% @imageCollection = @doc.css("img")  %>
+      <% imageCollection = @doc.css("img")  %>
       <% @imageURL = '' %>
-      <% for image in @imageCollection  %> 
+      <% for image in imageCollection  %> 
         <% if !(image.attributes["src"].nil?) %>
           <% @imageURL =  j(image.attributes["src"].try(:value)) %>
           <% break %>
@@ -31,19 +33,29 @@ if($('#postPreview').length != 1 )
       <%end%>
       <% @imageURL = (@url + @imageURL) if !(@imageURL.include?('://') || (@imageURL.empty?)) %>
       var image = '<%=j @imageURL %>';    
-      $('#postPreview').append('<div><img class="atMaxLargeImage" src=' + image + '></img></div>')
     <% end %>
-
+    $('#postPreview').append('<div><img class="atMaxLargeImage" src=' + image + '></img></div>')
   <% end %>
   // extract title and url
-  var url = '<%= j link_to((@doc.title||''), @url) %>';
-  var sub_url = '<%= link_to @url, @url,class: "smallText" %>';
-  $('#postPreview').append('<div>' + url + '</div><div>' + sub_url + '</div>')
- 
+  var title = '<%= j link_to((@doc.title||''), @url) %>';
+  var url = '<%= link_to @url, @url,class: "smallText" %>';
+  $('#postPreview').append('<div>' + title + '</div><div>' + url + '</div>')
+
+  //append hidden fields in the form corresponding to the extra content
+  $('#postForm').append('<input type="hidden" name="post[extra_content][url]" value="<%=j @url%>"/>')
+  <% if !(@doc.title.nil?) %>
+    $('#postForm').append('<input type="hidden" name="post[extra_content][title]" value="<%=j @doc.title%>"/>')
+  <% end %>
+  <% if !(@imageURL.empty?) %>
+    $('#postForm').append('<input type="hidden" name="post[extra_content][image_url]" value="<%=j @imageURL%>"/>')
+  <% end %>
+  <% if !(@video_id.nil?) %>
+    $('#postForm').append('<input type="hidden" name="post[extra_content][video_id]" value="<%=j @video_id%>"/>')
+  <% end %>
   // remove preview event 
   $('#removePreviewPost').click(function(){
     $('#postPreview').siblings('hr').remove();
     $('#postPreview').remove();
     $('#composePostContent').focus();
   });
-}  
+} 

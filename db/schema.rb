@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131025124928) do
+ActiveRecord::Schema.define(version: 20131101093545) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -102,6 +102,21 @@ ActiveRecord::Schema.define(version: 20131025124928) do
 
   add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
+  create_table "url_parsed_contents", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "description"
+    t.string   "image_url"
+    t.string   "video_id"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "url_parsed_contents", ["post_id"], name: "index_url_parsed_contents_on_post_id", using: :btree
+  add_index "url_parsed_contents", ["user_id"], name: "index_url_parsed_contents_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

@@ -11,3 +11,7 @@
   # inflect.uncountable %w( fish sheep )
 #   inflect.human 'name','The_name'
 # end
+require 'active_support/all'
+ActiveSupport::Inflector.inflections(:en) do |inflect|
+  inflect.acronym  'URL'
+end
