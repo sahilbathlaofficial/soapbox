@@ -1,14 +1,49 @@
-$('.composePostContentOptions').prepend('<div id="postPreview"></div><hr> ');
-<% if /(\.(jpg|png|gif))/ =~ @url%>
-   $('#postPreview').append('<div><img src="<%=@url%>"></img></div>')  
-<% else %>
-  <% @image =  j(raw(@doc.css("img")[0].attributes["src"].value)) %>
-  <% @image = (@url + @image) if !(@image.include?('://')) %>
-  var image = '<%= @image %>';    
-
-  var url = '<%= link_to @doc.title, @url %>';
-  var sub_url = '<%= link_to @url, @url,class: "smallText" %>';
+if($('#postPreview').length != 1 )
+{
+  // prepend post preview and cancel button
+  $('.composePostContentOptions').prepend('<div id="postPreview"></div><hr> ');
+  $('#postPreview').append('<div class="rightAlign" id="removePreviewPost">x</div>');
  
-  $('#postPreview').append('<div><img class="atMaxLargeImage" src=' + image + '></img></div>')
-  .append('<div class="verticalAlign20"><div><div>' + url + '</div><div>' + sub_url + '</div></div></div>');
-<% end %>
+  // if a you tube video
+  <% if @url.include?('youtube.com/watch?v=') %>
+    var VIDEO_ID = '<%= @url.split("watch?v=")[1].split("&")[0] %>'
+    
+    $('#postPreview').append('<iframe class="youtube-player" type="text/html"'
+    + 'width="400" height="300" src="http://www.youtube.com/embed/' +
+    VIDEO_ID + '" allowfullscreen frameborder="0"></iframe>')
+ 
+  //if a normal url/image needs to be parsed
+  <% else %>
+
+    // if a the url is a image
+    <% if /(\.(jpg|png|gif))/ =~ @url%>
+       var image = '<%=j @url %>' 
+    // normal url parse
+    <% else %>
+      // extract first displayable image
+      <% @imageCollection = @doc.css("img")  %>
+      <% @imageURL = '' %>
+      <% for image in @imageCollection  %> 
+        <% if !(image.attributes["src"].nil?) %>
+          <% @imageURL =  j(image.attributes["src"].try(:value)) %>
+          <% break %>
+        <% end %>
+      <%end%>
+      <% @imageURL = (@url + @imageURL) if !(@imageURL.include?('://') || (@imageURL.empty?)) %>
+      var image = '<%=j @imageURL %>';    
+      $('#postPreview').append('<div><img class="atMaxLargeImage" src=' + image + '></img></div>')
+    <% end %>
+
+  <% end %>
+  // extract title and url
+  var url = '<%= j link_to((@doc.title||''), @url) %>';
+  var sub_url = '<%= link_to @url, @url,class: "smallText" %>';
+  $('#postPreview').append('<div>' + url + '</div><div>' + sub_url + '</div>')
+ 
+  // remove preview event 
+  $('#removePreviewPost').click(function(){
+    $('#postPreview').siblings('hr').remove();
+    $('#postPreview').remove();
+    $('#composePostContent').focus();
+  });
+}  
