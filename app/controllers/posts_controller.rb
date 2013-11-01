@@ -43,7 +43,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
   def set_parsed_content
-    params.require(:post).permit(:extra_content => [])
+   params[:post][:extra_content].permit!
   end
 
   def post_params
