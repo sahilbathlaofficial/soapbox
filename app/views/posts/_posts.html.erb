@@ -22,7 +22,32 @@
             To <%= post.group.nil? ? 'All Company' : link_to(post.group.name.titleize, post.group) %>
         </div>
 
-        <div><%= post.content.humanize %></div>
+        <div><%= post.content %></div>
+        <% if !(post.url_parsed_content.nil?) %>
+          <% post_extra_content = post.url_parsed_content %>
+          <div class = "postExtraContent">
+            <% if !post_extra_content.video_id.nil? %>
+              <div class = "youtubeVideo">
+                <iframe class="youtube-player" type="text/html" width="400" height="300" src="http://www.youtube.com/embed/<%= post_extra_content.video_id %> " allowfullscreen  frameborder="0"></iframe>
+              </div>
+              <div class="youtubeVideoInfo">
+                <%= link_to post_extra_content.title, post_extra_content.url %> 
+              </div>
+            <% end %>
+            
+            <% if !post_extra_content.image_url.nil? %>
+              <div class = "postMedia floatLeft">
+                <%= image_tag(post_extra_content.image_url) %> 
+              </div>
+              <div class = "postMediaInfo">
+                <%= link_to post_extra_content.title, post_extra_content.url %> 
+                <%= link_to post_extra_content.url, post_extra_content.url, class:'smallText opacity5' %>
+              </div>
+            <% end %>
+
+            
+          </div>
+        <% end %>
      
         <div class="postOptions">
 

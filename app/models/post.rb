@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :group
   belongs_to :company
   has_many :likes, dependent: :destroy
-  has_many :url_parsed_content, dependent: :destroy
+  has_one :url_parsed_content, dependent: :destroy
   has_many :comments, dependent: :destroy
   validates :content,:user_id,:company_id, presence: true
 end

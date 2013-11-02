@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)  
-    @post.url_parsed_content << URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
+    @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
     current_user.posts << @post
     respond_to do |format|
       format.html { redirect_to :back }

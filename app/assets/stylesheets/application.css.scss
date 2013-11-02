@@ -301,6 +301,32 @@
   margin: 0.5em 0em 1em 0em;
 }
 
+.postExtraContent
+{
+  margin-top:5%;
+}
+
+.postMedia
+{
+  height:15em;
+  width:40%;
+  display:inline-block;
+}
+
+.postMediaInfo
+{
+  display:inline-block;
+  padding-top:2em;
+  width:40%;
+  height:15em;
+}
+
+.youtubeVideoInfo
+{
+  text-align:center;
+  padding-right:13%;
+}
+
 .posts
 {
   padding-bottom: 0em;
@@ -634,4 +660,12 @@
   height:5em;
   vertical-align: top;
   text-align: center;
+}
+
+/* Opacity */
+
+
+.opacity5
+{
+  opacity: 0.5;
 }

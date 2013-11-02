@@ -46,7 +46,7 @@ if($('#postPreview').length != 1 )
   <% if !(@doc.title.nil?) %>
     $('#postForm').append('<input type="hidden" name="post[extra_content][title]" value="<%=j @doc.title%>"/>')
   <% end %>
-  <% if !(@imageURL.empty?) %>
+  <% if !(@imageURL.nil? || @imageURL.empty?) %>
     $('#postForm').append('<input type="hidden" name="post[extra_content][image_url]" value="<%=j @imageURL%>"/>')
   <% end %>
   <% if !(@video_id.nil?) %>
