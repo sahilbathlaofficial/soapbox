@@ -304,21 +304,22 @@
 .postExtraContent
 {
   margin-top:5%;
+  overflow:hidden;
 }
 
 .postMedia
 {
-  height:15em;
+  max-height:15em;
   width:40%;
   display:inline-block;
+  text-align:center;
 }
 
 .postMediaInfo
 {
   display:inline-block;
-  padding-top:2em;
   width:40%;
-  height:15em;
+  max-height:15em;
 }
 
 .youtubeVideoInfo
@@ -452,6 +453,12 @@
 {
   height:75px;
   width:75px;
+}
+
+.minSizeImage40
+{
+  min-height:40%;
+  min-width:40%;
 }
 
 .atMaxLargeImage

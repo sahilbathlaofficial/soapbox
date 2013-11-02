@@ -37,10 +37,11 @@
             
             <% if !post_extra_content.image_url.nil? %>
               <div class = "postMedia floatLeft">
-                <%= image_tag(post_extra_content.image_url) %> 
+                <%= image_tag(post_extra_content.image_url,class: 'minSizeImage40') %> 
               </div>
               <div class = "postMediaInfo">
                 <%= link_to post_extra_content.title, post_extra_content.url %> 
+                <br>
                 <%= link_to post_extra_content.url, post_extra_content.url, class:'smallText opacity5' %>
               </div>
             <% end %>

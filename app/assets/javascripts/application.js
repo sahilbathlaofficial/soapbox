@@ -212,17 +212,17 @@ $(document).ready(function(){
   setModalMargin();
   extractUrlSynopsis();
 
- window.scrollback = {
-  streams:["vinsol"],
-  theme: 'light',
-  ticker: true,
- };
+ // window.scrollback = {
+ //  streams:["vinsol"],
+ //  theme: 'light',
+ //  ticker: true,
+ // };
  
- /***** don't edit below *****/
- (function(d,s,h,e){e=d.createElement(s);e.async=1;
- e.src=h+'/client.min.js';scrollback.host=h;
- d.getElementsByTagName(s)[0].parentNode.appendChild(e);}
- (document,'script',location.protocol+'//scrollback.io'));
+ // /***** don't edit below *****/
+ // (function(d,s,h,e){e=d.createElement(s);e.async=1;
+ // e.src=h+'/client.min.js';scrollback.host=h;
+ // d.getElementsByTagName(s)[0].parentNode.appendChild(e);}
+ // (document,'script',location.protocol+'//scrollback.io'));
 
 // $('body').delegate('.scrollback-title-content','click',function(){
 //   $('.scrollback-nick-guest').parent().children('div:first').remove()
