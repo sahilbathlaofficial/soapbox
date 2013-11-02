@@ -38,7 +38,7 @@ if($('#postPreview').length != 1 )
   <% end %>
   // extract title and url
   var title = '<%= j link_to((@doc.title||''), @url) %>';
-  var url = '<%= link_to @url, @url,class: "smallText" %>';
+  var url = '<%= link_to truncate(@url, length:100), @url,class: "smallText" %>';
   $('#postPreview').append('<div>' + title + '</div><div>' + url + '</div>')
 
   //append hidden fields in the form corresponding to the extra content

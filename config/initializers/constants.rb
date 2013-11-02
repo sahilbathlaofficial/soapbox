@@ -1,0 +1,1 @@
+URLRegex = /(((https?:\/\/)|(www))[\S]+)/

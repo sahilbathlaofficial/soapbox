@@ -22,7 +22,9 @@
             To <%= post.group.nil? ? 'All Company' : link_to(post.group.name.titleize, post.group) %>
         </div>
 
-        <div><%= post.content %></div>
+        <div>
+          <%= sanitize(post.content.gsub(URLRegex) {|url| "<a href='#{url}'>#{truncate(url, length:60)}</a>" }, tags: %w(a)) %>
+        </div>
         <% if !(post.url_parsed_content.nil?) %>
           <% post_extra_content = post.url_parsed_content %>
           <div class = "postExtraContent">

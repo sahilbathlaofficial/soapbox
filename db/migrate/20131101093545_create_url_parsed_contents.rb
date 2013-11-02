@@ -5,9 +5,9 @@ class CreateURLParsedContents < ActiveRecord::Migration
       t.references :user, index: true
       t.string :title
       t.string :description
-      t.string :image_url
+      t.text :image_url
       t.string :video_id
-      t.string :url
+      t.text :url
 
       t.timestamps
     end
