@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   #FIXME_AB: No need to use ActionController::Base.helpers.asset_path just pass 'missing.jpg' because in any way we will be using image_tag to display the image, which will take care of this
   #[Fixed]
 
-  has_attached_file :avatar, :styles => { :large=> "200x200>", :medium => "100x100>", :thumb => "25x25>" }, :default_url => 'missing.png'
+  has_attached_file :avatar, :default_url => 'missing.png'
 
   validates :email, presence: true
   validates :email, uniqueness: true

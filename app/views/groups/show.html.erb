@@ -3,18 +3,7 @@
 
   <% if current_user.groups.include?(@group) %>
     <div id="postContainer">
-      <div id="composePost">
-        <%= form_tag '/posts',id: 'postForm' do %>
-          <%= text_field_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText", autocomplete: "off" %>
-          <%= hidden_field_tag 'post[group_id]', @group.id  %>
-          <div class="composePostContentOptions">
-            <div class="rightAlign"> 
-              <!-- <span class="smallText"> Group <%= @group.name.humanize %> </span>  -->
-              <%= submit_tag 'Post',class: 'btn-success postButton' %>
-            </div>
-          </div>
-        <% end %>
-      </div> <!-- end of compose post -->
+      <%= render partial: 'posts/compose_post',locals: { not_posting_in_a_group: false } %>
     </div> <!-- end of post container -->
 
       <%= render partial: 'posts/posts', locals: {posts: @group.posts} %>
