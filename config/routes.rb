@@ -17,6 +17,7 @@ AppName.constantize::Application.routes.draw do
     get 'show_followers' , on: :member
     get 'wall', on: :member
     get 'autocomplete', on: :collection
+    get 'tag_list',on: :collection
   end
   
   resources :company

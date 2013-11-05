@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131101093545) do
+ActiveRecord::Schema.define(version: 20131105123414) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -82,6 +82,15 @@ ActiveRecord::Schema.define(version: 20131101093545) do
   add_index "likes", ["post_id"], name: "index_likes_on_post_id", using: :btree
   add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
+  create_table "notifications", force: true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
   create_table "posts", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -89,6 +98,7 @@ ActiveRecord::Schema.define(version: 20131101093545) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "company_id"
+    t.string   "tags"
   end
 
   add_index "posts", ["group_id"], name: "index_posts_on_group_id", using: :btree

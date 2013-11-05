@@ -42,12 +42,13 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   end
+
   def set_parsed_content
    params[:post][:extra_content].permit!
   end
 
   def post_params
-    params.require(:post).permit(:content, :group_id).merge({ company_id: current_company.id })
+    params.require(:post).permit(:content, :group_id, :tags).merge({ company_id: current_company.id })
   end
 
 end

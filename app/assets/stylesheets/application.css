@@ -387,13 +387,40 @@
 }
 
 .composePostContentOptions
-{
+{ 
+  position: relative;
+  top:-1px;
   background-color: white;
   border-radius: 0.5em;
   min-height: 3em;
   padding-top: 1em;
   width:100%;
   text-align:right;
+}
+
+#userTagList
+{
+  width:inherit;
+  position: relative;
+  margin-top: -1em;
+  margin-bottom: 1em;
+  border: 2px solid grey;
+  margin-left: -1px;
+  border-top: 2px dashed grey;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+#userTagList a:hover
+{
+
+  background: none;
+  color: blue;
+}
+
+.tags
+{
+  color: blue !important;
 }
 
 
@@ -503,7 +530,7 @@
 .settingsImage
 {
   display:inline-block;
-  background: image-url('twitter_sprite.png');
+  background-image: url('/assets/twitter_sprite.png');
   background-position: 450px 1250px;
   height:30px;
   width:40px;
@@ -516,7 +543,7 @@
 
 #homeSprite
 {
-  background: image-url('twitter_sprite.png');
+  background-image: url('/assets/twitter_sprite.png');
   background-position: 310px 1255px;
   height:30px;
   width:40px;
@@ -536,7 +563,7 @@
 
 #meSprite
 {
-  background: image-url('twitter_sprite.png');
+  background-image: url('/assets/twitter_sprite.png');
   background-position: 490px 1255px;
   height:30px;
   width:40px;
@@ -556,7 +583,7 @@
 
 #notificationSprite
 {
-  background: image-url('twitter_sprite.png');
+  background-image: url('/assets/twitter_sprite.png');
   background-position: 490px 780px;
   height:30px;
   width:40px;

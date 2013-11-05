@@ -20,31 +20,6 @@
 
 search_terms = []
 
-checkUrlPresence = function(text)
-{
-
-  console.log(text);
-  if($('#postPreview').length != 1 && $('#loadingPostPreview').length != 1 )
-  {
-    if(x = text.match(/((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>"\,\{\}\\|\\\^\[\]`]+)?\s/))
-    { 
-      $('.composePostContentOptions').prepend('<div id="loadingPostPreview" class="centerAlignText"><img src="/assets/loading.gif" class="mediumImage" /></div>');
-      $.get("/posts/extract_url_content",{ url: x[0] }).done(function() { $('#loadingPostPreview').remove(); })
-      .fail(function(){
-       $('#loadingPostPreview').html("Parse Error");
-       window.setTimeout(function() { $('#loadingPostPreview').remove() },1000)
-     });
-    }
-  }
-
-}
-
-extractUrlSynopsis = function() {
-  $('#composePostContent').keyup(function(){
-    checkUrlPresence($(this).val())
-  })
-}
-
 setModalMargin =  function() {
   $('#profilePicContainer').ready(function() {
     $modal = $('#profilePicContainer');
@@ -210,7 +185,6 @@ $(document).ready(function(){
   focusOnComments();
   notificationCheck();
   setModalMargin();
-  extractUrlSynopsis();
 
  // window.scrollback = {
  //  streams:["vinsol"],

@@ -6,7 +6,6 @@
         <%= link_to image_tag(post.user.avatar, class: 'mediumImage'), post.user %>
       </div>
       <div class="postContent largeText">
-
         <div class="postAuthorContainer"><%= link_to post.user.name, post.user, class: 'postAuthor' %>
           <div class="postTime smallText">
             <%= post.created_at.to_formatted_s(:short) %>
@@ -23,6 +22,12 @@
         </div>
 
         <div>
+          <%if !(post.tags.nil?) %>
+            <% for user in extract_tags_from_post(post.tags) %>
+               <% post.content.gsub!(/#{user.name}/i) {|user_name|  link_to(user_name, user_path(id: user.id), class: 'tags') } %> 
+            <% end %>
+          <% end %>
+
           <%= sanitize(post.content.gsub(URLRegex) {|url| "<a href='#{url}'>#{truncate(url, length:60)}</a>" }, tags: %w(a)) %>
         </div>
         <% if !(post.url_parsed_content.nil?) %>

@@ -42,6 +42,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def tag_list
+    users = current_user.followers + current_user.followees + [current_user] 
+    @users = User.where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  params[:query].downcase, users).limit(5)
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   protected
 
 

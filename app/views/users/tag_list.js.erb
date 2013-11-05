@@ -1,0 +1,28 @@
+$('#userTagList').remove();
+<% if !(@users.empty?) %>
+  var result = '';
+  $('#composePostContent').after('<div id="userTagList" class="generalContainer"></div>');
+  <% for user in @users %>
+    result += '<div class="userTagList"><%= j link_to(user.name, user, data: {id: user.id})%></div>'
+  <% end %>
+  $('#userTagList').html(result);
+
+  $('body').bind('click keyup', function(event){
+    if(event.type == 'click' || event.keyCode == 27)
+      $('#userTagList').remove(); 
+  });
+
+  $('.userTagList a').click(function(e){
+    hidden_post_tags_field = $('#postTags');
+    e.preventDefault();
+    if(hidden_post_tags_field.length ==1)
+      hidden_post_tags_field.val(hidden_post_tags_field.val() + ' ' + $(this).attr('data-id'))
+    else
+      $('.composePostContentOptions').append('<input type="hidden" id="postTags" name="post[tags]" value="'+ $(this).attr('data-id') +'" />')
+    str = '@<%=params[:query]%>'.replace(/\%/g,'');
+    $('#composePostContent').val($('#composePostContent').val().replace(str,$(this).text()))
+    $('#userTagList').remove();
+
+  });
+<%end%>
+
