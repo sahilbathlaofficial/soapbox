@@ -14,9 +14,8 @@ $(document).ready(function(){
     {
       $('.commentText').each(function(){
         $(this).autosize();
-        position_compose_comment = $(this).position();
-        $(this).prev('.composeTextCopy').css('top',position_compose_comment.top - 64)
-        .css('left', position_compose_comment.left + 5 ).width($(this).width())
+        $(this).prev('.composeTextCopy').css('top', 22)
+        .css('left', 11.5 ).width($(this).width())
       })
     }
   }
@@ -31,6 +30,7 @@ $(document).ready(function(){
 addUserTags = function(e) {
   
   $('#composePostContent, .commentText').keyup(function(e){
+
     // $('.tagBackground').remove();
     // position_compose_post = $('#composePostContent').position();
     // position_of_tag = ($('#composePostContent').val().length)*6;
@@ -65,7 +65,17 @@ addUserTags = function(e) {
     {
       $('#userTagList').remove();
     }
+
+    // maintaining overflow of commentbox(as they are relative :() 
+    if($(this).hasClass('commentText'))
+      {
+        $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height()))
+    }
+
   })
+
+  
+  
 }
 
  

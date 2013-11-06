@@ -1,8 +1,14 @@
 <% for comment in post.comments %>
 <div class="comments">
+  <%if !(comment.tags.nil?) %>
+    <% for user in extract_tags_from_comment(comment.tags) %>
+       <% comment.content.gsub!(/#{user.name}/i) {|user_name|  link_to(user_name, user_path(id: user.id), class: 'tags') } %> 
+    <% end %>
+  <% end %>
+
   <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
   <%= link_to comment.user.name, comment.user %>:
-  <%= comment.content  %>
+  <%= sanitize(comment.content,tags: %w(a))  %>
   <% if(comment.user == current_user) %>
   
   <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
@@ -15,6 +21,7 @@
     <div class="composeCommentContainer">
       <div class="composeTextCopy smallText"></div>
       <%= text_area_tag :content, '', id: 'commentContent' + post.id.to_s, placeholder: 'Enter your comment..',class: 'commentText smallText',autocomplete: "off" %>
+      <%= submit_tag "Comment" %>
     </div>
   <% end %>
 

@@ -436,11 +436,17 @@
 }
 /* end of likes */
 
+/* Post and comment copy text styles */
 #composePostCopy, .composeTextCopy
 {
   visibility: hidden;
-  position: absolute;
+  position: relative;
   z-index: 10;
+}
+
+#composePostCopy
+{
+  position: absolute;
 }
 
 #composePostContainer
@@ -453,7 +459,7 @@
 }
 
 
-#composePostContent, .commentText
+#composePostContent
 {
   background: none;
   position: relative;
@@ -466,13 +472,17 @@
 
 .commentText
 {
+  position: relative;
+  top: 1em !important;
+  z-index: 1000;
   border: 2px solid #eee;
+  background: none;
 }
 
 
-#composePostCopy, #composePostContent
+#composePostCopy, #composePostContent, .composeTextCopy, .commentText
 {
-  line-height: 18px;
+  line-height: 18px !important;
 }
 
 .tagBackground
@@ -481,7 +491,7 @@
   opacity: 0.5;
   visibility: visible;
 }
-
+/* end of copy of post and comment fields for tag */
 
 #groupSelect
 {
@@ -516,9 +526,9 @@
 
 .commentText
 {
-  width:70%;
+  width:90%;
   vertical-align: top;
-  padding: 0em 0.4em !important;
+  padding: 2% 2% 0% 2%;
 }
 
 /* images height */

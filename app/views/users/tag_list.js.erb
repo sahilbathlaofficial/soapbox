@@ -27,9 +27,12 @@ $('#userTagList').remove();
       hidden_post_tags_field.attr('data-name',hidden_post_tags_field.attr('data-name') + $(this).attr('data-name') + '-')
     }
     else
+    {
       // add new hidden field
-      $('#' + selected_text_field).after('<input type="hidden" class="postTags" name="post[tags]" value="'+ $(this).attr('data-id') +'" data-name= "'+ $(this).attr('data-name') +'-" />')
-    
+      var tag_type = $('#' + selected_text_field).hasClass('commentText') ? 'tags' : 'post[tags]'
+      $('#' + selected_text_field).after('<input type="hidden" class="postTags" name="' + tag_type + '" value="'+ $(this).attr('data-id') +'" data-name= "'+ $(this).attr('data-name') +'-" />')
+    }
+ 
     //replace text input from username
     str = '@<%=params[:query]%>'.replace(/\%/g,'');
     $('#' + selected_text_field).val($('#' + selected_text_field).val().replace(str, $(this).text()))

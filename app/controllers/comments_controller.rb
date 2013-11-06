@@ -68,6 +68,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.permit(:content).merge( { user_id: current_user.id } )
+    params.permit(:content, :tags).merge( { user_id: current_user.id } )
   end
 end
