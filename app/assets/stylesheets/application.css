@@ -241,6 +241,7 @@
   border-top: none;
   background: white;
   height: 2.8em;
+  margin-bottom: 2%;
 }
 
 
@@ -383,7 +384,13 @@
 
 #composePostContent
 {
+  background: none;
+  position: relative;
+  z-index: 1000;
+  padding-bottom: 0%;
+  padding-top: 2%; 
   border: none;
+  margin: 0px !important; 
 }
 
 .composePostContentOptions
@@ -402,7 +409,6 @@
 {
   width:inherit;
   position: relative;
-  margin-top: -1em;
   margin-bottom: 1em;
   border: 2px solid grey;
   margin-left: -1px;
@@ -421,6 +427,34 @@
 .tags
 {
   color: blue !important;
+}
+
+#composePostCopy
+{
+  visibility: hidden;
+  position: absolute;
+  z-index: 10;
+}
+
+#composePostContainer
+{
+  background: white;
+  margin-bottom: 2%;
+  padding: 0px !important;
+  border-radius: 0.8em;
+
+}
+
+#composePostCopy, #composePostContent
+{
+  line-height: 18px;
+}
+
+#composePostCopy .tagBackground
+{
+  background: blue !important;
+  opacity: 0.5;
+  visibility: visible;
 }
 
 
@@ -615,6 +649,8 @@
   width:400%;
   padding:10%;
   border: 2px solid grey;
+  position: relative;
+  z-index: 10000;
 }
 
 #newNotificationMsg

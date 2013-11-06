@@ -32,19 +32,46 @@ $(document).ready(function(){
   }
 
   addUserTags = function(e) {
+  
     $('#composePostContent').keyup(function(e){
-      if(user_hint = $(this).val().match(/[^\w]@(.+)/) || (user_hint = $(this).val().match(/^@(.+)/)) )
+      // $('.tagBackground').remove();
+      // position_compose_post = $('#composePostContent').position();
+      // position_of_tag = ($('#composePostContent').val().length)*6;
+      // $('<div class="tagBackground"></div>').css('top', position_compose_post.top+22)
+      // .css('left', position_compose_post.left+7 ).width(position_of_tag)
+      // .appendTo($('body'));
+
+      text_input = $(this).val();
+      previous_content = $('#composePostCopy').html();
+
+      $('#composePostCopy').html('').html($('#composePostContent').val());
+
+      if($('#postTags').length == 1 )
+      {
+        value = $('#postTags').attr('data-name').split('-')
+        for(i = 0; i < value.length; i++)
+        {
+          $('#composePostCopy').html($('#composePostCopy').html().replace(value[i],'<span class="tagBackground">' + value[i] + '</span>'));
+        }
+      }
+  
+      if(user_hint = text_input.match(/[^\w]@(.+)/) || (user_hint = text_input.match(/^@(.+)/)) )
       {  
         if(e.keyCode != 27)
           provideUserTagList(user_hint[1]);
       }
       else
       {
+        position_compose_post = $('#composePostContent').position();
         $('#userTagList').remove();
       }
     })
   }
 
+  $('#composePostContent').autosize();
+  position_compose_post = $('#composePostContent').position();
+  $('#composePostCopy').css('top',position_compose_post.top+12)
+  .css('left', position_compose_post.left+6.5 ).width($('#composePostContent').width())
   extractUrlSynopsis();
   addUserTags();
 
