@@ -382,16 +382,6 @@
   margin-right: 0.4em;
 }
 
-#composePostContent
-{
-  background: none;
-  position: relative;
-  z-index: 1000;
-  padding-bottom: 0%;
-  padding-top: 2%; 
-  border: none;
-  margin: 0px !important; 
-}
 
 .composePostContentOptions
 { 
@@ -446,7 +436,7 @@
 }
 /* end of likes */
 
-#composePostCopy
+#composePostCopy, .composeTextCopy
 {
   visibility: hidden;
   position: absolute;
@@ -462,12 +452,30 @@
 
 }
 
+
+#composePostContent, .commentText
+{
+  background: none;
+  position: relative;
+  z-index: 1000;
+  padding-bottom: 0%;
+  padding-top: 2%; 
+  border: none;
+  margin: 0px !important; 
+}
+
+.commentText
+{
+  border: 2px solid #eee;
+}
+
+
 #composePostCopy, #composePostContent
 {
   line-height: 18px;
 }
 
-#composePostCopy .tagBackground
+.tagBackground
 {
   background: blue !important;
   opacity: 0.5;

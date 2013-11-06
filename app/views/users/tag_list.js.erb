@@ -1,7 +1,9 @@
+// remove previous results
 $('#userTagList').remove();
 <% if !(@users.empty?) %>
   var result = '';
-  $('#composePostContent').after('<div id="userTagList" class="generalContainer"></div>');
+  var selected_text_field = '<%= params[:text_box_id]%>'
+  $('#' + selected_text_field).after('<div id="userTagList" class="generalContainer"></div>');
   <% for user in @users %>
     result += '<div class="userTagList"><%= j link_to(user.name, user, data: {id: user.id, name: user.name})%></div>'
   <% end %>
@@ -16,18 +18,23 @@ $('#userTagList').remove();
   // adding a tag 
   $('.userTagList a').click(function(e){
 
-    hidden_post_tags_field = $('#postTags');
     e.preventDefault();
-    if(hidden_post_tags_field.length == 1)
+
+    if($('#' + selected_text_field).siblings('.postTags').length == 1)
     {
+      hidden_post_tags_field = $('#' + selected_text_field).siblings('.postTags');
       hidden_post_tags_field.val(hidden_post_tags_field.val() + ' ' + $(this).attr('data-id'))
       hidden_post_tags_field.attr('data-name',hidden_post_tags_field.attr('data-name') + $(this).attr('data-name') + '-')
     }
     else
-      $('.composePostContentOptions').append('<input type="hidden" id="postTags" name="post[tags]" value="'+ $(this).attr('data-id') +'" data-name= "'+ $(this).attr('data-name') +'-" />')
+      // add new hidden field
+      $('#' + selected_text_field).after('<input type="hidden" class="postTags" name="post[tags]" value="'+ $(this).attr('data-id') +'" data-name= "'+ $(this).attr('data-name') +'-" />')
+    
+    //replace text input from username
     str = '@<%=params[:query]%>'.replace(/\%/g,'');
-    $('#composePostContent').val($('#composePostContent').val().replace(str, $(this).text()))
-    $('#composePostCopy').html($('#composePostCopy').html().replace(str,'<span class="tagBackground">' + $(this).text() + '</span>'))
+    $('#' + selected_text_field).val($('#' + selected_text_field).val().replace(str, $(this).text()))
+    $('#' + selected_text_field).prev('.composeTextCopy').html($('#' + selected_text_field).prev('.composeTextCopy').html().replace(str,'<span class="tagBackground">' + $(this).text() + '</span>'))
+    // remove the tag list
     $('#userTagList').remove();
 
   });

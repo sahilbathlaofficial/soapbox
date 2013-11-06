@@ -1,10 +1,12 @@
 <% not_posting_in_a_group = true if not_posting_in_a_group.nil? %>
 <div id="composePost">
   <%= form_tag '/posts',id: 'postForm' do %>
+
     <div id="composePostContainer">
-      <div id="composePostCopy" class="normalText"></div>
+      <div id="composePostCopy" class="composeTextCopy normalText"></div>
       <%= text_area_tag 'post[content]', '', placeholder: 'Start a conversation...', id: 'composePostContent', class: "normalText", autocomplete: "off" %>
     </div> 
+
     <div class="composePostContentOptions">
       <div>
         <% if not_posting_in_a_group %> 
