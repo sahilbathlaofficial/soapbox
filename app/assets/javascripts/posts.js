@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+  setPostContentBox = function()
+  {
+    if($('composePostContent').length === 1)
+    {
+      $('#composePostContent').autosize();
+      position_compose_post = $('#composePostContent').position();
+      $('#composePostCopy').css('top',position_compose_post.top+12)
+      .css('left', position_compose_post.left+6.5 ).width($('#composePostContent').width())
+    }
+  }
+  
   checkUrlPresence = function(text)
   {
 
@@ -68,10 +79,7 @@ $(document).ready(function(){
     })
   }
 
-  $('#composePostContent').autosize();
-  position_compose_post = $('#composePostContent').position();
-  $('#composePostCopy').css('top',position_compose_post.top+12)
-  .css('left', position_compose_post.left+6.5 ).width($('#composePostContent').width())
+  setPostContentBox();
   extractUrlSynopsis();
   addUserTags();
 
