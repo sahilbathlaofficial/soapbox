@@ -35,10 +35,11 @@ setModalMargin =  function() {
   });
 }
 
+/* notifications */
+
 notificationCheck = function() {
   window.setInterval(fetchNotification, 1000);
 }
-
 
 fetchNotification = function() {
   if($('#newNotificationMsg').length != 1)
@@ -52,14 +53,17 @@ fetchNotification = function() {
         blinkEvent = window.setInterval(function() {
           $('#notificationSprite').toggleClass('blink');
         }, 500)
-          $('#notificationSprite').click(function(){
-            window.clearInterval(blinkEvent);
-            $('#notificationSprite').removeClass('blink');
-          })
+        
+        $('#notificationSprite').click(function(){
+          window.clearInterval(blinkEvent);
+          $('#notificationSprite').removeClass('blink');
+        })
       }
     });
   }
 }
+
+/* end of notifications js */
 
 showPostOptionsOnClick = function() {
   $('.composePostContentOptions').hide();
@@ -176,6 +180,7 @@ autoFetchUsers = function() {
 
 }
 
+
 $(document).ready(function(){
   sideBarHeightHandler();
   groupHandler(); 
@@ -185,6 +190,7 @@ $(document).ready(function(){
   focusOnComments();
   notificationCheck();
   setModalMargin();
+  
 
  // window.scrollback = {
  //  streams:["vinsol"],

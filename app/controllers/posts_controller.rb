@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
 
-  before_action :set_post, only: :destroy
+  before_action :set_post, only: [:destroy, :show]
 
   def create
     @post = Post.new(post_params)  
@@ -16,6 +16,13 @@ class PostsController < ApplicationController
       if @post.destroy
         redirect_to :back
       end
+    end
+  end
+
+  def show
+    respond_to do |format|
+      format.html { redirect_to_back_or_default_url }
+      format.js {}
     end
   end
 

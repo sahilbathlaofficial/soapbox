@@ -2,5 +2,5 @@
 <% if !(activity.trackable.nil?) %>
   <%= image_tag activity.trackable.user.avatar, class: 'thumbnailImage'  %>
   <%= link_to(activity.trackable.user.name, activity.trackable.user) %> comment on your
-  <%= link_to("post", activity.trackable.post) %>
+  <%= link_to("post", post_path(activity.trackable.post), class: "notificationModalShow", data: {toggle: "modal"}, role: "button") %>
 <% end %>

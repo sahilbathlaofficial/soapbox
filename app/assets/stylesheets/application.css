@@ -425,9 +425,9 @@
 
 /* likes */
 
-.likesContainer
+.likesContainer, #notificationModalView
 {
-  margin-top: 15% !important;
+  margin-top: 12% !important;
 }
 
 .likesContent
@@ -468,15 +468,21 @@
   padding-top: 2%; 
   border: none;
   margin: 0px !important; 
+  resize: none !important;
 }
 
 .commentText
 {
+  width:78%;
+  vertical-align: top;
+  padding-bottom: 0%;
+  padding-top: 2%;
   position: relative;
   top: 1em !important;
   z-index: 1000;
   border: 2px solid #eee;
   background: none;
+  resize: none !important;
 }
 
 
@@ -524,11 +530,11 @@
   margin-top: 0.8em;
 }
 
-.commentText
+
+.commentSubmit
 {
-  width:90%;
-  vertical-align: top;
-  padding: 2% 2% 0% 2%;
+  width: 15% !important;
+  margin: 3% 0% 0% 0%;
 }
 
 /* images height */

@@ -1,3 +1,15 @@
+setDynamicModalShow = function() {
+  $('.notificationModalShow').bind('click', function(event)
+  {
+    event.preventDefault();
+    event.stopPropagation();
+    $('#notificationModalView').modal('show');
+    $('#notificationsResult').hide();
+    $.ajax({url: $(this).attr('href'),dataType: 'script'})
+  });
+}
+
+
 <% if !(@notifications.empty?) %>
   $('#notificationSpriteContent').html('').append('<div id="notificationsResult" class="generalContainer"></div>');
   <% @notifications.each do |notification| %>
@@ -22,6 +34,8 @@
     event.stopPropagation();
     $('#notificationsResult').show();
   });
+
+  setDynamicModalShow();
 
 <% else %>
   alert('No notifications for you!!');

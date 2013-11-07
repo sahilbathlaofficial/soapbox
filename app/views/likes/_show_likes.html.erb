@@ -1,0 +1,25 @@
+<div class="postLikes rightAlign">
+  
+  <% like_div_id = 'likesContainer' + post.id.to_s %>
+  <%= link_to pluralize(post.likes.count, "Like"), '#' + like_div_id, id: "like_post_#{post.id.to_s}_count", role: 'button', data: {toggle: 'modal'} %>
+  
+  <div id='<%= like_div_id%>' class="modal hide fade likesContainer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">Likes</h3>
+    </div>
+    
+    <div class="modal-body">
+      <% for like in post.likes %>
+        <div class="likesContent">
+          <%= link_to image_tag(like.user.avatar, class: 'thumbnailImage'), like.user %>
+          <%= link_to like.user.name, like.user %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="modal-footer">
+    </div>
+
+  </div> <!-- end of likesContainer -->
+</div> <!-- end of postLikes -->

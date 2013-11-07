@@ -9,10 +9,10 @@ AppName.constantize::Application.routes.draw do
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 
-  resources :posts
+  resources :posts, only: [:create, :destroy, :show]
   resources :notifications, only: [:index]
 
-  resources :users do
+  resources :users, only: [:edit, :update, :show] do
     get 'show_followees' , on: :member
     get 'show_followers' , on: :member
     get 'wall', on: :member
@@ -20,11 +20,10 @@ AppName.constantize::Application.routes.draw do
     get 'tag_list',on: :collection
   end
   
-  resources :company
-  resources :groups 
-  resources :group_membership
-  resources :likes
-  resources :comments
+  resources :groups, only: [:create, :index, :show]
+  resources :group_membership, only: [:create, :destroy, :index]
+  resources :likes, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
 
 
   devise_for :user, controllers: {

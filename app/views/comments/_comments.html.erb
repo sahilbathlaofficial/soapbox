@@ -18,10 +18,12 @@
 <% end %>
 <div class="createComment">
   <%= form_tag comments_path(post_id: post.id) do %>
+    <div>
+        <%= submit_tag "Comment", class: 'btn-success commentSubmit smallText rightAlign' %>
+    </div>
     <div class="composeCommentContainer">
       <div class="composeTextCopy smallText"></div>
       <%= text_area_tag :content, '', id: 'commentContent' + post.id.to_s, placeholder: 'Enter your comment..',class: 'commentText smallText',autocomplete: "off" %>
-      <%= submit_tag "Comment" %>
     </div>
   <% end %>
 

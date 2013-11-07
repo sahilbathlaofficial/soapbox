@@ -7,15 +7,15 @@ $(document).ready(function(){
       $('#composePostContent').autosize();
       position_compose_post = $('#composePostContent').position();
       $('#composePostCopy').css('top',position_compose_post.top + 12)
-      .css('left', position_compose_post.left+6.5 ).width($('#composePostContent').width())
+      .css('left', position_compose_post.left + 6.5 ).width($('#composePostContent').width())
     }
 
     if($('.commentText').length >= 1)
     {
       $('.commentText').each(function(){
         $(this).autosize();
-        $(this).prev('.composeTextCopy').css('top', 22)
-        .css('left', 11.5 ).width($(this).width())
+        $(this).prev('.composeTextCopy').css('top', 20)
+        .css('left', 8).width($(this).width())
       })
     }
   }
@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 addUserTags = function(e) {
   
-  $('#composePostContent, .commentText').keyup(function(e){
+  $(document).on('keyup','#composePostContent, .commentText', function(e){
 
     // $('.tagBackground').remove();
     // position_compose_post = $('#composePostContent').position();
@@ -70,6 +70,7 @@ addUserTags = function(e) {
     if($(this).hasClass('commentText'))
       {
         $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height()))
+        $(this).next('input').css('margin-top', -($(this).prev('div.composeTextCopy').height()))
     }
 
   })
