@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
+  include NotificationConcern
+
   before_action :set_comments, only: [:destroy]
 
   def create
     #FIXME_AB: You are relying on th post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
-    begin
-      @post = Post.find(params[:post_id])
-    rescue ActiveRecord::RecordNotFound
+    @post = Post.find_by(id: params[:post_id])
+    if(@post.nil?)  
       redirect_to_back_or_default_url
       flash[:notice] = "Post not found"
       return false
@@ -17,7 +18,9 @@ class CommentsController < ApplicationController
       respond_to do |format|
         #FIXME_AB: Don't use redirect_to :back. Instead you should make a helper method redirect_to_back_or_default. Which will check if HTTP_REFERER is present then will do the redirect_to :back else will redirect to the url passed to this funciton. Default will be root_path
         #[Fixed]
-        @post.comments.last.create_activity key: 'comment.create', owner: @post.user
+        
+        add_notifications(@post)
+
         format.html { redirect_to_back_or_default_url }
       end
     else
@@ -60,14 +63,20 @@ class CommentsController < ApplicationController
   def set_comments
     #FIXME_AB: What if the comment is not found with this id?
     #[Fixed]
-    begin
-      @comment = Comment.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to_back_or_default
-    end
+      @comment = Comment.find_by(id: params[:id])
+      redirect_to_back_or_default_url if(@comment.nil?)
   end
 
   def comment_params
     params.permit(:content, :tags).merge( { user_id: current_user.id } )
   end
+
+  def add_notifications(post)
+    @post = post
+    @post.comments.last.create_activity key: 'comment.create', owner: @post.user
+      SoapBoxMailer.comment_email(@post.user, current_user, @post).deliver
+      if !(@post.comments.last.tags.nil?)
+        notify_tagged_users(@post.comments.last.tags, @post)
+      end
+    end
 end

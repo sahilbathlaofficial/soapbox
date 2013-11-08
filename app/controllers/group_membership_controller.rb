@@ -33,11 +33,8 @@ before_action :set_group, only: [:create, :destroy, :index]
   protected
 
   def set_group
-    begin
-      @group = Group.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to_back_or_default_url
-    end 
+    @group = Group.find_by(id: params[:id])
+    redirect_to_back_or_default_url if(@group.nil?)
   end
 
 end

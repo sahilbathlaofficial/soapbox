@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  include NotificationConcern
 
   before_action :set_post, only: [:destroy, :show]
 
@@ -6,6 +7,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)  
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
     current_user.posts << @post
+    if !(@post.tags.nil?)
+      notify_tagged_users(@post.tags, @post)
+    end
     respond_to do |format|
       format.html { redirect_to :back }
     end
@@ -21,7 +25,7 @@ class PostsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { redirect_to_back_or_default_url }
+      format.html {}
       format.js {}
     end
   end
@@ -47,7 +51,8 @@ class PostsController < ApplicationController
   protected
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(params[:id])
+    redirect_to_back_or_default_url if(@post.nil?)
   end
 
   def set_parsed_content

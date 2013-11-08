@@ -36,19 +36,15 @@ class GroupsController < ApplicationController
   end
 
   def set_group
-    begin
-      @group = Group.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to_back_or_default_url
-      #return false to not execute the further code
-      return false
-    end 
-
-    if !(@group.company_id == current_user.company_id)
-     respond_to do |format|
-        format.html { redirect_to '/', notice: "Group doesn't exist" }
-      end 
-    end  
+    @group = Group.find_by(id: params[:id])
+    if(@group.nil? || group.company_id != current_user.company_id)
+      respond_to do |format|
+        format.html do 
+          flash[:notice] = "Group doesn't exist" 
+          redirect_to_back_or_default_url
+        end
+      end  
+    end
   end
 
 end

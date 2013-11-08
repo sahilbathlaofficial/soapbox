@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  include PublicActivity::Common
   belongs_to :user
   belongs_to :group
   belongs_to :company

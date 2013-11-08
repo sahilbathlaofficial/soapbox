@@ -7,7 +7,7 @@ class LikesController < ApplicationController
       if(@like.save)  
         format.js {}
       else
-        format.js { falsh[:notice] = 'Like not saved'}
+        format.js { flash[:notice] = 'Like not saved'}
       end
     end
   end
@@ -29,8 +29,8 @@ class LikesController < ApplicationController
 
   def like_params
     begin
-      User.find(params[:user_id])
-      Post.find(params[:post_id])
+      User.find_by(id: params[:user_id])
+      Post.find_by(id: params[:post_id])
     end
     params.permit(:user_id, :post_id)
   end

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hey, <%= @user.name %></h1>
+    <p>
+      <%= link_to(@commentor.name.titleize, url_for(host: "localhost:3000", controller: "users", action: 'show', id: @commentor.id) ) %> 
+        commented on your <%= link_to 'post', url_for(host: "localhost:3000", controller: "posts", action: 'show', id: @post.id)  %> 
+    </p>
+    <hr/>
+    <p>This is a system generated e-mail, Kindly do not reply </p>
+  </body>
+</html>

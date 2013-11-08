@@ -37,5 +37,9 @@ module AuthenticationConcern
       current_user.save
     end
   end
+
+  def send_welcome_email
+    SoapBoxMailer.welcome_email(current_user).deliver
+  end
     
 end

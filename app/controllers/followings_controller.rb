@@ -11,6 +11,7 @@ class FollowingsController < ApplicationController
         #[Fixed] Added public activities
         format.html do
           @following.create_activity key: 'following.create', owner: @following.followee
+          SoapBoxMailer.following_email(@following.followee, current_user).deliver
           flash[:notice] = "You are now following #{ @following.followee.firstname } " 
           redirect_to_back_or_default_url 
         end
@@ -37,11 +38,8 @@ class FollowingsController < ApplicationController
   protected
 
     def set_following
-      begin
-        @following = current_user.followings.find_by(followee_id: params[:followee_id])
-      rescue ActiveRecord::RecordNotFound
-        redirect_to_back_or_default_url
-      end
+      @following = current_user.followings.find_by(followee_id: params[:followee_id])
+      redirect_to_back_or_default_url if(@following.nil?)
     end
 
     def following_params

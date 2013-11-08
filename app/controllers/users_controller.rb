@@ -4,7 +4,8 @@ class UsersController < ApplicationController
 
   def show
     if(current_user.company_id != @user.company_id)
-      redirect_to '/'
+      flash[:notice] = 'User doesn\'t exist'
+      redirect_to root_path
     end
   end
 
@@ -23,7 +24,7 @@ class UsersController < ApplicationController
   def wall
     users = current_user.followees + [current_user]
     groups = current_user.groups 
-    @posts = Post.where('user_id in (?) or group_id in (?) or group_id is ?', users, groups, nil).order('created_at DESC')
+    @posts = Post.where('user_id in (?) or group_id in (?) or (group_id is ? and company_id = ?)', users, groups, nil, current_user.company_id).order('created_at DESC')
   end
 
   def show_followees
@@ -55,7 +56,8 @@ class UsersController < ApplicationController
 
   def set_user
     if(params[:id])
-      @user = User.find(params[:id])
+      @user = User.find_by(id: params[:id])
+      redirect_to_back_or_default_url if(@user.nil?)
     else
       redirect_to(wall_user_path(current_user))
     end
