@@ -222,7 +222,7 @@
 
 .siteLink, .siteLink:visited
 {
-  color:white;
+  color:white !important;
   font-size:1.1em;
 }
 
@@ -589,6 +589,16 @@
   padding-top: 1em;
 }
 
+.borderBottomGrey
+{
+  border-bottom: 2px solid grey;
+}
+
+.borderAboveGrey
+{
+  border-top: 2px solid grey;
+}
+
 /* Genralized container */
 
 .generalContainer
@@ -779,4 +789,33 @@
 .opacity5
 {
   opacity: 0.5;
+}
+
+/* Site admin */
+
+.hoverBackgroundGrey:hover
+{
+  background: #eee;
+}
+
+.adminList
+{
+  padding-left: 10%;
+}
+
+.listHead
+{
+  text-decoration: underline;
+}
+
+.adminPageOptions
+{
+  margin-top: 2%;
+  margin-left: 0px !important;
+  text-align: right;
+}
+
+.pageListContainer
+{
+  margin-left: 0px !important;
 }

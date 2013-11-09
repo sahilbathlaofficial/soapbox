@@ -36,21 +36,9 @@
 
     <%= javascript_include_tag "application" %>
   </head>
+
   <body>
-    <div id="notificationModalView" class="modal hide fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Post</h3>
-      </div>
-    
-      <div class="modal-body">
-      </div>
-
-      <div class="modal-footer">
-      </div>
-
-    </div> <!-- end of notificationModalView -->
-
+   
     <div class="navbar navbar-fluid-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -62,20 +50,16 @@
           <%= link_to AppName, url_for(root_path),class: 'brand' %></a>
           <div class="container-fluid nav-collapse">
             <ul id="menuLinksContainer"  class="nav">
-              <li id="homeSprite">
-                <div id="homeSpriteContent">
-                  <%= link_to "Home", wall_user_path(current_user), class: :appLinks  %>
-                </div>
+              <li>
+                  <%= link_to "Companies", site_admin_companies_path, class: 'siteLink'  %>
               </li>
-              <li id="meSprite">
-                <div id="meSpriteContent">
-                  <%= link_to "Me", user_path(current_user), class: :appLinks  %>
-                </div>
+
+              <li>
+                  <%= link_to "Groups", site_admin_groups_path, class: 'siteLink'   %>
               </li>
-              <li id="notificationSprite">
-                <div id="notificationSpriteContent">
-                  <%= link_to "Notifications", notifications_index_path,remote: true, class: :appLinks  %>
-                </div>
+
+              <li>
+                  <%= link_to "Users", site_admin_users_path, class: 'siteLink'   %>
               </li>
             </ul> 
 
@@ -101,7 +85,7 @@
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="settingsList">
                     <li role="presentation" ><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
                     <% if(current_user.id == 1) %>
-                      <li role="presentation" ><%= link_to "Admin Panel", site_admin_users_path %></li>
+                      <li role="presentation" ><%= link_to "Restore App View", wall_user_path(current_user) %></li>
                     <% end %>
                     <li role="presentation" class="divider"></li>
                     <li role="presentation" ><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
@@ -118,71 +102,14 @@
 
     <div class="container-fluid" id="AllContentHolder">
       <div class="row-fluid">
-        <div class="span0"></div>
+                
         <div class="span2" id="left-sidebar">
-          <div>
-            <ul class="nav nav-list" id="left-sidebar-titles">
-              <!-- Listing Groups -->
-              <li class="nav-header" >Groups</li>
+        </div>
 
-                <ul class="nav nav-pills nav-stacked" id="group">
-                  <% for group in fetch_group_names %>
-                    <li><%= link_to group.name.capitalize, group %></li>
-                  <% end %>
-                  <li><%= link_to '-All Company Groups-', groups_path %></li>
-                  <li>
-                    <div id="createGroup">
-                      <%= form_tag '/groups' do %>
-                        <%= text_field_tag  'group[name]', '', id: 'createGroupTextField', placeholder: 'Group Name' %>
-                        <span id="cancelCreateGroup" class="rightAlign">x</span>
-                      <% end %>
-                    </div>
-                    <%=link_to "+ Create group",'', id: 'createGroupLink' %>
-                  </li>
-
-              <!-- End of Listing Groups -->  
-              </ul>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-
-        <div class="span6" id="mainContent">
+        <div class="span8" id="mainContent">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
-
-        <div class="span3" id="right-sidebar">
-          <div id="recentMembersContainer">
-            <div id="recentMembersTitle">
-              Recent Members
-            </div>
-            <div id="recentMembersContent">
-              <% for member in fetch_members %>
-                <div class="recentMembersContent smallText">
-                  <%= link_to(image_tag(member.avatar, class:'thumbnailImage'), member) %>
-                  <br>
-                  <%= link_to(member.name, member) %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-
-          <div id="suggestedGroupsContainer">
-            <div id="suggestedGroupsTitle">
-              Suggested Groups
-            </div>
-            <div id="suggestedGroupsContent">
-              <% for group in fetch_groups %>
-                <div class="recentMembersContent smallText">
-                  <%= link_to(image_tag('ror.png', class:'thumbnailImage'), group) %>
-                  <br>
-                  <%= link_to(group.name, group) %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-
-        </div> 
 
       </div><!--/row-->
 

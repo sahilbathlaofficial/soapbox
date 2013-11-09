@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
 
   def set_group
     @group = Group.find_by(id: params[:id])
-    if(@group.nil? || group.company_id != current_user.company_id)
+    if(@group.nil? || @group.company_id != current_user.company_id)
       respond_to do |format|
         format.html do 
           flash[:notice] = "Group doesn't exist" 

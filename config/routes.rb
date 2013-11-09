@@ -1,5 +1,11 @@
 AppName.constantize::Application.routes.draw do
 
+  get "companies/index"
+  get "companies/destroy"
+  get "groups/index"
+  get "groups/destroy"
+  get "users/index"
+  get "users/destroy"
   root'users#wall'
 
   get 'notifications/index'
@@ -31,6 +37,20 @@ AppName.constantize::Application.routes.draw do
     registrations: "controller_devise/registrations",
     sessions: "controller_devise/sessions"
   }
+
+  namespace :site_admin do
+    resource :users, only: [:show] do
+      post 'destroy_users'
+    end
+
+    resource :groups, only: [:show] do
+      post 'destroy_groups'
+    end
+
+    resource :companies, only: [:show] do
+      post 'destroy_companies'
+    end
+  end
 
     # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
     # get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }

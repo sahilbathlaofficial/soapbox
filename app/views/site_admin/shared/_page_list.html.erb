@@ -1,0 +1,41 @@
+<% current_controller = params[:controller].split("/")[-1] %>
+<div class="generalContainer span12 pageListContainer">
+  
+  <div class="centerAlignText borderBottomGrey">
+    <p class="largeText"> Listing Companies </p>
+  </div>
+  <br>
+
+    <div class="adminList">
+      <div class="span8 listHead">
+        Name of <%= current_controller.humanize %>
+      </div>
+
+
+      <div class="span2 listHead">
+        Ban <%= current_controller.humanize %>
+      </div>
+
+      <% for list_tem in list_collection %>
+        <div class="span10 hoverBackgroundGrey">
+
+          <div class="span10">
+            <%= link_to list_tem.name.capitalize, ''%>
+          </div>
+
+          <div class="span0">
+            <%= check_box_tag 'to_ban_add' + list_tem.id.to_s, list_tem.id.to_s,false,   class: "to_ban_add" %>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+</div>
+
+<div class="adminPageOptions span12 generalContainer">
+    <%= form_tag({controller: 'site_admin/'+ current_controller.downcase, action: 'destroy_' + current_controller.downcase }) do %>
+    <%= hidden_field_tag :to_ban %>
+    <%= submit_tag "Save",  class: "btn-success" %>
+    <% end %>
+</div>
