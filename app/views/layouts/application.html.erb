@@ -100,6 +100,7 @@
 
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="settingsList">
                     <li role="presentation" ><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+                    <li role="presentation" ><%= link_to "View Profile", user_path(current_user) %></li>
                     <% if(current_user.is_admin?) %>
                       <li role="presentation" ><%= link_to "Admin Panel", site_admin_users_path %></li>
                     <% end %>

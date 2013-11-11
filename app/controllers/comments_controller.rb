@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
   def destroy
     #FIXME_AB: @comment.owner?(current_user)
     #[Fixed]
-    if(@comment.owner?current_user)
+    if(user_privileged?(@comment))
       #FIXME_AB: What if it was not destoyed. I think you can make use of destroyed?
       #[Fixed]     
       if(@comment.destroy)

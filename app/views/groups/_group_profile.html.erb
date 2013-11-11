@@ -15,7 +15,13 @@
     <li><%= link_to pluralize(group.users.size, "Member"), group_membership_index_path(id: group) %></li>
     <li><%= link_to pluralize(group.posts.size, "Conversation"), group %></li>
   </ul>
-  <div class="rightAlign verticalAlign20">
-      <%= render :partial => 'groups/join_us', locals: {group: group } %>
-  </div>
+  <% if user_privileged?(group) %>
+    <div class="rightAlign verticalAlign20">
+      <%= button_to 'Delete Group', group_path(group), method: :delete, class: 'btn-danger smallText'  %>
+    </div>
+  <%else%>
+    <div class="rightAlign verticalAlign20">
+        <%= render :partial => 'groups/join_us', locals: {group: group } %>
+    </div>
+  <%end%>
 </div>

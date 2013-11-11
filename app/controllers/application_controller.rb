@@ -45,13 +45,13 @@ class ApplicationController < ActionController::Base
   end
 
   def user_privileged?(entity, user = current_user)
-    if(entity.user == user || user.is_admin? || user.is_moderator?)
+    if(user.is_admin? || user.is_moderator? || entity.try(:user) == user )
       return true
     else
       return false
     end
   end
 
-  helper_method :current_company 
+  helper_method [:current_company, :user_privileged?] 
 
 end
