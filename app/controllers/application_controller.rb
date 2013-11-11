@@ -44,6 +44,14 @@ class ApplicationController < ActionController::Base
     @current_company ||= Company.find(session[:company]) if(session[:company])
   end
 
+  def user_privileged?(entity, user = current_user)
+    if(entity.user == user || user.is_admin? || user.is_moderator?)
+      return true
+    else
+      return false
+    end
+  end
+
   helper_method :current_company 
 
 end

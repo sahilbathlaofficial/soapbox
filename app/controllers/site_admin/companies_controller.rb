@@ -3,7 +3,7 @@ class SiteAdmin::CompaniesController < SiteAdmin::AdminController
     @companies = Company.all
   end
 
-  def destroy_companies
+  def manage_companies
    allowed_params = params.permit('to_ban')
    allowed_params[:to_ban].split.each do |company_id|
      Company.find(company_id).destroy

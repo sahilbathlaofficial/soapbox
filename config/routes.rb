@@ -40,15 +40,15 @@ AppName.constantize::Application.routes.draw do
 
   namespace :site_admin do
     resource :users, only: [:show] do
-      post 'destroy_users'
+      post 'manage_users'
     end
 
     resource :groups, only: [:show] do
-      post 'destroy_groups'
+      post 'manage_groups'
     end
 
     resource :companies, only: [:show] do
-      post 'destroy_companies'
+      post 'manage_companies'
     end
   end
 

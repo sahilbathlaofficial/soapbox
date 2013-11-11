@@ -800,12 +800,17 @@
 
 .adminList
 {
-  padding-left: 10%;
+  padding-left: 5%;
 }
 
 .listHead
 {
   text-decoration: underline;
+}
+
+.listItem
+{
+  margin-left: 1% !important;
 }
 
 .adminPageOptions

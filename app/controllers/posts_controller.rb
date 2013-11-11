@@ -16,7 +16,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if @post.user == current_user
+    if user_privileged?(@post)
       if @post.destroy
         redirect_to :back
       end
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
   protected
 
   def set_post
-    @post = Post.find_by(params[:id])
+    @post = Post.find_by(id: params[:id])
     redirect_to_back_or_default_url if(@post.nil?)
   end
 

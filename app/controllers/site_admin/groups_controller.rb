@@ -3,7 +3,7 @@ class SiteAdmin::GroupsController < SiteAdmin::AdminController
     @groups = Group.all
   end
 
-  def destroy_groups
+  def manage_groups
     allowed_params = params.permit('to_ban')
     allowed_params[:to_ban].split.each do |group_id|
       Group.find(group_id).destroy

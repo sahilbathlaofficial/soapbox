@@ -2,7 +2,7 @@
 <div class="generalContainer span12 pageListContainer">
   
   <div class="centerAlignText borderBottomGrey">
-    <p class="largeText"> Listing Companies </p>
+    <p class="largeText"> Listing <%= current_controller.humanize %> </p>
   </div>
   <br>
 
@@ -11,20 +11,28 @@
         Name of <%= current_controller.humanize %>
       </div>
 
-
+       <div class="span2 listHead">
+        <%= "Moderator" if  current_controller.downcase == 'users' %>
+      </div>
+      
       <div class="span2 listHead">
         Ban <%= current_controller.humanize %>
       </div>
 
-      <% for list_tem in list_collection %>
-        <div class="span10 hoverBackgroundGrey">
 
-          <div class="span10">
-            <%= link_to list_tem.name.capitalize, ''%>
+      <% for list_item in list_collection %>
+        <div class="span12 hoverBackgroundGrey listItem">
+
+          <div class="span8">
+            <%= link_to list_item.name.capitalize, ''%>
           </div>
 
-          <div class="span0">
-            <%= check_box_tag 'to_ban_add' + list_tem.id.to_s, list_tem.id.to_s,false,   class: "to_ban_add" %>
+           <div class="span2">
+            <%= check_box_tag 'moderator_add' + list_item.id.to_s, list_item.id.to_s, false,   class: "moderator_add" %>
+          </div>
+
+          <div class="span2">
+            <%= check_box_tag 'to_ban_add' + list_item.id.to_s, list_item.id.to_s,false,   class: "to_ban_add" %>
           </div>
         </div>
 
@@ -34,8 +42,9 @@
 </div>
 
 <div class="adminPageOptions span12 generalContainer">
-    <%= form_tag({controller: 'site_admin/'+ current_controller.downcase, action: 'destroy_' + current_controller.downcase }) do %>
+    <%= form_tag({controller: 'site_admin/' + current_controller.downcase, action: 'manage_' + current_controller.downcase }) do %>
     <%= hidden_field_tag :to_ban %>
+    <%= hidden_field_tag :make_moderators if current_controller.downcase == 'users' %>
     <%= submit_tag "Save",  class: "btn-success" %>
     <% end %>
 </div>
