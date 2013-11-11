@@ -14,17 +14,16 @@
 </div>
 
 <div class="hero-unit-extend">
-  <ul class="nav nav-pills normalText">
-    <li><%= link_to pluralize(user.followers.count, "Follower"), show_followers_user_path(user) %></li>
-    <li><%= link_to pluralize(user.followees.count, "Following"), show_followees_user_path(user) %></li>
-  </ul>
   <% if user_privileged?(user) %>
   <div class="rightAlign verticalAlign20">
     <%= button_to 'Deactivate', user_path(user), method: :delete, class: 'btn-danger'  %>
   </div>
-  <%else%>
+  <%end%>
+  <ul class="nav nav-pills normalText">
+    <li><%= link_to pluralize(user.followers.count, "Follower"), show_followers_user_path(user) %></li>
+    <li><%= link_to pluralize(user.followees.count, "Following"), show_followees_user_path(user) %></li>
+  </ul>
    <div class="rightAlign verticalAlign20">
     <%= render partial:  'following_status', locals: {user: user }  %>
   </div>
-  <%end%>
 </div>

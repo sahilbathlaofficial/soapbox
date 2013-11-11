@@ -1,6 +1,6 @@
 <div class="page-header">
   <%= render partial: 'mini_profile', locals: {user: @user} %>
-  <% if(current_user.followees.include?(@user)) || current_user == @user %>
+  <% if(current_user.followees.include?(@user)) || user_privileged?(@user) %>
   
   <div id="postContainer">
 

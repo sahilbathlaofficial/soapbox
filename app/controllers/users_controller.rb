@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :set_user, :only => [:edit,  :update, :show, :wall, :show_followees, :show_followers]
+  before_filter :set_user, :except => [:autocomplete, :tag_list]
 
   def show
     if(current_user.company_id != @user.company_id)
@@ -18,6 +18,16 @@ class UsersController < ApplicationController
         format.html { render action: 'edit' }
       end
 
+    end
+  end
+
+  def destroy
+    if(user_priviledged?(@user))
+      if(@user.destroy)
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'User destroyed' }
+        end
+      end
     end
   end
 

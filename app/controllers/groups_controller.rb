@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
     params[:group][:name].gsub!(/[^0-9a-z ]+/i, '')
   end
 
-  before_action :set_group, only: [:show] 
+  before_action :set_group, only: [:show, :destroy] 
 
   def index
     #FIXME_AB: company.groups.where
@@ -28,6 +28,16 @@ class GroupsController < ApplicationController
   def show
   end
 
+  def destroy
+    if(user_privileged?(@group))
+      if(@group.destroy)
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: 'Group destroyed' }
+        end
+      end
+    end
+  end
+    
   protected
 
   def group_params

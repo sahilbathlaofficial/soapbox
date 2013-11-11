@@ -18,7 +18,7 @@ AppName.constantize::Application.routes.draw do
   resources :posts, only: [:create, :destroy, :show]
   resources :notifications, only: [:index]
 
-  resources :users, only: [:edit, :update, :show] do
+  resources :users, only: [:edit, :update, :show, :destroy] do
     get 'show_followees' , on: :member
     get 'show_followers' , on: :member
     get 'wall', on: :member
@@ -26,7 +26,7 @@ AppName.constantize::Application.routes.draw do
     get 'tag_list',on: :collection
   end
   
-  resources :groups, only: [:create, :index, :show]
+  resources :groups
   resources :group_membership, only: [:create, :destroy, :index]
   resources :likes, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
