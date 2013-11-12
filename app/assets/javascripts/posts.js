@@ -23,7 +23,7 @@ $(document).ready(function(){
   provideUserTagList = function(user_hint, text_box_id) 
   {
     console.log(user_hint)
-    $.get("/users/tag_list",{query: '%' + user_hint + '%', text_box_id: text_box_id}).done(function(){
+    $.get("/x/users/tag_list",{query: '%' + user_hint + '%', text_box_id: text_box_id}).done(function(){
     });
   }
 

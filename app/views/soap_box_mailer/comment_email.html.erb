@@ -6,8 +6,8 @@
   <body>
     <h1>Hey, <%= @user.name %></h1>
     <p>
-      <%= link_to(@commentor.name.titleize, url_for(host: "localhost:3000", controller: "users", action: 'show', id: @commentor.id) ) %> 
-        commented on your <%= link_to 'post', url_for(host: "localhost:3000", controller: "posts", action: 'show', id: @post.id)  %> 
+      <%= link_to(@commentor.name.titleize, user_url(id: @commentor, company:@company)) %> 
+        commented on your <%= link_to 'post', post_url(id: @post, company:@company)  %> 
     </p>
     <hr/>
     <p>This is a system generated e-mail, Kindly do not reply </p>

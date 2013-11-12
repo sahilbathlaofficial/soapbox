@@ -2,6 +2,7 @@ AppName.constantize::Application.routes.draw do
 
 root 'users#wall'
 
+scope '/:company' do
   get "companies/index"
   get "companies/destroy"
   get "groups/index"
@@ -54,7 +55,7 @@ root 'users#wall'
     sessions: "controller_devise/sessions"
   }
 
-
+end
  
 
     # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }

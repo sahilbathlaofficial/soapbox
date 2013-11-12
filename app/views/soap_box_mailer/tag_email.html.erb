@@ -7,7 +7,7 @@
     <h1>Hey, <%= @user.name %></h1>
     <p>
       You were tagged in the 
-      <%= link_to('post', url_for(host: "localhost:3000", controller: "posts", action: 'show', id: @post.id) ) %>  
+      <%= link_to('post', post_url(id: @post, company: @company) ) %>  
     </p>
     <hr/>
     <p>This is a system generated e-mail, Kindly do not reply </p>

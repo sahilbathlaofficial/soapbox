@@ -74,7 +74,7 @@ class CommentsController < ApplicationController
   def add_notifications(post)
     @post = post
     @post.comments.last.create_activity key: 'comment.create', owner: @post.user
-      SoapBoxMailer.comment_email(@post.user, current_user, @post).deliver
+      SoapBoxMailer.comment_email(@post.user, current_user, @post, current_company.name).deliver
       if !(@post.comments.last.tags.nil?)
         notify_tagged_users(@post.comments.last.tags, @post)
       end

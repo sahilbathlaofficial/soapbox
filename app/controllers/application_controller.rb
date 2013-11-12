@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authorize  
+  # before_action {  ActionMailer::Base.default_url_options = {:host => request.protocol + request.host_with_port + (current_company.try(:name) || AppName) } }
 
   protected
 
@@ -53,7 +54,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options={})
-    #{company: current_company.try(:name) || AppName}
+    {company: current_company.try(:name) || AppName}
   end
 
   helper_method [:current_company, :user_privileged?] 

@@ -44,7 +44,7 @@ notificationCheck = function() {
 fetchNotification = function() {
   if($('#newNotificationMsg').length != 1)
   {
-    $.getJSON("/notifications/get_new_notifications").done(function(data) {
+    $.getJSON("/x/notifications/get_new_notifications").done(function(data) {
       console.log(data);
       if(data.length != 0)
       {
@@ -139,7 +139,7 @@ autoFetchUsers = function() {
       query = element.val() + '%';
       console.log(query)
 
-      $.getJSON("/users/autocomplete", {query: query }).done(function(data){
+      $.getJSON("/x/users/autocomplete", {query: query }).done(function(data){
         search_terms = data;
         console.log(search_terms);
         $('#userAutoCompleteSearchResults').html('');

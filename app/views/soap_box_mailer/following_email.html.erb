@@ -6,7 +6,7 @@
   <body>
     <h1>Hey, <%= @user.name %></h1>
     <p>
-      <%= link_to(@follower.name.titleize, url_for(host: "localhost:3000", controller: "users", action: 'show', id: @follower.id) ) %> 
+      <%= link_to(@follower.name.titleize, user_url(id: @follower, company: @company) ) %> 
         started following you  
     </p>
     <hr/>

@@ -1,6 +1,6 @@
 <% not_posting_in_a_group = true if not_posting_in_a_group.nil? %>
 <div id="composePost">
-  <%= form_tag '/posts',id: 'postForm' do %>
+  <%= form_tag posts_path, id: 'postForm' do %>
 
     <div id="composePostContainer">
       <div id="composePostCopy" class="composeTextCopy normalText"></div>
