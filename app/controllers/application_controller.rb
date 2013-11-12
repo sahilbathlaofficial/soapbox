@@ -52,6 +52,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def default_url_options(options={})
+    #{company: current_company.try(:name) || AppName}
+  end
+
   helper_method [:current_company, :user_privileged?] 
 
 end

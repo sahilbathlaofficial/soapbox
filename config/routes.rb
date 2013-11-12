@@ -1,12 +1,14 @@
 AppName.constantize::Application.routes.draw do
 
+root 'users#wall'
+
   get "companies/index"
   get "companies/destroy"
   get "groups/index"
   get "groups/destroy"
   get "users/index"
   get "users/destroy"
-  root'users#wall'
+  
 
   get 'notifications/index'
   get 'notifications/get_new_notifications'
@@ -32,12 +34,6 @@ AppName.constantize::Application.routes.draw do
   resources :comments, only: [:create, :destroy]
 
 
-  devise_for :user, controllers: {
-    omniauth_callbacks: "controller_devise/omniauth_callback", 
-    registrations: "controller_devise/registrations",
-    sessions: "controller_devise/sessions"
-  }
-
   namespace :site_admin do
     resource :users, only: [:show] do
       post 'manage_users'
@@ -51,6 +47,15 @@ AppName.constantize::Application.routes.draw do
       post 'manage_companies'
     end
   end
+
+  devise_for :user, controllers: {
+    omniauth_callbacks: "controller_devise/omniauth_callback", 
+    registrations: "controller_devise/registrations",
+    sessions: "controller_devise/sessions"
+  }
+
+
+ 
 
     # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
     # get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }
