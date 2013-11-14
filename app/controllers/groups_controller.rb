@@ -20,6 +20,7 @@ class GroupsController < ApplicationController
       if current_user.groups << @group
         format.html { redirect_to @group, notice: "Group #{@group.name} was successfully created." }
       else
+        # CR_Priyank: Why are we hardcoding route here ?
         format.html { redirect_to '/' }
       end
     end
@@ -46,7 +47,10 @@ class GroupsController < ApplicationController
   end
 
   def set_group
+    # CR_Priyank: use company scope to find groups and users throughout this app
+    # CR_Priyank: Do not use dynamic finders
     @group = Group.find_by(id: params[:id])
+    # CR_Priyank: I think we can improve/optimize below logic
     if(@group.nil? || @group.company_id != current_user.company_id)
       respond_to do |format|
         format.html do 

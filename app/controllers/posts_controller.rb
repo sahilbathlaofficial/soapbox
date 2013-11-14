@@ -4,9 +4,13 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:destroy, :show]
 
   def create
+    # CR_Priyank: We can use current_user.posts.build(post_params)
     @post = Post.new(post_params)  
+    # CR_Priyank: We can also use params[:post][:extra_content].present?
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
     current_user.posts << @post
+    # CR_Priyank: This must be moved to model
+    # CR_Priyank: We can also use @post.tags.present?
     if !(@post.tags.nil?)
       notify_tagged_users(@post.tags, @post)
     end
@@ -31,6 +35,7 @@ class PostsController < ApplicationController
   end
 
   def extract_url_content
+    # CR_Priyank: move parsing logic to before_filter
     @url = params[:url][0..-2] #remove the space
     @url = 'http://' + @url if(@url[0..3].downcase == 'www.')
     begin

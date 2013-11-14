@@ -1,7 +1,6 @@
 class FollowingsController < ApplicationController
   before_action :set_following, only: [:show, :edit, :update, :destroy]
 
-
   def create
     @following = current_user.followings.build(following_params)
 
@@ -10,6 +9,7 @@ class FollowingsController < ApplicationController
         #FIXME_AB: Should avoid saving html format in db. Just save pointers and generate html when you want to display. We may change the way we display notification in future, so in that case we won't have to bother about what we have in DB
         #[Fixed] Added public activities
         format.html do
+          # CR_Priyank: I think this can be moved in model's concern
           @following.create_activity key: 'following.create', owner: @following.followee
           SoapBoxMailer.following_email(@following.followee, current_user, current_company.name).deliver
           flash[:notice] = "You are now following #{ @following.followee.firstname } " 

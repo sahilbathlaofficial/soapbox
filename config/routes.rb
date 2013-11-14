@@ -1,10 +1,14 @@
+# CR_Priyank: Revisit routes
+
 AppName.constantize::Application.routes.draw do
 
 root 'users#wall'
 
 scope '/:company' do
+  # CR_Priyank: No controller for companies
   get "companies/index"
   get "companies/destroy"
+  # CR_Priyank: when we made these routes when we already have resources for them
   get "groups/index"
   get "groups/destroy"
   get "users/index"
@@ -22,6 +26,7 @@ scope '/:company' do
   resources :notifications, only: [:index]
 
   resources :users, only: [:edit, :update, :show, :destroy] do
+    # CR_Priyank: routes should be like followers/followees
     get 'show_followees' , on: :member
     get 'show_followers' , on: :member
     get 'wall', on: :member
