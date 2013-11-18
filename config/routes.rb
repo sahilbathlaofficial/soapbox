@@ -6,14 +6,9 @@ root 'users#wall'
 
 scope '/:company' do
   # CR_Priyank: No controller for companies
-  get "companies/index"
-  get "companies/destroy"
+  # [Fixed] - Removed route for company
   # CR_Priyank: when we made these routes when we already have resources for them
-  get "groups/index"
-  get "groups/destroy"
-  get "users/index"
-  get "users/destroy"
-  
+  # [Fixed] - Reduced Duplicacy
 
   get 'notifications/index'
   get 'notifications/get_new_notifications'
@@ -27,6 +22,7 @@ scope '/:company' do
 
   resources :users, only: [:edit, :update, :show, :destroy] do
     # CR_Priyank: routes should be like followers/followees
+    #[Doubt]
     get 'show_followees' , on: :member
     get 'show_followers' , on: :member
     get 'wall', on: :member

@@ -78,4 +78,10 @@ class User < ActiveRecord::Base
     "#{id}-#{firstname}".parameterize
   end
 
+  def give_fake_names
+      self.firstname = 'soapBox User'
+      self.lastname = self.id.to_s
+      self.save
+  end
+
 end

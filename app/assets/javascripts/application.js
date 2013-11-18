@@ -19,6 +19,7 @@
 //= require_tree .
 
 // CR_Priyank: Avoid writing js in application.js instead create a separate js file and require them here
+// [Doubt] 
 search_terms = []
 
 setModalMargin =  function() {

@@ -1,7 +1,9 @@
 // CR_Priyank: Indent your code
+// [Fixed]: Indented my code
 
 $(document).ready(function(){
    // set position of post hidden div for tagging
+  var regex_url = /((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>"\,\{\}\\|\\\^\[\]`]+)?\s/
   setPostContentBox = function()
   {
     if($('#composePostContent').length === 1)
@@ -29,57 +31,57 @@ $(document).ready(function(){
     });
   }
 
-addUserTags = function(e) {
+  addUserTags = function(e) {
   
-  $(document).on('keyup','#composePostContent, .commentText', function(e){
+    $(document).on('keyup','#composePostContent, .commentText', function(e){
 
-    // $('.tagBackground').remove();
-    // position_compose_post = $('#composePostContent').position();
-    // position_of_tag = ($('#composePostContent').val().length)*6;
-    // $('<div class="tagBackground"></div>').css('top', position_compose_post.top+22)
-    // .css('left', position_compose_post.left+7 ).width(position_of_tag)
-    // .appendTo($('body'));
+      // $('.tagBackground').remove();
+      // position_compose_post = $('#composePostContent').position();
+      // position_of_tag = ($('#composePostContent').val().length)*6;
+      // $('<div class="tagBackground"></div>').css('top', position_compose_post.top+22)
+      // .css('left', position_compose_post.left+7 ).width(position_of_tag)
+      // .appendTo($('body'));
 
-    var text_box_id= $(this).attr('id');
-    var text_input = $(this).val();
+      var text_box_id= $(this).attr('id');
+      var text_input = $(this).val();
 
-    $text_copy_field = $(this).prev('div.composeTextCopy');
-    $text_copy_field.html('').html($(this).val());
+      $text_copy_field = $(this).prev('div.composeTextCopy');
+      $text_copy_field.html('').html($(this).val());
 
-    // add tags if any
-    if($(this).siblings('.postTags').length == 1 )
-    {
-      value = $(this).siblings('.postTags').attr('data-name').split('-')
-      for(i = 0; i < value.length; i++)
+      // add tags if any
+      if($(this).siblings('.postTags').length == 1 )
       {
-        
-        $text_copy_field.html($text_copy_field.html().replace(value[i],'<span class="tagBackground">' + value[i] + '</span>'));
+        value = $(this).siblings('.postTags').attr('data-name').split('-')
+        for(i = 0; i < value.length; i++)
+        {
+          
+          $text_copy_field.html($text_copy_field.html().replace(value[i],'<span class="tagBackground">' + value[i] + '</span>'));
+        }
       }
-    }
 
-    // check if tag is requested and provide tag list
-    if(user_hint = text_input.match(/[^\w]@(.+)/) || (user_hint = text_input.match(/^@(.+)/)) )
-    {  
-      if(e.keyCode != 27)
-        provideUserTagList(user_hint[1], text_box_id);
-    }
-    else
-    {
-      $('#userTagList').remove();
-    }
+      // check if tag is requested and provide tag list
+      if(user_hint = text_input.match(/[^\w]@(.+)/) || (user_hint = text_input.match(/^@(.+)/)) )
+      {  
+        if(e.keyCode != 27)
+          provideUserTagList(user_hint[1], text_box_id);
+      }
+      else
+      {
+        $('#userTagList').remove();
+      }
 
-    // maintaining overflow of commentbox(as they are relative :() 
-    if($(this).hasClass('commentText'))
+      // maintaining overflow of commentbox(as they are relative :() 
+      if($(this).hasClass('commentText'))
       {
         $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height()))
         $(this).next('input').css('margin-top', -($(this).prev('div.composeTextCopy').height()))
-    }
+      }
 
-  })
+    })
 
-  
-  
-}
+    
+    
+  }
 
  
 
@@ -94,10 +96,11 @@ addUserTags = function(e) {
     if($('#postPreview').length != 1 && $('#loadingPostPreview').length != 1 )
     {
       // CR_Priyank: take this regexp out to a js constant
-      if(x = text.match(/((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>"\,\{\}\\|\\\^\[\]`]+)?\s/))
+      // [Fixed] - Moved out the constant
+      if(url_match = text.match(regex_url))
       { 
         $('.composePostContentOptions').prepend('<div id="loadingPostPreview" class="centerAlignText"><img src="/assets/loading.gif" class="mediumImage" /></div>');
-        $.get("/posts/extract_url_content",{ url: x[0] }).done(function() { $('#loadingPostPreview').remove(); })
+        $.get("/company/posts/extract_url_content",{ url: url_match[0] }).done(function() { $('#loadingPostPreview').remove(); })
         .fail(function(){
          $('#loadingPostPreview').html("Parse Error");
          window.setTimeout(function() { $('#loadingPostPreview').remove() },1000)
@@ -108,7 +111,7 @@ addUserTags = function(e) {
   }
 
   extractUrlSynopsis = function() {
-    $('#composePostContent').keyup(function(e){
+    $('#composePostContent').keyup(function(e) {
       checkUrlPresence($(this).val())
     })
   }

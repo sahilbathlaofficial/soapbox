@@ -4,6 +4,7 @@
 class Group < ActiveRecord::Base
 
   # CR_Priyank: Try to avoid habtm relationships and use has many through instead
+  # [Discuss]
   has_and_belongs_to_many :users
   #FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
   #FIX:Scope added
@@ -15,7 +16,8 @@ class Group < ActiveRecord::Base
 
   def admin?(user)
     # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
-    self.admin == user
+    # [Fixed] - Done so
+    self.admin.id == user.id
   end
 
 end
