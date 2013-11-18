@@ -6,6 +6,7 @@ before_action :set_group, only: [:create, :destroy, :index]
   end
 
   def create
+    # CR_Priyank: What if user cannot be assigned to group ?
     @group.users << current_user
     respond_to do |format|
       format.html { redirect_to @group, notice: "User #{current_user.firstname} was successfully added." }
@@ -16,6 +17,8 @@ before_action :set_group, only: [:create, :destroy, :index]
     #FIXME_AB: group.admin?(current_user)
     #[Fixed]
     flash[:notice] = "You were not able to unjoin this group due to some reason"
+    # CR_Priyank: This must be a validation in model
+    # CR_Priyank: This complete logic can be moved to model
     if(@group.admin?(current_user))
       flash[:notice] = "You deleted your own group" if(@group.destroy)
       respond_to do |format|
@@ -33,6 +36,7 @@ before_action :set_group, only: [:create, :destroy, :index]
   protected
 
   def set_group
+    # CR_Priyank: Do not use dynamic finders instead use where
     @group = Group.find_by(id: params[:id])
     redirect_to_back_or_default_url if(@group.nil?)
   end

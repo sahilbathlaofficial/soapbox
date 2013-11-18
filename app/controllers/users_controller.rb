@@ -34,6 +34,7 @@ class UsersController < ApplicationController
   def wall
     users = current_user.followees + [current_user]
     groups = current_user.groups 
+    # CR_Priyank: Move this query to a scope
     @posts = Post.where('user_id in (?) or group_id in (?) or (group_id is ? and company_id = ?)', users, groups, nil, current_user.company_id).order('created_at DESC')
   end
 
@@ -46,6 +47,8 @@ class UsersController < ApplicationController
   end
 
   def autocomplete
+    # CR_Priyank: Should be in company's scope
+    # CR_Priyank: Move query in model scope
     @users = User.where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', params[:query].downcase, params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name')
     @users += Group.where('(LOWER(name) like ?) AND company_id = ?', params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'name');
     respond_to do |format|
@@ -65,6 +68,7 @@ class UsersController < ApplicationController
 
 
   def set_user
+    # CR_Priyank: I think we do not need to check if params[:id]
     if(params[:id])
       @user = User.find_by(id: params[:id])
       redirect_to_back_or_default_url if(@user.nil?)

@@ -1,3 +1,5 @@
+// CR_Priyank: Indent your code
+
 $(document).ready(function(){
    // set position of post hidden div for tagging
   setPostContentBox = function()
@@ -91,6 +93,7 @@ addUserTags = function(e) {
     // console.log(text);
     if($('#postPreview').length != 1 && $('#loadingPostPreview').length != 1 )
     {
+      // CR_Priyank: take this regexp out to a js constant
       if(x = text.match(/((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>"\,\{\}\\|\\\^\[\]`]+)?\s/))
       { 
         $('.composePostContentOptions').prepend('<div id="loadingPostPreview" class="centerAlignText"><img src="/assets/loading.gif" class="mediumImage" /></div>');

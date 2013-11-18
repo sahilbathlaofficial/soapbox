@@ -1,5 +1,6 @@
 class NotificationsController < ApplicationController
   def index
+    # CR_Priyank: We may want to move this query to a scope with other params so can be used in next action
     @notifications = PublicActivity::Activity.where('owner_id = ?', current_user.id).order('id desc')
     respond_to do |format|
       format.html {}

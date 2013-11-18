@@ -1,3 +1,4 @@
+# CR_Priyank: Description for every rake task is must
 namespace :users do
   task :make_admin => :environment do
     puts "Input email for admin"

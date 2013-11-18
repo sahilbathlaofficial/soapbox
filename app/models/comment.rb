@@ -10,6 +10,7 @@ class Comment < ActiveRecord::Base
   validates :content, :user_id, :post_id, presence: true
 
   def owner?(user)
+    # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
     self.user == user
   end
 end

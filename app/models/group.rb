@@ -3,6 +3,7 @@
 
 class Group < ActiveRecord::Base
 
+  # CR_Priyank: Try to avoid habtm relationships and use has many through instead
   has_and_belongs_to_many :users
   #FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
   #FIX:Scope added
@@ -13,6 +14,7 @@ class Group < ActiveRecord::Base
   validates :name, uniqueness: { scope: [:company_id] }
 
   def admin?(user)
+    # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
     self.admin == user
   end
 

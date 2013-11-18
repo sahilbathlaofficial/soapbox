@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
 
   before_action :set_comments, only: [:destroy]
 
+  # CR_Priyank: I think we can move comments create to posts controller using nested attributes
   def create
     #FIXME_AB: You are relying on th post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
     @post = Post.find_by(id: params[:post_id])
@@ -36,6 +37,7 @@ class CommentsController < ApplicationController
   def destroy
     #FIXME_AB: @comment.owner?(current_user)
     #[Fixed]
+    # CR_Priyank: I think user_provoleged restriction should be moved in model as validation
     if(user_privileged?(@comment))
       #FIXME_AB: What if it was not destoyed. I think you can make use of destroyed?
       #[Fixed]     
@@ -71,6 +73,7 @@ class CommentsController < ApplicationController
     params.permit(:content, :tags).merge( { user_id: current_user.id } )
   end
 
+  # CR_Priyank: I think we can move this to model's concern
   def add_notifications(post)
     @post = post
     @post.comments.last.create_activity key: 'comment.create', owner: @post.user

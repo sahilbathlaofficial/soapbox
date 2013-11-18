@@ -1,3 +1,5 @@
+# CR_Priyank: remove unwanted/commented code
+
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -33,6 +35,7 @@ class ApplicationController < ActionController::Base
     ! anonymous?
   end
 
+  # CR_Priyank: Use redirect_to :back instead of redirect_to_back_or_default_url method everywhere and rescue from ActionController::RedirectBackError in application controller to refirect_to default url
   def redirect_to_back_or_default_url(url = root_path)
     if request.referer
       redirect_to :back 
@@ -42,9 +45,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_company
+    # CR_Priyank: Use where instead of find
     @current_company ||= Company.find(session[:company]) if(session[:company])
   end
 
+  # CR_Priyank: move this method to user model
   def user_privileged?(entity, user = current_user)
     if(user.is_admin? || user.is_moderator? || entity.try(:user) == user )
       return true

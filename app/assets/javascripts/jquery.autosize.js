@@ -1,3 +1,5 @@
+// CR_Priyank: use minified js
+
 /*!
 	Autosize v1.18.1 - 2013-11-05
 	Automatically adjust textarea height based on user input.

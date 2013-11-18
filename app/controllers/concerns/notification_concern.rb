@@ -1,5 +1,6 @@
 module NotificationConcern
   
+  # CR_Priyank: This should have been in model's concern
   def notify_tagged_users(tags, post)
     user_ids = tags.split
       for user_id in user_ids
