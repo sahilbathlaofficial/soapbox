@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   include PublicActivity::Common
+  include NotificationConcern
   belongs_to :user
   belongs_to :group
   belongs_to :company
@@ -7,6 +8,7 @@ class Post < ActiveRecord::Base
   has_one :url_parsed_content, dependent: :destroy
   has_many :comments, dependent: :destroy
   validates :content,:user_id,:company_id, presence: true
+  after_save :notify_tagged_users
 end
 
 #FIXME_AB: validations please[Fixed]
@@ -20,3 +22,4 @@ end
 
 #FIXME_AB: We also can have tagging with posts
 # To Implement
+

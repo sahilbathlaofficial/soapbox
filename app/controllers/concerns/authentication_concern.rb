@@ -35,15 +35,9 @@ module AuthenticationConcern
   end
 
   # CR_Priyank: Must be moved in model
-  # [Doubt] - Moved to User model
-  def provide_dummy_names
-    current_user.give_fake_names if(current_user)
-  end
+  # [Fixed] - Moved to User model
 
   # Must be moved in model's concern
-  # [Doubt]
-  def send_welcome_email
-    SoapBoxMailer.welcome_email(current_user).deliver
-  end
+  # [Fixed]
     
 end

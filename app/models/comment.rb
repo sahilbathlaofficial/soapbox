@@ -5,9 +5,12 @@
 #FIX : Comment content should be present
 class Comment < ActiveRecord::Base
   include PublicActivity::Common
+  include NotificationConcern
   belongs_to :user
   belongs_to :post
   validates :content, :user_id, :post_id, presence: true
+  after_save :notify_tagged_users
+
 
   def owner?(user)
     # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time

@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  include NotificationConcern
 
   before_action :set_post, only: [:destroy, :show]
 
@@ -10,10 +9,9 @@ class PostsController < ApplicationController
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
     current_user.posts << @post
     # CR_Priyank: This must be moved to model
+    # [Fixed]
     # CR_Priyank: We can also use @post.tags.present?
-    if !(@post.tags.nil?)
-      notify_tagged_users(@post.tags, @post)
-    end
+    # [Fixed]
     respond_to do |format|
       format.html { redirect_to :back }
     end

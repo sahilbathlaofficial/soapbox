@@ -38,11 +38,11 @@ class UsersController < ApplicationController
     @posts = Post.where('user_id in (?) or group_id in (?) or (group_id is ? and company_id = ?)', users, groups, nil, current_user.company_id).order('created_at DESC')
   end
 
-  def show_followees
+  def followees
     @followees = @user.followees
   end
 
-  def show_followers
+  def followers
     @followers = @user.followers
   end
 

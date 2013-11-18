@@ -32,22 +32,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauth_providers => [:google_oauth2]
  
-  #attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :provider, :uid, :avatar
-  # def self.from_omniauth(auth)
-  #   if user = User.find_by_email(auth.info.email)
-  #     user.provider = auth.provider
-  #     user.uid = auth.uid
-  #     user
-  #   else
-  #     where(auth.slice(:provider, :uid)).first_or_create do |user|
-  #       user.provider = auth.provider
-  #       user.uid = auth.uid
-  #       user.username = auth.info.name
-  #       user.email = auth.info.email
-  #       user.avatar = auth.info.image
-  #     end
-  #   end
-  # end
+  before_create :provide_dummy_names
+  after_create :send_welcome_email
+
 
   def self.from_omniauth(access_token, signed_in_resource = nil)
     data = access_token.info
@@ -78,10 +65,15 @@ class User < ActiveRecord::Base
     "#{id}-#{firstname}".parameterize
   end
 
-  def give_fake_names
+  private
+
+  def provide_dummy_names
       self.firstname = 'soapBox User'
-      self.lastname = self.id.to_s
-      self.save
+      self.lastname = (User.last.id + 1).to_s
+  end
+
+  def send_welcome_email
+    SoapBoxMailer.welcome_email(self).deliver
   end
 
 end

@@ -10,21 +10,22 @@ scope '/:company' do
   # CR_Priyank: when we made these routes when we already have resources for them
   # [Fixed] - Reduced Duplicacy
 
-  get 'notifications/index'
-  get 'notifications/get_new_notifications'
-  get 'posts/extract_url_content'
-
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 
-  resources :posts, only: [:create, :destroy, :show]
-  resources :notifications, only: [:index]
+  resources :posts, only: [:create, :destroy, :show] do
+    get 'extract_url_content', on: :collection
+  end
+
+  resources :notifications, only: [:index] do
+      get 'get_new_notifications'
+  end
 
   resources :users, only: [:edit, :update, :show, :destroy] do
     # CR_Priyank: routes should be like followers/followees
-    #[Doubt]
-    get 'show_followees' , on: :member
-    get 'show_followers' , on: :member
+    #[Fixed] - Done so
+    get 'followees' , on: :member
+    get 'followers' , on: :member
     get 'wall', on: :member
     get 'autocomplete', on: :collection
     get 'tag_list',on: :collection
