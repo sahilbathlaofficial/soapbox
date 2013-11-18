@@ -56,6 +56,8 @@ scope '/:company' do
   }
 
 end
+
+    get '/:controller/(:action/(:id))', to: redirect('/company/%{controller}/%{action}')
  
 
     # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
