@@ -4,7 +4,7 @@
 class Group < ActiveRecord::Base
 
   # CR_Priyank: Try to avoid habtm relationships and use has many through instead
-  # [Discuss]
+  # [Discuss_AB]
   has_and_belongs_to_many :users
   #FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
   #FIX:Scope added

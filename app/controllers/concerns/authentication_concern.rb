@@ -18,7 +18,7 @@ module AuthenticationConcern
 
   def extract_company
     # CR_Priyank: Improve logic below, also I am not sure why we are extracting from user's email. So if user's email is abc@gmail.com then we will end up creating a company named as gmail
-    #[Discuss]
+    #[Discuss_AB]
     company_name = extract_domain_from_email
     return false if company_name.empty?
     company = Company.find_by("name = ?", company_name)

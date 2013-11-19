@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :notifications
 
+
   #FIXME_AB: No need to use ActionController::Base.helpers.asset_path just pass 'missing.jpg' because in any way we will be using image_tag to display the image, which will take care of this
   #[Fixed]
 
