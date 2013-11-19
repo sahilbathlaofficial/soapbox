@@ -18,7 +18,7 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    if user_privileged?(@post)
+    if current_user.privileged?(@post)
       if @post.destroy
         redirect_to :back
       end
@@ -63,7 +63,7 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:content, :group_id, :tags).merge({ company_id: current_company.id })
+    params.require(:post).permit(:content, :group_id, :tags)
   end
 
 end

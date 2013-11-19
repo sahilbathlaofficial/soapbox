@@ -1,8 +1,5 @@
 class SiteAdmin::GroupsController < SiteAdmin::AdminController
-  def show
-    @groups = Group.all
-  end
-
+  
   def manage_groups
     # CR_Priyank: I think we shall use require instead of permit here and handle exception accordingly
     allowed_params = params.permit('to_ban')
@@ -15,6 +12,10 @@ class SiteAdmin::GroupsController < SiteAdmin::AdminController
         format.html { redirect_to action: 'show'}
       end
     end
+  end
+
+  def show
+    @groups = Group.all
   end
 
 end

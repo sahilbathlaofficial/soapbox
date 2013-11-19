@@ -9,7 +9,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post
   validates :content, :user_id, :post_id, presence: true
-  after_save :notify_tagged_users
+  after_create :notify_commented_on
+  after_create :notify_tagged_users
 
 
   def owner?(user)

@@ -1,4 +1,5 @@
 # CR_Priyank: remove unwanted/commented code
+#[Fixed] - Removed unwanted code
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -9,22 +10,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
-
   def authorize
     #FIXME_AB: if !(current_user) is used to check whether user is logged in or not. So define to method for that, logged_in? and annonymous?
     #[Fixed]
     redirect_to new_user_session_path if anonymous?
-    ## code for inserting company name to url ##
-    # if(logged_in? && request.method.downcase == 'get')
-    #   if !(request.path_parameters[:name] == current_company.name)
-    #     if request.path_parameters[:name].nil?
-    #       redirect_to '/' + current_company.name + request.path 
-    #     else
-    #       # if any other name then com name
-    #       redirect_to request.path.sub(request.path_parameters[:name], current_company.name)
-    #     end
-    #   end
-    # end
   end
 
   def anonymous?
@@ -36,6 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   # CR_Priyank: Use redirect_to :back instead of redirect_to_back_or_default_url method everywhere and rescue from ActionController::RedirectBackError in application controller to refirect_to default url
+  # [Discuss]
   def redirect_to_back_or_default_url(url = root_path)
     if request.referer
       redirect_to :back 
@@ -46,22 +36,17 @@ class ApplicationController < ActionController::Base
 
   def current_company
     # CR_Priyank: Use where instead of find
+    # [Discuss]
     @current_company ||= Company.find(session[:company]) if(session[:company])
   end
 
   # CR_Priyank: move this method to user model
-  def user_privileged?(entity, user = current_user)
-    if(user.is_admin? || user.is_moderator? || entity.try(:user) == user )
-      return true
-    else
-      return false
-    end
-  end
+  # [Fixed] - Moved priveleged to user model
 
   def default_url_options(options={})
-    {company: current_company.try(:name) || AppName}
+    { company: current_company.try(:name) || AppName }
   end
 
-  helper_method [:current_company, :user_privileged?] 
+  helper_method :current_company
 
 end

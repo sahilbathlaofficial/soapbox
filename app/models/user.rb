@@ -66,6 +66,15 @@ class User < ActiveRecord::Base
     "#{id}-#{firstname}".parameterize
   end
 
+  def privileged?(entity)
+    user = self
+    if(user.is_admin? || user.is_moderator? || entity.try(:user) == user )
+      return true
+    else
+      return false
+    end
+  end
+  
   private
 
   def provide_dummy_names

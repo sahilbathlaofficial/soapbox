@@ -14,7 +14,7 @@
         </div>
 
         <div class="rightAlign verticalAlign20">
-          <%= link_to('x', post_path(post), method: :delete) if user_privileged?(post) %>
+          <%= link_to('x', post_path(post), method: :delete) if current_user.privileged?(post) %>
         </div>
         
         <div class="postGroupTag rightAlign normalText">

@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if(user_priviledged?(@user))
+    if(current_user.priviledged?(@user))
       if(@user.destroy)
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'User destroyed' }

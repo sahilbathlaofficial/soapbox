@@ -1,6 +1,6 @@
 <div class="page-header">
   <%= render partial: 'mini_profile', locals: {user: @user} %>
-  <% if(current_user.followees.include?(@user)) || user_privileged?(@user) %>
+  <% if(current_user.followees.include?(@user)) || (current_user.id == @user.id) %>
   
   <div id="postContainer">
 
@@ -9,7 +9,7 @@
       <%= render partial: 'posts/compose_post' %>
     <% end %>
 
-    <%= render partial: 'posts/posts', locals: {posts: @user.posts} %>
+    <%= render partial: 'posts/posts', locals: { posts: @user.posts } %>
   </div>
   
   <% else %>

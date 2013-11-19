@@ -9,7 +9,7 @@
   <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
   <%= link_to comment.user.name, comment.user %>:
   <%= sanitize(comment.content,tags: %w(a))  %>
-  <% if(user_privileged?(comment)) %>
+  <% if(current_user.privileged?(comment)) %>
   
   <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
   <% end %>

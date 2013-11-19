@@ -5,6 +5,7 @@
 #To do
 class Following < ActiveRecord::Base
   include PublicActivity::Common
+  include NotificationConcern
   # include PublicActivity::Model
   # tracked
 
@@ -12,4 +13,5 @@ class Following < ActiveRecord::Base
   belongs_to :followee, class_name: 'User'
   validates :user_id, :followee_id, presence:true
   validates :user_id, uniqueness: { scope: [:followee_id] }
+  after_save :notify_followee
 end

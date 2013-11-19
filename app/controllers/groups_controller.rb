@@ -30,7 +30,7 @@ class GroupsController < ApplicationController
   end
 
   def destroy
-    if(user_privileged?(@group))
+    if(current_user.privileged?(@group))
       if(@group.destroy)
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Group destroyed' }
@@ -48,10 +48,13 @@ class GroupsController < ApplicationController
 
   def set_group
     # CR_Priyank: use company scope to find groups and users throughout this app
+    #[Discuss]
     # CR_Priyank: Do not use dynamic finders
+    #[Discuss]
     @group = Group.find_by(id: params[:id])
     # CR_Priyank: I think we can improve/optimize below logic
-    if(@group.nil? || @group.company_id != current_user.company_id)
+    #[Fixed] - Done so
+    if(@group.nil?)
       respond_to do |format|
         format.html do 
           flash[:notice] = "Group doesn't exist" 

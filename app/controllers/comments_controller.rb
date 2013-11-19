@@ -4,12 +4,13 @@ class CommentsController < ApplicationController
   before_action :set_comments, only: [:destroy]
 
   # CR_Priyank: I think we can move comments create to posts controller using nested attributes
+  #[To do]
   def create
     #FIXME_AB: You are relying on th post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
     @post = Post.find_by(id: params[:post_id])
     if(@post.nil?)  
-      redirect_to_back_or_default_url
       flash[:notice] = "Post not found"
+      redirect_to_back_or_default_url
       return false
     end
     @post.comments.build(comment_params)
@@ -19,9 +20,6 @@ class CommentsController < ApplicationController
       respond_to do |format|
         #FIXME_AB: Don't use redirect_to :back. Instead you should make a helper method redirect_to_back_or_default. Which will check if HTTP_REFERER is present then will do the redirect_to :back else will redirect to the url passed to this funciton. Default will be root_path
         #[Fixed]
-        
-        add_notifications(@post)
-
         format.html { redirect_to_back_or_default_url }
       end
     else
@@ -38,7 +36,8 @@ class CommentsController < ApplicationController
     #FIXME_AB: @comment.owner?(current_user)
     #[Fixed]
     # CR_Priyank: I think user_provoleged restriction should be moved in model as validation
-    if(user_privileged?(@comment))
+    #[Fixed] - Moved to user model
+    if(current_user.privileged?(@comment))
       #FIXME_AB: What if it was not destoyed. I think you can make use of destroyed?
       #[Fixed]     
       if(@comment.destroy)
@@ -53,6 +52,7 @@ class CommentsController < ApplicationController
           end
         end
       end
+
     else
       flash[:notice] = "You can't delete this comment"
       redirect_to_back_or_default_url
@@ -74,9 +74,6 @@ class CommentsController < ApplicationController
   end
 
   # CR_Priyank: I think we can move this to model's concern
-  def add_notifications(post)
-    @post = post
-    @post.comments.last.create_activity key: 'comment.create', owner: @post.user
-      SoapBoxMailer.comment_email(@post.user, current_user, @post, current_company.name).deliver
-    end
+  # [Fixed]
+  
 end

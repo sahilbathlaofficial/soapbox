@@ -10,8 +10,7 @@ class FollowingsController < ApplicationController
         #[Fixed] Added public activities
         format.html do
           # CR_Priyank: I think this can be moved in model's concern
-          @following.create_activity key: 'following.create', owner: @following.followee
-          SoapBoxMailer.following_email(@following.followee, current_user, current_company.name).deliver
+          # [Fixed] - moved to following model
           flash[:notice] = "You are now following #{ @following.followee.firstname } " 
           redirect_to_back_or_default_url 
         end
