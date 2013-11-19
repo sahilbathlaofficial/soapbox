@@ -1,4 +1,5 @@
 # CR_Priyank: Indent properly
+# [Fixed] - Done so
 class SiteAdmin::CompaniesController < SiteAdmin::AdminController
   
   def show
@@ -17,6 +18,6 @@ class SiteAdmin::CompaniesController < SiteAdmin::AdminController
       respond_to do |format|
         format.html { redirect_to action: 'show'}
       end
-   end
+    end
   end
 end
