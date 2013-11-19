@@ -11,7 +11,7 @@ fetchNotification = function() {
       console.log(data);
       if(data.length != 0)
       {
-        $('#notificationSpriteContent').html('').append('<a class="appLinks" data-remote="true" href="/x/notifications/index">Notifications</a>');
+        $('#notificationSpriteContent').html('').append('<a class="appLinks" data-remote="true" href="/x/notifications">Notifications</a>');
         $('#notificationSpriteContent').append('<div id="newNotificationMsg" class="generalContainer">You have new notifications!! </div>');
         blinkEvent = window.setInterval(function() {
           $('#notificationSprite').toggleClass('blink');

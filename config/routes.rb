@@ -18,7 +18,7 @@ scope '/:company' do
   end
 
   resources :notifications, only: [:index] do
-      get 'get_new_notifications', on: :collection
+    get 'get_new_notifications', on: :collection
   end
 
   resources :users, only: [:edit, :update, :show, :destroy] do
