@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :set_user, :except => [:autocomplete, :tag_list]
+  before_filter :set_user, :except => [:autocomplete, :tag_list, :wall]
 
   def show
     if(current_user.company_id != @user.company_id)
@@ -49,10 +49,11 @@ class UsersController < ApplicationController
 
   def autocomplete
     # CR_Priyank: Should be in company's scope
-    #[Discuss]
+    #[Fixed]
     # CR_Priyank: Move query in model scope
-    @users = User.where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', params[:query].downcase, params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name')
-    @users += Group.where('(LOWER(name) like ?) AND company_id = ?', params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'name');
+    #[To-do]
+    @users = current_company.users.where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', params[:query].downcase, params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name')
+    @users += current_company.groups.where('(LOWER(name) like ?) AND company_id = ?', params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'name');
     respond_to do |format|
       format.json { render json: @users }
     end
@@ -60,7 +61,7 @@ class UsersController < ApplicationController
 
   def tag_list
     users = current_user.followers + current_user.followees + [current_user] 
-    @users = User.where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  params[:query].downcase, users).limit(5)
+    @users = current_company.users.where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  params[:query].downcase, users).limit(5)
     respond_to do |format|
       format.js {}
     end
@@ -71,13 +72,9 @@ class UsersController < ApplicationController
 
   def set_user
     # CR_Priyank: I think we do not need to check if params[:id]
-    # [Discuss]
-    if(params[:id])
+    # [Fixed]
       @user = User.find_by(id: params[:id])
       redirect_to_back_or_default_url if(@user.nil?)
-    else
-      redirect_to(wall_user_path(current_user))
-    end
   end
 
   def user_params

@@ -1,17 +1,20 @@
 class PostsController < ApplicationController
 
   before_action :set_post, only: [:destroy, :show]
+  before_action :parse_url, only: [:extract_url_content]
 
   def create
     # CR_Priyank: We can use current_user.posts.build(post_params)
-    @post = Post.new(post_params)  
+    # [Fixed] - Using so
+    @post = current_user.posts.build(post_params)  
     # CR_Priyank: We can also use params[:post][:extra_content].present?
-    @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if !(params[:post][:extra_content].nil?)
+    # [Fixed] - Done
+    @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if (params[:post][:extra_content].present?)
     current_user.posts << @post
     # CR_Priyank: This must be moved to model
-    # [Fixed]
+    # [Fixed] - Moved to Post model
     # CR_Priyank: We can also use @post.tags.present?
-    # [Fixed]
+    # [Fixed] - using present
     respond_to do |format|
       format.html { redirect_to :back }
     end
@@ -34,8 +37,7 @@ class PostsController < ApplicationController
 
   def extract_url_content
     # CR_Priyank: move parsing logic to before_filter
-    @url = params[:url][0..-2] #remove the space
-    @url = 'http://' + @url if(@url[0..3].downcase == 'www.')
+    # [Fixed]
     begin
       @doc = Nokogiri::HTML(open(@url))
       respond_to do |format|
@@ -64,6 +66,11 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content, :group_id, :tags)
+  end
+
+  def parse_url
+    @url = params[:url][0..-2] #remove the space
+    @url = 'http://' + @url if(@url[0..3].downcase == 'www.')
   end
 
 end

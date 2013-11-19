@@ -25,7 +25,7 @@ before_action :set_group, only: [:create, :destroy, :index]
     flash[:notice] = "You were not able to unjoin this group due to some reason"
     # CR_Priyank: This must be a validation in model
     # CR_Priyank: This complete logic can be moved to model
-    # [Discuss]
+    # [Discuss_AB]
     if(@group.admin?(current_user))
       flash[:notice] = "You deleted your own group" if(@group.destroy)
       respond_to do |format|
@@ -44,7 +44,7 @@ before_action :set_group, only: [:create, :destroy, :index]
 
   def set_group
     # CR_Priyank: Do not use dynamic finders instead use where
-    # [Discuss]
+    # [Fixed] - As discussed(not a dynamic finder)
     @group = Group.find_by(id: params[:id])
     redirect_to_back_or_default_url if(@group.nil?)
   end

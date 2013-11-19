@@ -51,9 +51,9 @@ autoFetchUsers = function() {
            image = '<img class="thumbnailImage" src="/assets/missing.png"></img>';
           }
           else
-            image = '<img class="thumbnailImage" src="/system/users/avatars/000/000/00'+ search_term[0] + '/original/' + search_term[3] + '"></img>'
+            image = '<img class="thumbnailImage" src="/system/users/avatars/000/000/0'+ search_term[0] + '/original/' + search_term[3] + '"></img>'
 
-          $('#userAutoCompleteSearchResults').append('<a class="userAutoCompleteSearchResults" href="/users/' + search_term[0] + '"></a>')
+          $('#userAutoCompleteSearchResults').append('<a class="userAutoCompleteSearchResults" href="/company/users/' + search_term[0] + '"></a>')
             .children('a:last').append('<div>' + display_result + '</div><br>')
             .children('div:first').before(image);
         }

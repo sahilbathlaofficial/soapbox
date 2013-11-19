@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def current_company
     # CR_Priyank: Use where instead of find
-    # [Discuss]
+    # [Fixed] - Discussed 
     @current_company ||= Company.find(session[:company]) if(session[:company])
   end
 

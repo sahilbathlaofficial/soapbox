@@ -1,5 +1,5 @@
 $(document).ready(function(){
   $("#like_post_<%= @like.post.id %>_count").text("<%= pluralize(@like.post.likes.count, 'Like') %>");
-  $("#like_post_<%= @like.post.id %>").html('<a class="postOptionsLink" data-method="post" data-remote="true" href="/likes/'
+  $("#like_post_<%= @like.post.id %>").html('<a class="postOptionsLink" data-method="post" data-remote="true" href="/company/likes/'
     + '?post_id=<%= @like.post.id %>&amp;user_id=<%= current_user.id %>" id="like_post_<%= @like.post.id %>" rel="nofollow">Like</a>');
 });

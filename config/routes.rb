@@ -2,7 +2,7 @@
 
 AppName.constantize::Application.routes.draw do
 
-root 'users#wall'
+root 'users#wall',  defaults: { id: '1' }
 
 scope '/:company' do
   # CR_Priyank: No controller for companies
@@ -18,7 +18,7 @@ scope '/:company' do
   end
 
   resources :notifications, only: [:index] do
-      get 'get_new_notifications'
+      get 'get_new_notifications', on: :collection
   end
 
   resources :users, only: [:edit, :update, :show, :destroy] do
@@ -59,7 +59,7 @@ scope '/:company' do
 
 end
 
-    get '/:controller/(:action/(:id))', to: redirect('/company/%{controller}/%{action}')
+    get '/:controller/:action/(:id)', to: redirect('/company/%{controller}/%{action}')
  
 
     # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
