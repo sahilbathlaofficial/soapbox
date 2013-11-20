@@ -2,24 +2,30 @@
 // [Fixed]: Indented my code
 
 $(document).ready(function(){
-   // set position of post hidden div for tagging
   var regex_url = /((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>"\,\{\}\\|\\\^\[\]`]+)?\s/
+  
+  // Giving a position to the background div
   setPostContentBox = function()
   {
     if($('#composePostContent').length === 1)
     {
       $('#composePostContent').autosize();
       position_compose_post = $('#composePostContent').position();
-      $('#composePostCopy').css('top',position_compose_post.top + 12)
-      .css('left', position_compose_post.left + 6.5 ).width($('#composePostContent').width())
+      $('#composePostCopy').css('top',position_compose_post.top)
+      .css('left', position_compose_post.left)
+      .css('padding',$('#composePostContent').css('padding'))
+      .width($('#composePostContent').width())
     }
 
     if($('.commentText').length >= 1)
     {
       $('.commentText').each(function(){
         $(this).autosize();
-        $(this).prev('.composeTextCopy').css('top', 20)
-        .css('left', 8).width($(this).width())
+        $(this).prev('.composeTextCopy').css('top', $(this).top)
+        .css('left', $(this).left)
+        .css('padding', $(this).css('padding'))
+        .width($(this).width())
+        $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height() + parseFloat($(this).prev('div.composeTextCopy').css('padding-top')) ))
       })
     }
   }
@@ -34,13 +40,6 @@ $(document).ready(function(){
   addUserTags = function(e) {
   
     $(document).on('keyup','#composePostContent, .commentText', function(e){
-
-      // $('.tagBackground').remove();
-      // position_compose_post = $('#composePostContent').position();
-      // position_of_tag = ($('#composePostContent').val().length)*6;
-      // $('<div class="tagBackground"></div>').css('top', position_compose_post.top+22)
-      // .css('left', position_compose_post.left+7 ).width(position_of_tag)
-      // .appendTo($('body'));
 
       var text_box_id= $(this).attr('id');
       var text_input = $(this).val();
@@ -73,7 +72,7 @@ $(document).ready(function(){
       // maintaining overflow of commentbox(as they are relative :() 
       if($(this).hasClass('commentText'))
       {
-        $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height()))
+        $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height() + parseFloat($(this).prev('div.composeTextCopy').css('padding-top')) ))
         $(this).next('input').css('margin-top', -($(this).prev('div.composeTextCopy').height()))
       }
 
@@ -117,20 +116,10 @@ $(document).ready(function(){
   }
 
   // end of url extraction //
+
+
   setPostContentBox();
   extractUrlSynopsis();
   addUserTags();
-
-  // $('#composePostContent').focus(function() {
-  //   $('.commentText').prev('.composeTextCopy').each(function() {
-  //     $(this).css('top',$(this).position().top + 64)
-  //   });
-  // });
-
-  // $('#composePostContent').blur(function() {
-  //   $('.commentText').prev('.composeTextCopy').each(function() {
-  //     $(this).css('top',$(this).position().top - 64)
-  //   });
-  // });
 
 });

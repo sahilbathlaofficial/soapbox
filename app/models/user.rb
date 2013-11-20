@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
 
   def provide_dummy_names
       self.firstname = 'soapBox User'
-      self.lastname = (User.last.id + 1).to_s
+      self.lastname = (User.last.id + 1).to_s || '1'
   end
 
   def send_welcome_email

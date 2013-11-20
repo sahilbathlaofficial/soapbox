@@ -220,17 +220,6 @@
 
 /* end of handling 3 divs */
 
-.siteLink, .siteLink:visited
-{
-  color:white !important;
-  font-size:1.1em;
-}
-
-#groupPosts a, .siteLink, .siteLink:visited 
-{
-  background: none !important;
-  text-decoration: none !important;
-}
 
 .hero-unit-extend
 {
@@ -478,7 +467,6 @@
   padding-bottom: 0%;
   padding-top: 2%;
   position: relative;
-  top: 1em !important;
   z-index: 1000;
   border: 2px solid #eee;
   background: none;
@@ -489,6 +477,7 @@
 #composePostCopy, #composePostContent, .composeTextCopy, .commentText
 {
   line-height: 18px !important;
+  margin-bottom: 0px !important;
 }
 
 .tagBackground
@@ -643,7 +632,7 @@
 #homeSpriteContent
 {
   display: inline-block;
-  margin:20% 0% 0% 90%;
+  margin:25% 0% 0% 90%;
 }
 
 #meSprite
@@ -657,8 +646,7 @@
 #meSpriteContent
 {
   display: inline-block;
-  margin-left: 3em;
-  margin-top: 0.7em;
+  margin:25% 0% 0% 90%;
 }
 
 #meSprite:hover
@@ -689,20 +677,26 @@
 #notificationSpriteContent
 {
   display: inline-block;
-  margin-left: 3em;
-  margin-top: 0.7em;
+  margin:25% 0% 0% 110%;
 }
 
 #notificationsResult
 {
-  margin-top:10%;
+  margin-top:0%;
   margin-left:-80%;
-  width:400%;
+  width:800%;
   padding:10%;
   border: 2px solid grey;
   position: relative;
   z-index: 10000;
 }
+
+#notificationsResult a, #notificationsResult a:visited
+{
+  color: black;
+  font-weight: bold;
+}
+
 
 #newNotificationMsg
 {
@@ -823,4 +817,34 @@
 .pageListContainer
 {
   margin-left: 0px !important;
+}
+
+/* Links */
+
+
+.siteLink, .siteLink:visited
+{
+  color:white !important;
+  font-size:1.1em;
+}
+
+#groupPosts a, .siteLink, .siteLink:visited 
+{
+  background: none !important;
+  text-decoration: none !important;
+}
+
+.blackButBlueOnHover
+{
+  color:black !important;
+}
+
+.blackButBlueOnHover:visited
+{
+  color:black !important;
+}
+
+.blackButBlueOnHover:hover
+{
+  color:blue !important;
 }

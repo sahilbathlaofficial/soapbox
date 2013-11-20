@@ -63,19 +63,22 @@
           <div class="container-fluid nav-collapse">
             <ul id="menuLinksContainer"  class="nav">
               <li id="homeSprite">
+                <%= link_to('
                 <div id="homeSpriteContent">
-                  <%= link_to "Home", wall_user_path(current_user), class: :appLinks  %>
-                </div>
+                  Home
+                </div>'.html_safe, wall_user_path(current_user), class: :appLinks)  %>
               </li>
               <li id="meSprite">
-                <div id="meSpriteContent">
-                  <%= link_to "Me", user_path(current_user), class: :appLinks  %>
-                </div>
+                <%= link_to('
+                  <div id="meSpriteContent">
+                    Me
+                  </div>'.html_safe, user_path(current_user), class: :appLinks)  %>
               </li>
               <li id="notificationSprite">
+                <%= link_to('
                 <div id="notificationSpriteContent">
-                  <%= link_to "Notifications", notifications_path,remote: true, class: :appLinks  %>
-                </div>
+                  Notifications 
+                </div>'.html_safe, notifications_path, remote: true, class: :appLinks) %>
               </li>
             </ul> 
 
@@ -99,13 +102,13 @@
                   </a>
 
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="settingsList">
-                    <li role="presentation" ><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
-                    <li role="presentation" ><%= link_to "View Profile", user_path(current_user) %></li>
+                    <li role="presentation" ><%= link_to "Edit Profile", edit_user_path(current_user), class: 'blackButBlueOnHover' %></li>
+                    <li role="presentation" ><%= link_to "View Profile", user_path(current_user), class: 'blackButBlueOnHover' %></li>
                     <% if(current_user.is_admin?) %>
-                      <li role="presentation" ><%= link_to "Admin Panel", site_admin_users_path %></li>
+                      <li role="presentation" ><%= link_to "Admin Panel", site_admin_users_path, class: 'blackButBlueOnHover' %></li>
                     <% end %>
                     <li role="presentation" class="divider"></li>
-                    <li role="presentation" ><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+                    <li role="presentation" ><%= link_to "Logout", destroy_user_session_path,class: 'blackButBlueOnHover',method: :delete %></li>
                   </ul>
 
                 </div> 
@@ -162,7 +165,7 @@
                 <div class="recentMembersContent smallText">
                   <%= link_to(image_tag(member.avatar, class:'thumbnailImage'), member) %>
                   <br>
-                  <%= link_to(member.name, member) %>
+                  <%= link_to member.name, member, class: 'blackButBlueOnHover' %>
                 </div>
               <% end %>
             </div>
@@ -175,9 +178,9 @@
             <div id="suggestedGroupsContent">
               <% for group in fetch_groups %>
                 <div class="recentMembersContent smallText">
-                  <%= link_to(image_tag('ror.png', class:'thumbnailImage'), group) %>
+                  <%= link_to(image_tag('ror.png', class: 'thumbnailImage'), group) %>
                   <br>
-                  <%= link_to(group.name, group) %>
+                  <%= link_to group.name, group, class: 'blackButBlueOnHover' %>
                 </div>
               <% end %>
             </div>

@@ -11,7 +11,7 @@ setDynamicModalShow = function() {
 
 
 <% if !(@notifications.empty?) %>
-  $('#notificationSpriteContent').html('').append('<div id="notificationsResult" class="generalContainer"></div>');
+  $('#notificationSprite').html('').append('<div id="notificationsResult" class="generalContainer"></div>');
   <% @notifications.each do |notification| %>
     <% notification.seen = true %>
     <% notification.save! %>
@@ -20,7 +20,7 @@ setDynamicModalShow = function() {
       $('#notificationsResult').append('<div class= "notificationsResult"><%= j output%></div>');
     <% end %>
   <% end %> 
-  $('#notificationSpriteContent').prepend('<span id="notificationTitle">Notifications</span>').find('a.appLinks').remove();
+  $('#notificationSprite').prepend('<div id="notificationSpriteContent">Notifications</div>').find('a.appLinks').remove();
   $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
  
   // on click on body hide the notificationResult
@@ -30,7 +30,7 @@ setDynamicModalShow = function() {
   });
  
  // on click on the tab show the notificationResult
-  $('#notificationSpriteContent').bind('click', function(event) {
+  $('#notificationSprite').bind('click', function(event) {
     event.stopPropagation();
     $('#notificationsResult').show();
   });

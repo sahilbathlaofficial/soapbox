@@ -97,3 +97,7 @@ body
 {
   margin-bottom: 5%;
 }
+
+.navbar .nav>li>a {
+  padding: 0px;
+}

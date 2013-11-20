@@ -1,7 +1,8 @@
 /* notifications */
 
+
 notificationCheck = function() {
-  window.setInterval(fetchNotification, 1000);
+  window.setInterval(fetchNotification, 2000);
 }
 
 fetchNotification = function() {
@@ -11,7 +12,7 @@ fetchNotification = function() {
       console.log(data);
       if(data.length != 0)
       {
-        $('#notificationSpriteContent').html('').append('<a class="appLinks" data-remote="true" href="/x/notifications">Notifications</a>');
+        $('#notificationSprite').html('').append('<a class="appLinks" data-remote="true" href="/vinsol/notifications"><div id="notificationSpriteContent">Notifications</div></a>');
         $('#notificationSpriteContent').append('<div id="newNotificationMsg" class="generalContainer">You have new notifications!! </div>');
         blinkEvent = window.setInterval(function() {
           $('#notificationSprite').toggleClass('blink');

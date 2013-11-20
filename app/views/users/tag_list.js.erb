@@ -5,7 +5,7 @@ $('#userTagList').remove();
   var selected_text_field = '<%= params[:text_box_id]%>'
   $('#' + selected_text_field).after('<div id="userTagList" class="generalContainer"></div>');
   <% for user in @users %>
-    result += '<div class="userTagList"><%= j link_to(user.name, user, data: {id: user.id, name: user.name})%></div>'
+    result += '<div class="userTagList"><%= j link_to(user.name, user,class: "blackButBlueOnHover", data: {id: user.id, name: user.name})%></div>'
   <% end %>
   $('#userTagList').html(result);
 
