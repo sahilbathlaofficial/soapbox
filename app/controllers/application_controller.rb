@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   # CR_Priyank: Use redirect_to :back instead of redirect_to_back_or_default_url method everywhere and rescue from ActionController::RedirectBackError in application controller to refirect_to default url
-  # [Discuss]
+  # [Discuss_AB]
   def redirect_to_back_or_default_url(url = root_path)
     if request.referer
       redirect_to :back 
@@ -48,5 +48,17 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_company
+
+
+class PublicActivity::Activity
+  def self.fetch_notifications(user_id, seen=nil)
+    if(seen.nil?)
+      all
+    else
+      where('seen = true')
+    end
+    where('owner_id = ?', user_id).order('id desc')
+  end
+end
 
 end
