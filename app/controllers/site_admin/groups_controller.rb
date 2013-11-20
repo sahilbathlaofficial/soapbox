@@ -2,9 +2,9 @@ class SiteAdmin::GroupsController < SiteAdmin::AdminController
   
   def manage_groups
     # CR_Priyank: I think we shall use require instead of permit here and handle exception accordingly
-    #[Discuss]
+    #[Fixed] - Handled case if no to_ban added
     allowed_params = params.permit('to_ban')
-    allowed_params[:to_ban].split.each do |group_id|
+    (allowed_params[:to_ban].split || []).each do |group_id|
       # CR_Priyank: Use where instead of find
       #[Fixed] - As discussed
       # CR_Priyank: What if object is not destroyed ?

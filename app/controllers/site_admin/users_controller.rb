@@ -5,7 +5,7 @@ class SiteAdmin::UsersController < SiteAdmin::AdminController
 
   def manage_users
     # CR_Priyank: I think we shall use require instead of permit here and handle exception accordingly
-    #[Discuss]
+    #[Fixed]
     allowed_params = params.permit(:to_ban, :make_moderators)
     # CR_Priyank: Use where instead of find
     #[Fixed]
