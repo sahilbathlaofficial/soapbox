@@ -51,13 +51,12 @@ class ApplicationController < ActionController::Base
 
 
 class PublicActivity::Activity
-  def self.fetch_notifications(user_id, seen=nil)
+  def self.fetch_notifications(user_id, seen = nil)
     if(seen.nil?)
-      all
+      where('owner_id = ?', user_id).order('id desc')
     else
-      where('seen = true')
+      where('owner_id = ? and seen = ?', user_id, seen)
     end
-    where('owner_id = ?', user_id).order('id desc')
   end
 end
 
