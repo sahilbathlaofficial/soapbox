@@ -61,7 +61,7 @@ class PostsController < ApplicationController
   end
 
   def set_parsed_content
-   params[:post][:extra_content].permit!
+    params[:post][:extra_content].permit!
   end
 
   def post_params

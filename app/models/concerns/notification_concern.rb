@@ -10,11 +10,15 @@ module NotificationConcern
       for user_id in user_ids
         @user = User.find(user_id)
         if !(@user.nil?)
-          SoapBoxMailer.tag_email(@user, post, @user.company.name).deliver  
           post.create_activity key: 'post.tagged', owner: @user
+          email_tagged_users(@user, post)
         end
       end 
     end
+  end
+
+  def email_tagged_users(user, post)
+    SoapBoxMailer.tag_email(user, post, user.company.name).deliver  
   end
 
   def notify_commented_on

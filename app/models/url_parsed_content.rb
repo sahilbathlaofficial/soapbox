@@ -1,4 +1,5 @@
 class URLParsedContent < ActiveRecord::Base
   belongs_to :post
-  belongs_to :user
+  validates :url, format: URLRegex
+  validates :post_id, presence: true
 end
