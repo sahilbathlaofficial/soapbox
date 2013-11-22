@@ -5,5 +5,5 @@ class Company < ActiveRecord::Base
   has_many :groups
   # CR_Priyank: I think we do not need to associate posts to company
   # [Fixed] - Removed the association
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: {:case_sensitive => false}
 end

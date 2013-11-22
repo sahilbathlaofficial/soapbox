@@ -6,13 +6,14 @@ class Group < ActiveRecord::Base
   # CR_Priyank: Try to avoid habtm relationships and use has many through instead
   # [Discuss_AB]
   has_and_belongs_to_many :users
-  #FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
-  #FIX:Scope added
+  # FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
+  # FIX:Scope added
   has_many :posts, -> { order("created_at DESC") }, dependent: :destroy
   belongs_to :company
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
   validates :name, :company_id, :admin_id, presence: true
   validates :name, uniqueness: { scope: [:company_id] }
+  after_create
 
   def admin?(user)
     # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
