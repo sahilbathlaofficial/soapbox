@@ -13,7 +13,7 @@ class Group < ActiveRecord::Base
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
   validates :name, :company_id, :admin_id, presence: true
   validates :name, uniqueness: { scope: [:company_id] }
-  after_create
+  after_create { |group| group.users << (User.find_by(id: group.admin_id)) }
 
   def admin?(user)
     # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time

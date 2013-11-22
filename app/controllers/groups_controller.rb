@@ -16,15 +16,18 @@ class GroupsController < ApplicationController
   def create
     #FIXME_AB: company.groups.build
     #[Fixed]
-    @group = current_company.group.build(group_params)
+    @group = current_company.groups.build(group_params)
     respond_to do |format|
       #FIXME_AB: I prefer not to push like below. instead group.add_user(user). So that we can have all the logic related to joining at one place.
       #[Discuss]
+      if(@group.save)
         format.html { redirect_to @group, notice: "Group #{@group.name} was successfully created." }
-        # CR_Priyank: Why are we hardcoding route here ?
-        #[Fixed] - Using root_path
+      else
+        format.html { redirect_to @group, notice: "Group #{@group.name} was not successfully created." }
       end
-    end
+      # CR_Priyank: Why are we hardcoding route here ?
+      #[Fixed] - Using root_path
+  end
   end
 
   def show
