@@ -83,7 +83,9 @@ class User < ActiveRecord::Base
   end
 
   def send_welcome_email
-    SoapBoxMailer.welcome_email(self).deliver
+    SoapBoxMailer.delay.welcome_email(self)
   end
+
+  # handle_asynchronously :send_welcome_email
 
 end

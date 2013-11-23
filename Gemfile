@@ -80,3 +80,6 @@ gem 'public_activity'
 
 # Link Extraction
 #gem "pismo", "~> 0.7.4"
+
+#Delayed job
+gem 'delayed_job_active_record'

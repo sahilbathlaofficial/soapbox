@@ -2,7 +2,7 @@
 
 
 notificationCheck = function() {
-  window.setInterval(fetchNotification, 2000);
+  window.setInterval(fetchNotification, 60 * 1000);
 }
 
 fetchNotification = function() {

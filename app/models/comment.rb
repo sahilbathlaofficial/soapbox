@@ -18,4 +18,5 @@ class Comment < ActiveRecord::Base
     # [Fixed] - Done so
     self.user.id == user.id
   end
+
 end

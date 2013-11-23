@@ -51,13 +51,14 @@ scope '/:company' do
     end
   end
 
+end
+
+
   devise_for :user, controllers: {
     omniauth_callbacks: "controller_devise/omniauth_callback", 
     registrations: "controller_devise/registrations",
     sessions: "controller_devise/sessions"
   }
-
-end
 
     get '/:controller/:action/(:id)', to: redirect('/company/%{controller}/%{action}')
  

@@ -17,7 +17,7 @@ AppName.constantize::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -36,7 +36,7 @@ AppName.constantize::Application.configure do
     port:                 587,
     domain:               'example.com',
     user_name:            'timepass.vela@gmail.com',
-    password:             '',
+    password:             'nevabackdown',
     authentication:       'plain',
     enable_starttls_auto: true  }
   end
