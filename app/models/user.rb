@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   #FIXME_AB: following mehtod should be named as display_name as I guess will be used for display purpose only.
   #To discuss
   def name
-    firstname.capitalize + ' ' + lastname.capitalize
+    (firstname.try(:capitalize) || '') + ' ' + (lastname.try(:capitalize) || '')
   end
 
   def to_param

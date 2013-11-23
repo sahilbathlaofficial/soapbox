@@ -56,7 +56,6 @@ describe Post do
     @company.destroy
     @user.destroy
     @group.destroy
-    @post.destroy
   end
 
 end
