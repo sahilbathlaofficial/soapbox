@@ -10,6 +10,18 @@ body {
   min-height:1200px;
 }
 
+#chooseLanguage
+{
+ color:white;
+ position:absolute;
+ top:1%;
+ right:1%; 
+}
+#chooseLanguage form
+{
+  display: inline;
+}
+
 input:focus
 {
   border-color: #039bd3;

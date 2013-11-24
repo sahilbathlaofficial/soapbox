@@ -13,24 +13,24 @@
       
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
       <div>
-        <%= f.email_field :email, :autofocus => true, :class => 'inputField', :placeholder => 'Email', :size => '40'  %>
+        <%= f.email_field :email, :autofocus => true, :class => 'inputField', :placeholder => t(:email_holder), :size => '40'  %>
       </div>
 
       <div>
-        <%= f.password_field :password, :class => 'inputField', :placeholder => 'Password', :size => '30' %>
-        <%= f.submit "Sign in", class: "button" %>
+        <%= f.password_field :password, :class => 'inputField', :placeholder => t(:password), :size => '30' %>
+        <%= f.submit t(:sign_in), class: "button" %>
       </div>
 
       <div>
         <% if devise_mapping.rememberable? -%>
-          <%= f.check_box :remember_me %> <%= f.label :remember_me, id: 'remember' %>
+          <%= f.check_box :remember_me %> <%= f.label t(:remember_me), id: 'remember' %>
         <% end -%>
       </div>
 
       <hr>
       <div id="sign_up">
-        <span class="normalText"> New to soapBox? </span> 
-        <%= link_to 'Sign up', new_user_registration_path, class: "button" %>
+        <span class="normalText"><%= t(:new_here) %> </span> 
+        <%= link_to t(:sign_up), new_user_registration_path(locale: params[:locale]), class: "button" %>
       </div>
 
 
@@ -39,8 +39,8 @@
     <!--<%= render "devise/shared/links" %> -->
     </div>
 
-    <p class="text">Welcome to soapBox.<br>
-    Find out what's happening, right now, with the people and organizations you care about.
+    <p class="text"> <%= t(:welcome, app: AppName) %><br>
+        <%= t(:app_intro) %>
     </p>
   </div>
 </div>

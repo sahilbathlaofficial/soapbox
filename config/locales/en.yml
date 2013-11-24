@@ -20,4 +20,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  email_holder: "Enter Company Email"
+  password: "Password"
+  confirm_password: "Confirm Password"
+  exist_already: "Already exist?"
+  remember_me: "Remember me"
+  new_here: "New here?"
+  sign_up: "Sign up"
+  sign_in: "Sign in"
+  welcome: "Welcome to %{app}"
+  app_intro: "Find out what's happening, right now, with the people and organizations you care about."

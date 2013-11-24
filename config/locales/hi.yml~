@@ -1,0 +1,11 @@
+hi:
+  email_holder: "कंपनी ईमेल दर्ज करें"
+  password: "पासवर्ड"
+  confirm_password: "पासवर्ड की पुष्टि"
+  exist_already: "पहले से मौजूद हैं?"
+  remember_me: "मुझे याद रखें"
+  new_here: "New here?"
+  sign_up: "साइन अप"
+  sign_in: "साइन इन"
+  welcome: "%{app} में आपका स्वागत है"
+  app_intro: "आप से परिचित लोगों और संगठनों के साथ क्या हो रहा है पता लगाओ."

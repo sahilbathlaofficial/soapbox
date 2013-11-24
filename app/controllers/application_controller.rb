@@ -6,9 +6,19 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authorize  
+  before_action :set_locale
+ 
   # before_action {  ActionMailer::Base.default_url_options = {:host => request.protocol + request.host_with_port + (current_company.try(:name) || AppName) } }
 
   protected
+
+  def set_locale
+    if(['hi','en'].include?(params[:locale]))
+      I18n.locale = params[:locale] 
+    else
+      I18n.locale = I18n.default_locale
+    end
+  end
 
   def authorize
     #FIXME_AB: if !(current_user) is used to check whether user is logged in or not. So define to method for that, logged_in? and annonymous?

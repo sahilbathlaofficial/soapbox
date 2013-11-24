@@ -13,7 +13,17 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "sign_in_sign_up", :media => "all" %>
+    <%= javascript_include_tag "sign_in_sign_up", :media => "all" %>
   </head>
+  <div id="chooseLanguage">
+    <%= t(:choose_language)%>
+    <form >
+      <select id="languageSelector" name="locale">
+        <option value="en" >English</option>
+        <option value="hi" >हिंदी</option>
+      </select>
+    </form>
+  </div>
   <body>
     <%= yield %>
   </body>
