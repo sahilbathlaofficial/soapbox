@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :set_user, :except => [:autocomplete, :tag_list, :wall]
+  before_filter :set_user, :except => [:autocomplete, :tag_list, :wall, :twitter_auth]
 
   def show
     if(current_user.company_id != @user.company_id)
@@ -64,6 +64,31 @@ class UsersController < ApplicationController
     @users = current_company.users.where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  params[:query].downcase, users).limit(5)
     respond_to do |format|
       format.js {}
+    end
+  end
+
+  def twitter_auth
+    client = TwitterOAuth::Client.new(
+      :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
+      :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE'
+      )
+    if(params[:oauth_verifier])
+      request_token = session[:request_token]
+      access_token = client.authorize(
+      request_token.token,
+      request_token.secret,
+      :oauth_verifier => params[:oauth_verifier]
+      )
+      session[:access_token] = access_token
+      redirect_to edit_user_path(current_user)
+    else
+      request_token = client.request_token(:oauth_callback => edit_user_url(current_user) )
+      #:oauth_callback required for web apps, since oauth gem by default force PIN-based flow
+      #( see http://groups.google.com/group/twitter-development-talk/browse_thread/thread/472500cfe9e7cdb9/848f834227d3e64d 
+
+      session[:request_token] = request_token
+      redirect_to request_token.authorize_url
+      # http://twitter.com/oauth/authorize?oauth_token=TOKEN
     end
   end
 

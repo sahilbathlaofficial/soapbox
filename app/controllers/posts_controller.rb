@@ -11,6 +11,7 @@ class PostsController < ApplicationController
     # [Fixed] - Done
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if (params[:post][:extra_content].present?)
     current_user.posts << @post
+    do_tweet(@post.content)
     # CR_Priyank: This must be moved to model
     # [Fixed] - Moved to Post model
     # CR_Priyank: We can also use @post.tags.present?
@@ -54,6 +55,20 @@ class PostsController < ApplicationController
   end
 
   protected
+
+  def do_tweet(tweet)
+
+    # access_token = current_user.access_token # assuming @user
+    client = TwitterOAuth::Client.new(
+    :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
+    :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
+    :token => session[:access_token].token,
+    :secret => session[:access_token].secret
+    )
+
+    client.update(tweet)
+
+  end
 
   def set_post
     @post = Post.find_by(id: params[:id])

@@ -83,3 +83,10 @@ gem 'public_activity'
 
 #Delayed job
 gem 'delayed_job_active_record'
+
+#Twitter
+gem 'twitter'
+
+#Twitter-auth
+# gem 'omniauth-twitter', :github => 'arunagw/omniauth-twitter'
+gem 'twitter_oauth'

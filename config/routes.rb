@@ -29,6 +29,7 @@ scope '/:company' do
     get 'wall', on: :member
     get 'autocomplete', on: :collection
     get 'tag_list',on: :collection
+    get 'twitter_auth', on: :collection
   end
   
   resources :groups

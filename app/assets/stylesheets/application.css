@@ -848,3 +848,15 @@
 {
   color:blue !important;
 }
+
+/* Twitter Integration */
+
+#twitterIntegrationLogo
+{
+  display: inline-block;
+  background-image: url('/assets/twitter_sprite.png');
+  background-position: 234px 1339px;
+  height:30px;
+  width:40px;
+}
+
