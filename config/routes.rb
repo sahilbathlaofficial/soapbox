@@ -4,6 +4,8 @@ AppName.constantize::Application.routes.draw do
 
 root 'users#wall',  defaults: { id: '1' }
 
+match 'api/fetch_posts', to: 'api#fetch_posts', via: [:get,:post]
+
 scope '/:company' do
   # CR_Priyank: No controller for companies
   # [Fixed] - Removed route for company
