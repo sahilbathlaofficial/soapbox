@@ -36,6 +36,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def hash_tags
+    @posts = Post.where('content like ? and user_id in (?)', '%' + params[:hash_tag] + '%', current_company.users)
+  end
+
   def extract_url_content
     # CR_Priyank: move parsing logic to before_filter
     # [Fixed]
@@ -58,15 +62,18 @@ class PostsController < ApplicationController
 
   def do_tweet(tweet)
 
-    # access_token = current_user.access_token # assuming @user
-    client = TwitterOAuth::Client.new(
-    :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
-    :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
-    :token => session[:access_token].token,
-    :secret => session[:access_token].secret
-    )
+    if(current_user.twitter_authorize_token.present?)
 
-    client.update(tweet)
+      access_token = current_user.twitter_authorize_token.split # assuming @user
+      client = TwitterOAuth::Client.new(
+      :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
+      :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
+      :token => access_token[0],
+      :secret => access_token[1]
+      )
+
+      client.update(tweet)
+    end
 
   end
 

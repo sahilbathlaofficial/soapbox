@@ -22,6 +22,7 @@
         </div>
 
         <div>
+          <% post.content.gsub!(/#\w+/i) {|hash_tag| link_to hash_tag, hash_tags_posts_path(hash_tag: hash_tag),  class: 'tags'} %>
           <%if !(post.tags.nil?) %>
             <% for user in extract_tags_from_post(post.tags) %>
                <% post.content.gsub!(/#{user.name}/i) {|user_name|  link_to(user_name, user_path(id: user.id), class: 'tags') } %> 

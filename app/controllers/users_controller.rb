@@ -79,10 +79,12 @@ class UsersController < ApplicationController
       request_token.secret,
       :oauth_verifier => params[:oauth_verifier]
       )
-      session[:access_token] = access_token
+      user = current_user
+      user.twitter_authorize_token = access_token.token + " " + access_token.secret
+      user.save!
       redirect_to edit_user_path(current_user)
     else
-      request_token = client.request_token(:oauth_callback => edit_user_url(current_user) )
+      request_token = client.request_token(:oauth_callback => twitter_auth_users_url )
       #:oauth_callback required for web apps, since oauth gem by default force PIN-based flow
       #( see http://groups.google.com/group/twitter-development-talk/browse_thread/thread/472500cfe9e7cdb9/848f834227d3e64d 
 

@@ -30,7 +30,11 @@
   </div>
 
   <div>
-    <%= link_to 'Enable Twitter Integration', twitter_auth_users_path, id: 'twitterIntegration', class: 'blackButBlueOnHover' %>
+    <% if(current_user.twitter_authorize_token.blank?) %>
+      <%= link_to 'Enable Twitter Integration', twitter_auth_users_path, id: 'twitterIntegration', class: 'blackButBlueOnHover' %>
+    <% else %>
+      <%= link_to 'Twitter Integration Enabled!! Retry?', twitter_auth_users_path, id: 'twitterIntegration', class: 'blackButBlueOnHover' %>
+    <% end %>
     <div id="twitterIntegrationLogo"></div>
   </div>
   <br>
