@@ -860,3 +860,13 @@
   width:40px;
 }
 
+/* api css */
+
+#apiToken
+{
+  margin-top: 2%;
+  padding: 2%;
+  border: 1px solid grey;
+  background: #eee;
+  font-style: italic;
+}

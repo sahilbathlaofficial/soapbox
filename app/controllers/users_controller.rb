@@ -94,6 +94,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def api_token
+    current_user.set_api_token
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   protected
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125074413) do
+ActiveRecord::Schema.define(version: 20131126054605) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -149,6 +149,8 @@ ActiveRecord::Schema.define(version: 20131125074413) do
     t.boolean  "is_admin"
     t.boolean  "is_moderator"
     t.text     "twitter_authorize_token"
+    t.text     "consumer_key"
+    t.text     "consumer_secret"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

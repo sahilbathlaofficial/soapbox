@@ -33,6 +33,7 @@ scope '/:company' do
     get 'autocomplete', on: :collection
     get 'tag_list',on: :collection
     get 'twitter_auth', on: :collection
+    get 'api_token', on: :member
   end
   
   resources :groups

@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  include EncryptionConcern
   #FIXME_AB: What I am getting is, following company is a company. If yes the we should name it as a company[Fixed]
   #FIX : Renamed to company
   belongs_to :company
@@ -73,6 +74,13 @@ class User < ActiveRecord::Base
     else
       return false
     end
+  end
+
+  def set_api_token
+    encrypter = Encrypt.new("soapBox key")
+    self.consumer_key = encrypter.encrypt(self.email)
+    self.consumer_secret = SecureRandom.hex
+    self.save
   end
   
   private

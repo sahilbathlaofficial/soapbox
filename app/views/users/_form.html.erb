@@ -37,6 +37,18 @@
     <% end %>
     <div id="twitterIntegrationLogo"></div>
   </div>
+
+  <div>
+    <br>
+    <%= link_to 'Request New Api Token', api_token_user_path(current_user), remote: true, class: 'blackButBlueOnHover' %>
+    <div id="apiToken">
+      <% if current_user.consumer_key.present? %>
+        <p>Consumer Key: <%= current_user.consumer_key %> </p>
+        <p>Consumer Secret: <%= current_user.consumer_secret %> </p>
+      <% end %>
+    </div>   
+  </div>
+
   <br>
 
   <div>
