@@ -8,8 +8,9 @@
     <% if(current_user.id == @user.id) %>
       <%= render partial: 'posts/compose_post' %>
     <% end %>
-
-    <%= render partial: 'posts/posts', locals: { posts: @user.posts } %>
+    <% cache 'my_posts', skip_digest: true do %>
+      <%= render partial: 'posts/posts', locals: { posts: @user.posts } %>
+    <% end %>
   </div>
   
   <% else %>

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 
+  before_action { |post| post.expire_fragment('my_posts') }
   before_action :set_post, only: [:destroy, :show]
   before_action :parse_url, only: [:extract_url_content]
 
