@@ -67,10 +67,10 @@ class PostsController < ApplicationController
 
       access_token = current_user.twitter_authorize_token.split # assuming @user
       client = TwitterOAuth::Client.new(
-      :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
-      :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
-      :token => access_token[0],
-      :secret => access_token[1]
+        :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
+        :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
+        :token => access_token[0],
+        :secret => access_token[1]
       )
 
       client.update(tweet)

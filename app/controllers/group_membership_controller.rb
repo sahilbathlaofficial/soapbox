@@ -25,7 +25,7 @@ before_action :set_group, only: [:create, :destroy, :index]
     flash[:notice] = "You were not able to unjoin this group due to some reason"
     # CR_Priyank: This must be a validation in model
     # CR_Priyank: This complete logic can be moved to model
-    # [Discuss_AB]
+    # [Discuss_AB - no model for group membership - HABTM Issue]
     if(@group.admin?(current_user))
       flash[:notice] = "You deleted your own group" if(@group.destroy)
       respond_to do |format|

@@ -1,3 +1,5 @@
+search_terms = []
+
 autoFetchUsers = function() {
 
   element = $('#fetchNames')
@@ -31,7 +33,7 @@ autoFetchUsers = function() {
         {
           $('#userAutoCompleteSearchResults').append('<div>No results found</div>')
         }
-        for(i=0; search_terms.length; i++)
+        for( i = 0; search_terms.length; i++)
         {
           search_term = search_terms[i];
           display_result = search_term[1] + ' ' + search_term[2];

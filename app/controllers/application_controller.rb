@@ -7,9 +7,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authorize  
   before_action :set_locale
+  helper_method :current_company
  
-  # before_action {  ActionMailer::Base.default_url_options = {:host => request.protocol + request.host_with_port + (current_company.try(:name) || AppName) } }
-
   protected
 
   def set_locale
@@ -53,21 +52,8 @@ class ApplicationController < ActionController::Base
   # CR_Priyank: move this method to user model
   # [Fixed] - Moved priveleged to user model
 
-  def default_url_options(options={})
+  def default_url_options(options = {})
     { company: current_company.try(:name) || AppName }
   end
-
-  helper_method :current_company
-
-
-class PublicActivity::Activity
-  def self.fetch_notifications(user_id, seen = nil)
-    if(seen.nil?)
-      where('owner_id = ?', user_id).order('id desc')
-    else
-      where('owner_id = ? and seen = ?', user_id, seen)
-    end
-  end
-end
 
 end

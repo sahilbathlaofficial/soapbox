@@ -30,7 +30,6 @@ module AuthenticationConcern
     if(current_user)
       current_user.company = Company.find(session[:company])
       current_user.save
-      #session[:company] = nil
     end
   end
 

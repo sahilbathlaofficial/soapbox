@@ -54,7 +54,7 @@ class GroupsController < ApplicationController
     # CR_Priyank: use company scope to find groups and users throughout this app
     #[Fixed] - Using company scope
     # CR_Priyank: Do not use dynamic finders
-    #[Fixed] - As discussed
+    #[Fixed] - As discussed using find_by instead of find
     @group = current_company.groups.find_by(id: params[:id])
     # CR_Priyank: I think we can improve/optimize below logic
     #[Fixed] - Done so

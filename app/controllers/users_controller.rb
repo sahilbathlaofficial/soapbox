@@ -75,9 +75,9 @@ class UsersController < ApplicationController
     if(params[:oauth_verifier])
       request_token = session[:request_token]
       access_token = client.authorize(
-      request_token.token,
-      request_token.secret,
-      :oauth_verifier => params[:oauth_verifier]
+        request_token.token,
+        request_token.secret,
+        :oauth_verifier => params[:oauth_verifier]
       )
       user = current_user
       user.twitter_authorize_token = access_token.token + " " + access_token.secret

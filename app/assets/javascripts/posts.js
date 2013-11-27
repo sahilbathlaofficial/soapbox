@@ -82,11 +82,7 @@ $(document).ready(function(){
     
   }
 
- 
-
-
 // url extraction code //
-
 
   checkUrlPresence = function(text)
   {
@@ -116,8 +112,7 @@ $(document).ready(function(){
   }
 
   // end of url extraction //
-
-
+  
   setPostContentBox();
   extractUrlSynopsis();
   addUserTags();

@@ -5,18 +5,24 @@ class SiteAdmin::GroupsController < SiteAdmin::AdminController
     #[Fixed] - Handled case if no to_ban added
     allowed_params = params.permit('to_ban')
     (allowed_params[:to_ban].split || []).each do |group_id|
-      # CR_Priyank: Use where instead of find
-      #[Fixed] - As discussed
-      # CR_Priyank: What if object is not destroyed ?
-      # [Fixed] - Handled
-      if (Group.find_by(id: group_id).destroy)
-        flash[:notice] = 'Groups Destroyed'
-      else
-        flash[:notice] = 'Errors in Destroying Groups'
+      Group.transaction do
+        # CR_Priyank: Use where instead of find
+        #[Fixed] - As discussed
+        # CR_Priyank: What if object is not destroyed ?
+        # [Fixed] - Handled
+        begin
+          Group.find_by(id: group_id).destroy
+        rescue ActiveRecord::Rollback
+          flash[:notice] = 'Errors in Destroying Groups'
+          respond_to do |format|
+            format.html { redirect_to action: 'show'}
+          end
+        end
       end
-      respond_to do |format|
-        format.html { redirect_to action: 'show'}
-      end
+    end
+    flash[:notice] = 'Changes saved for Groups'
+    respond_to do |format|
+      format.html { redirect_to action: 'show'}
     end
   end
 

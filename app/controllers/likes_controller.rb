@@ -4,14 +4,14 @@ class LikesController < ApplicationController
 
   def create
     # CR_Priyank: I think this should be like current_user.likes.build(like_params)
-    # [Fixed] - Using build
+    # [Fixed] - Using build but with respect to post not user
     @like = @post.likes.build(like_params)
     respond_to do |format|
       if(@like.save)  
         format.js {}
       else
         # CR_Priyank: I think we shall use flash.now[:notice]
-        # [Fixed] - Sorry sir, Fixed
+        # [Fixed] - Fixed
         format.js { flash.now[:notice] = 'Like not saved'}
       end
     end

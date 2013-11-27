@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   # CR_Priyank: I think we can move comments create to posts controller using nested attributes
   #[To do]
   def create
-    #FIXME_AB: You are relying on th post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
+    #FIXME_AB: You are relying on the post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
     @post = Post.find_by(id: params[:post_id])
     if(@post.nil?)  
       flash[:notice] = "Post not found"

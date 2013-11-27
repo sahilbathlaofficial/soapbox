@@ -19,33 +19,9 @@
 //= require_tree .
 
 // CR_Priyank: Avoid writing js in application.js instead create a separate js file and require them here
-// [Fixed] - Separate Files Created for different functions
-search_terms = []
-
-changeOriginalButtonClass = function() {
-  $('.btn-success, .btn-danger').width(75);
-  $('.hovered-button').closest('form').hide();
-
-  $('.buttonToggle').mouseenter(function(e){
-    $(this).children().first().hide();
-    $(this).children().last().show();
-  }).mouseleave(function(e){
-    $(this).children().first().show();
-    $(this).children().last().hide();
-  });
-
-}
-
-sideBarHeightHandler = function() {
-  height = $('body').height() - 50;
-  $('#left-sidebar, #right-sidebar').height(height); 
-}
+// [Fixed] - Separate Files Created for different functions(leaving the ones required everywhere)
 
 
-$(document).ready(function(){
-  sideBarHeightHandler();
-  changeOriginalButtonClass();
-  
  // window.scrollback = {
  //  streams:["vinsol"],
  //  theme: 'light',
@@ -63,6 +39,3 @@ $(document).ready(function(){
 //   $('.scrollback-text-wrap').css('left','0px');
   
 // });
- 
- 
-}); 
