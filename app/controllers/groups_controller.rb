@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
       end
       # CR_Priyank: Why are we hardcoding route here ?
       #[Fixed] - Using root_path
-  end
+    end
   end
 
   def show

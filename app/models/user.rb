@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   has_many :followees, through: :followings
   has_many :inverse_followings, class_name: 'Following', foreign_key: 'followee_id'
   has_many :followers, through: :inverse_followings, source: :user
-  has_and_belongs_to_many :groups
+  has_many :group_memberships
+  has_many :groups, through: :group_memberships
   #FIXME_AB: We need a better way to handle a user's destroy. Please think and share how should we handle destroy of various entities
   #[Fixed]
   has_many :groups_owned, foreign_key: 'admin_id', class_name: 'Group', dependent: :destroy
@@ -67,7 +68,7 @@ class User < ActiveRecord::Base
     "#{id}-#{firstname}".parameterize
   end
 
-  def privileged?(entity)
+  def privileged?(entity = nil )
     user = self
     if(user.is_admin? || user.is_moderator? || entity.try(:user) == user )
       return true
@@ -81,6 +82,18 @@ class User < ActiveRecord::Base
     self.consumer_key = encrypter.encrypt(self.email)
     self.consumer_secret = SecureRandom.hex
     self.save
+  end
+
+  def self.manage_users(user, allowed_params)
+    if(user.is_admin?)
+      User.transaction do 
+        User.destroy_all(id: allowed_params[:to_ban].split)
+        (allowed_params[:make_moderators].split || []).each do |user_id|
+          user = User.find_by(id: user_id)
+          user.update_attributes(is_moderator: true)
+        end
+      end
+    end
   end
   
   private

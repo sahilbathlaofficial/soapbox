@@ -1,8 +1,8 @@
 #FIXME_AB: Its always a good practice to make comments polymorphic so that they can be used with any other model
-#FIX:To add
+# [Fixed] To add
 
 #FIXME_AB: Put required validations[Fixed]
-#FIX : Comment content should be present
+# [Fixed] Comment content should be present
 class Comment < ActiveRecord::Base
   include PublicActivity::Common
   include NotificationConcern

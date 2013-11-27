@@ -1,19 +1,20 @@
 #FIXME_AB: You have a type column in groups table which is a convention for STI. Are you using STI. If not then why this type column is there an what is the use. There is no validation on this column
-#FIX: to fix
+#[Fixed] - No type field in groups
 
 class Group < ActiveRecord::Base
 
   # CR_Priyank: Try to avoid habtm relationships and use has many through instead
   # [Discuss_AB]
-  has_and_belongs_to_many :users
+  has_many :group_memberships
+  has_many :users, through: :group_memberships
   # FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
-  # FIX:Scope added
+  # [Fixed] Scope added
   has_many :posts, -> { order("created_at DESC") }, dependent: :destroy
   belongs_to :company
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
   validates :name, :company_id, :admin_id, presence: true
   validates :name, uniqueness: { scope: [:company_id] }
-  after_create { |group| group.users << (User.find_by(id: group.admin_id)) }
+  after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id) }
 
   def admin?(user)
     # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
@@ -21,10 +22,28 @@ class Group < ActiveRecord::Base
     self.admin.id == user.id
   end
 
+  def self.manage_groups(user, allowed_params)
+    if(user.is_admin?)
+      Group.transaction do 
+        # CR_Priyank: Use where instead of find
+        # [Fixed] Using find_by instead
+        # CR_Priyank: What if object is not destroyed ?
+        # [Fixed] Case added for destroy error
+        (allowed_params[:to_ban].split || []).each do |group_id|
+          begin
+            Group.find_by(id: group_id).destroy
+          rescue ActiveRecord::Rollback
+           return false
+          end
+        end
+      end
+    end
+  end
+
 end
 
 #FIXME_AB: What is the use of company_id in groups table[Fixed]
-#FIX: A group is unique in terms of a company 
+#[FIXED] A group is unique in terms of a company 
 
 #FIXME_AB: groups_users table need to have index infact a composit uniq index
-#To fix
+#[To do] Make has_many through 

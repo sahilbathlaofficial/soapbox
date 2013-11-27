@@ -1,9 +1,11 @@
 # CR_Priyank: Revisit routes
+#[Fixed] - Removed Duplicate routes
 
 AppName.constantize::Application.routes.draw do
 
 root 'users#wall',  defaults: { id: '1' }
 
+#To_Do :  Add namespace 
 match 'api/fetch_posts', to: 'api#fetch_posts', via: [:get,:post]
 
 scope '/:company' do
@@ -43,6 +45,7 @@ scope '/:company' do
 
 
   namespace :site_admin do
+    
     resource :users, only: [:show] do
       post 'manage_users'
     end
@@ -54,6 +57,7 @@ scope '/:company' do
     resource :companies, only: [:show] do
       post 'manage_companies'
     end
+    
   end
 
 end
@@ -65,15 +69,7 @@ end
     sessions: "controller_devise/sessions"
   }
 
-    get '/:controller/:action/(:id)', to: redirect('/company/%{controller}/%{action}')
- 
-
-    # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
-    # get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }
-    # get ':name/:controller/:id/:action' => 'controller#action', constraints: { name: /\w+/ }
-    # get ':name' => 'users#show'
-
-
+  get '/:controller/:action/(:id)', to: redirect('/company/%{controller}/%{action}')
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -101,6 +97,11 @@ end
   #       get 'sold'
   #     end
   #   end
+
+  # get ':name/:controller/:id' => 'controller#show', constraints: { name: /\w+/ }
+  # get ':name/:controller/' => 'controller#index', constraints: { name: /\w+/ }
+  # get ':name/:controller/:id/:action' => 'controller#action', constraints: { name: /\w+/ }
+  # get ':name' => 'users#show'
 
   # Example resource route with sub-resources:
   #   resources :products do

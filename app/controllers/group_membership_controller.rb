@@ -8,7 +8,7 @@ before_action :set_group, only: [:create, :destroy, :index]
   def create
     # CR_Priyank: What if user cannot be assigned to group ?
     # [Fixed] - Case added for failure
-    if( @group.users << current_user)
+    if( GroupMembership.create(group_id: @group.id, user_id: current_user.id) )
       respond_to do |format|
         format.html { redirect_to @group, notice: "User #{current_user.firstname} was successfully added." }
       end  
@@ -22,21 +22,17 @@ before_action :set_group, only: [:create, :destroy, :index]
   def destroy
     #FIXME_AB: group.admin?(current_user)
     #[Fixed]
-    flash[:notice] = "You were not able to unjoin this group due to some reason"
+    if(@group.admin?(current_user))
+      flash[:notice] = "You deleted your own group"
+    else
+      flash[:notice] = "You are not following the group #{ @group.name.humanize }"
+    end
     # CR_Priyank: This must be a validation in model
     # CR_Priyank: This complete logic can be moved to model
-    # [Discuss_AB - no model for group membership - HABTM Issue]
-    if(@group.admin?(current_user))
-      flash[:notice] = "You deleted your own group" if(@group.destroy)
-      respond_to do |format|
-        format.html { redirect_to current_user }
-      end
-      return false
-    else
-      flash[:notice] = "You are not following the group #{ @group.name.humanize }" if ( @group.users.destroy(current_user) )
-    end
+    # [Fixed] Using has_many through - moved to model
+    flash[:notice] = "You couldn't unjoin the group due to some reason" if !(GroupMembership.find_by(group_id: @group.id, user_id: current_user.id).try(:destroy))
     respond_to do |format|
-      format.html { redirect_to_back_or_default_url }
+      format.html { redirect_to root_url }
     end  
   end
 
