@@ -849,6 +849,11 @@
   color:blue !important;
 }
 
+.adminLinks
+{
+  margin-top: 0.7% !important;
+}
+
 /* Twitter Integration */
 
 #twitterIntegrationLogo

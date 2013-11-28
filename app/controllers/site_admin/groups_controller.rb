@@ -12,7 +12,11 @@ class SiteAdmin::GroupsController < SiteAdmin::AdminController
   end
 
   def show
-    @groups = Group.all
+    if(params[:company_id].blank?)
+      @groups = Group.all
+    else
+      @groups = Company.find_by(id: params[:company_id]).groups
+    end
   end
 
 end

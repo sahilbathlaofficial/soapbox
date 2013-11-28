@@ -105,7 +105,7 @@
                     <li role="presentation" ><%= link_to "Edit Profile", edit_user_path(current_user), class: 'blackButBlueOnHover' %></li>
                     <li role="presentation" ><%= link_to "View Profile", user_path(current_user), class: 'blackButBlueOnHover' %></li>
                     <% if(current_user.is_admin?) %>
-                      <li role="presentation" ><%= link_to "Admin Panel", site_admin_users_path, class: 'blackButBlueOnHover' %></li>
+                      <li role="presentation" ><%= link_to "Admin Panel", site_admin_companies_path, class: 'blackButBlueOnHover' %></li>
                     <% end %>
                     <li role="presentation" class="divider"></li>
                     <li role="presentation" ><%= link_to "Logout", destroy_user_session_path,class: 'blackButBlueOnHover',method: :delete %></li>

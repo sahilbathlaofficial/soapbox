@@ -24,11 +24,16 @@
         <div class="span12 hoverBackgroundGrey listItem">
 
           <div class="span8">
-            <%= link_to list_item.name.capitalize, ''%>
+            <%= link_to list_item.name.capitalize, site_admin_groups_path(company_id: list_item.id), class: 'blackButBlueOnHover' if(current_controller == 'companies')%>
+            <%= link_to list_item.name.capitalize, site_admin_users_path(company_id: list_item.company.id, group_id: list_item.id), class: 'blackButBlueOnHover' if(current_controller == 'groups')%>
+            <%= link_to list_item.name.capitalize, user_path(list_item), class: 'blackButBlueOnHover' if(current_controller == 'users')%>
           </div>
 
            <div class="span2">
-            <%= check_box_tag('moderator_add' + list_item.id.to_s, list_item.id.to_s, false,   class: "moderator_add") if  current_controller.downcase == 'users' %>
+            <% if current_controller.downcase == 'users' %>
+              <%= check_box_tag('moderator_add' + list_item.id.to_s, list_item.id.to_s, false,   class: "moderator_add") if !(list_item.try(:is_moderator?))  %>
+              <%= link_to 'Remove', remove_moderator_site_admin_users_path(user_id: list_item.id), class: "blackButBlueOnHover", id: 'remove_moderator' + list_item.id.to_s, remote: true if(list_item.try(:is_moderator?))  %>
+            <% end %>
           </div>
 
           <div class="span2">

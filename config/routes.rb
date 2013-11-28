@@ -51,6 +51,7 @@ scope '/:company' do
     
     resource :users, only: [:show] do
       post 'manage_users'
+      get 'remove_moderator'
     end
 
     resource :groups, only: [:show] do
