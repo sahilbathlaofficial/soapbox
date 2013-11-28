@@ -5,7 +5,7 @@ AppName.constantize::Application.routes.draw do
 
 root 'users#wall',  defaults: { id: '1' }
 
-#To_Do :  Add namespace 
+#[To Do] :  Add namespace 
 match 'api/fetch_posts', to: 'api#fetch_posts', via: [:get,:post]
 
 scope '/:company' do
@@ -39,7 +39,10 @@ scope '/:company' do
   end
   
   resources :groups
-  resources :group_membership, only: [:create, :destroy, :index]
+  resources :group_membership, only: [:create, :destroy, :index] do
+    get 'pending_memberships', on: :collection
+    post 'approve_membership', on: :member
+  end
   resources :likes, only: [:create, :destroy]
   resources :comments, only: [:create, :destroy]
 

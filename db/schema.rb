@@ -75,11 +75,13 @@ ActiveRecord::Schema.define(version: 20131127134939) do
   create_table "group_memberships", force: true do |t|
     t.integer  "user_id"
     t.integer  "group_id"
+    t.integer  "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "group_memberships", ["group_id"], name: "index_group_memberships_on_group_id", using: :btree
+  add_index "group_memberships", ["state"], name: "index_group_memberships_on_state", using: :btree
   add_index "group_memberships", ["user_id"], name: "index_group_memberships_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|

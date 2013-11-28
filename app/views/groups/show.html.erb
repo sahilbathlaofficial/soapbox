@@ -1,7 +1,7 @@
 <div class="page-header" id="groupPage">
   <%= render partial:'group_profile', locals: {group: @group} %>
 
-  <% if current_user.groups.include?(@group) ||  current_user.privileged?(@group) %>
+  <% if current_user.groups.include?(@group) && current_user.group_memberships.find_by(group_id: @group.id).approved? ||  current_user.privileged?(@group) %>
     <div id="postContainer">
       <%= render partial: 'posts/compose_post',locals: { not_posting_in_a_group: false } %>
     </div> <!-- end of post container -->
@@ -9,6 +9,10 @@
       <%= render partial: 'posts/posts', locals: {posts: @group.posts} %>
   <% else %>
     <hr/>
-    <div class="groupPageFinished">Join to view group details</div>  
+    <% if current_user.group_memberships.find_by(group_id: @group.id).try(:pending?) %>
+      <div class="groupPageFinished centerAlignText">Wait till the admin approves your membership</div>  
+    <% else %>
+      <div class="groupPageFinished centerAlignText">Please join the group to view its posts</div>
+    <% end %>
   <% end %>
 </div>

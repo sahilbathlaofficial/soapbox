@@ -19,6 +19,7 @@
   <ul class="nav nav-pills normalText">
     <li><%= link_to pluralize(group.users.size, "Member"), group_membership_index_path(id: group) %></li>
     <li><%= link_to pluralize(group.posts.size, "Conversation"), group %></li>
+    <li><%= link_to pluralize(group.group_memberships.with_state(:pending).size, "Pending Member"), pending_memberships_group_membership_index_path(id: group), id: 'pendingMembers'  if(group.admin?(current_user))%></li>
   </ul>
   
     <div class="rightAlign verticalAlign20">

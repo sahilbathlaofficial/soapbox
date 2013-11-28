@@ -2,8 +2,8 @@
   <%= render partial:'groups/group_profile', locals: {group: @group} %>
   <div id="memberList" class="normalText showList"> 
     <div class="showListItem">Listing all the members of this group</div> 
-    
-    <%= render partial: 'members_list', locals: {users: @group.users} %>
+
+    <%= render partial: 'members_list', locals: {users: @pending_users} %>
 
   </div>
   <div class="groupPageFinished normalText centerAlignText">End of page</div>

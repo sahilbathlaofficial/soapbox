@@ -1,6 +1,6 @@
 class GroupMembershipController < ApplicationController
  
-before_action :set_group, only: [:create, :destroy, :index]
+before_action :set_group, except: :approve_membership
 
   def index
   end
@@ -10,7 +10,7 @@ before_action :set_group, only: [:create, :destroy, :index]
     # [Fixed] - Case added for failure
     if( GroupMembership.create(group_id: @group.id, user_id: current_user.id) )
       respond_to do |format|
-        format.html { redirect_to @group, notice: "User #{current_user.firstname} was successfully added." }
+        format.html { redirect_to @group, notice: "Wait for the admin to approve your request" }
       end  
     else
       respond_to do |format|
@@ -34,6 +34,27 @@ before_action :set_group, only: [:create, :destroy, :index]
     respond_to do |format|
       format.html { redirect_to root_url }
     end  
+  end
+
+  def pending_memberships
+    @pending_memberships = @group.group_memberships.with_state(:pending)
+    @pending_users = []
+    @pending_memberships.each do |pending_membership|
+      @pending_users << pending_membership.user
+    end
+  end
+
+  def approve_membership
+    @membership  = GroupMembership.find_by(id: params[:id])
+    @user = @membership.user
+    @group = @membership.group
+    if (@membership.approve)
+      respond_to do |format|
+        format.js { }
+      end
+    else
+      flash.now[:notice] = "Can't approve due to some fault"
+    end
   end
 
   protected

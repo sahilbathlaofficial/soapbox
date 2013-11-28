@@ -4,7 +4,7 @@
 class Group < ActiveRecord::Base
 
   # CR_Priyank: Try to avoid habtm relationships and use has many through instead
-  # [Discuss_AB]
+  # [Fixed] - Using has many through
   has_many :group_memberships
   has_many :users, through: :group_memberships
   # FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
   validates :name, :company_id, :admin_id, presence: true
   validates :name, uniqueness: { scope: [:company_id] }
-  after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id) }
+  after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id, state: 1) }
 
   def admin?(user)
     # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
@@ -46,4 +46,4 @@ end
 #[FIXED] A group is unique in terms of a company 
 
 #FIXME_AB: groups_users table need to have index infact a composit uniq index
-#[To do] Make has_many through 
+#[Fixed] Made has_many through 

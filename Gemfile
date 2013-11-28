@@ -90,3 +90,6 @@ gem 'twitter'
 #Twitter-auth
 # gem 'omniauth-twitter', :github => 'arunagw/omniauth-twitter'
 gem 'twitter_oauth'
+
+#State Machine
+gem 'state_machine'

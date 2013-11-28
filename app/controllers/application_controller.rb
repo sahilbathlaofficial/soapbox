@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
   end
 
   # CR_Priyank: Use redirect_to :back instead of redirect_to_back_or_default_url method everywhere and rescue from ActionController::RedirectBackError in application controller to refirect_to default url
-  # [Discuss_AB]
+  # [Fixed] - using conditional redirect for now
   def redirect_to_back_or_default_url(url = root_path)
     if request.referer
       redirect_to :back 
