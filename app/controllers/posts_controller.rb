@@ -37,6 +37,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def search
+    @search_results = ThinkingSphinx.search params[:query]
+  end
+
   def hash_tags
     @posts = Post.where('content like ? and user_id in (?)', '%' + params[:hash_tag] + '%', current_company.users)
   end

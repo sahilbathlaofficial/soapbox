@@ -93,3 +93,6 @@ gem 'twitter_oauth'
 
 #State Machine
 gem 'state_machine'
+
+#Thinking Sphinx
+gem 'thinking-sphinx', '3.0.6'

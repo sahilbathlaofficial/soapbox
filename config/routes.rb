@@ -20,6 +20,7 @@ scope '/:company' do
   resources :posts, only: [:create, :destroy, :show] do
     get 'extract_url_content', on: :collection
     get 'hash_tags', on: :collection
+    get 'search', on: :collection
   end
 
   resources :notifications, only: [:index] do
