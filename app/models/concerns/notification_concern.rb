@@ -3,11 +3,13 @@ module NotificationConcern
   extend ActiveSupport::Concern
 
   def notify_tagged_users
+    # CR_Priyank: We can also do is_a?(Post)
     post = self.class == Post ? self : self.post
     tags = self.tags
     if !tags.nil?
       user_ids = tags.split
       for user_id in user_ids
+        # CR_Priyank: Do not use find
         @user = User.find(user_id)
         if !(@user.nil?)
           post.create_activity key: 'post.tagged', owner: @user

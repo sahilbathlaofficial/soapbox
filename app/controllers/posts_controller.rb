@@ -1,28 +1,22 @@
 class PostsController < ApplicationController
-
+  # CR_Priyank: Why are we expiring fragment on all actions
   before_action { |post| post.expire_fragment('my_posts') }
   before_action :set_post, only: [:destroy, :show]
   before_action :parse_url, only: [:extract_url_content]
 
   def create
-    # CR_Priyank: We can use current_user.posts.build(post_params)
-    # [Fixed] - Using so
     @post = current_user.posts.build(post_params)  
-    # CR_Priyank: We can also use params[:post][:extra_content].present?
-    # [Fixed] - Done
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if (params[:post][:extra_content].present?)
+    # CR_Priyank: I think "current_user.posts << @post" is not required. We can do @post.create
     current_user.posts << @post
     do_tweet(@post.content)
-    # CR_Priyank: This must be moved to model
-    # [Fixed] - Moved to Post model
-    # CR_Priyank: We can also use @post.tags.present?
-    # [Fixed] - using present
     respond_to do |format|
       format.html { redirect_to :back }
     end
   end
 
   def destroy
+    # CR_Priyank: This must be moved to model validation
     if current_user.privileged?(@post)
       if @post.destroy
         redirect_to :back
@@ -38,12 +32,11 @@ class PostsController < ApplicationController
   end
 
   def hash_tags
+    # CR_Priyank: Move this query to model scope
     @posts = Post.where('content like ? and user_id in (?)', '%' + params[:hash_tag] + '%', current_company.users)
   end
 
   def extract_url_content
-    # CR_Priyank: move parsing logic to before_filter
-    # [Fixed]
     begin
       @doc = Nokogiri::HTML(open(@url))
       respond_to do |format|
@@ -62,11 +55,12 @@ class PostsController < ApplicationController
   protected
 
   def do_tweet(tweet)
-
+    # CR_Priyank: This can be moved to twitter API module which can be included in use model. (Discuss)
     if(current_user.twitter_authorize_token.present?)
 
       access_token = current_user.twitter_authorize_token.split # assuming @user
       client = TwitterOAuth::Client.new(
+        # CR_Priyank: Move these keys to a constant and then use
         :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
         :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
         :token => access_token[0],

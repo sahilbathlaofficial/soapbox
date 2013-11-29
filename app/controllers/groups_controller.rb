@@ -25,8 +25,6 @@ class GroupsController < ApplicationController
       else
         format.html { redirect_to @group, notice: "Group #{@group.name} was not successfully created." }
       end
-      # CR_Priyank: Why are we hardcoding route here ?
-      #[Fixed] - Using root_path
     end
   end
 
@@ -34,7 +32,9 @@ class GroupsController < ApplicationController
   end
 
   def destroy
+    # CR_Priyank: This can be moved to model validation
     if(current_user.privileged?(@group))
+      # CR_Priyank: What is not destroyed ?
       if(@group.destroy)
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Group destroyed' }
@@ -51,13 +51,7 @@ class GroupsController < ApplicationController
   end
 
   def set_group
-    # CR_Priyank: use company scope to find groups and users throughout this app
-    #[Fixed] - Using company scope
-    # CR_Priyank: Do not use dynamic finders
-    #[Fixed] - As discussed using find_by instead of find
     @group = current_company.groups.find_by(id: params[:id])
-    # CR_Priyank: I think we can improve/optimize below logic
-    #[Fixed] - Done so
     if(@group.nil?)
       respond_to do |format|
         format.html do 

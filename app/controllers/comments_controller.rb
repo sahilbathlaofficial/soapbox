@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
   #[To do]
   def create
     #FIXME_AB: You are relying on the post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
+    # CR_Priyank: This should be moved to a before_action and not found condition can be handled there
     @post = Post.find_by(id: params[:post_id])
     if(@post.nil?)  
       flash[:notice] = "Post not found"
@@ -37,6 +38,7 @@ class CommentsController < ApplicationController
     #[Fixed]
     # CR_Priyank: I think user_provoleged restriction should be moved in model as validation
     #[Fixed] - Moved to user model
+    # CR_Priyank: Not fixed
     if(current_user.privileged?(@comment))
       #FIXME_AB: What if it was not destoyed. I think you can make use of destroyed?
       #[Fixed]     
@@ -65,6 +67,7 @@ class CommentsController < ApplicationController
   def set_comments
     #FIXME_AB: What if the comment is not found with this id?
     #[Fixed]
+    # CR_Priyank: Indent properly
       @comment = Comment.find_by(id: params[:id])
       redirect_to_back_or_default_url if(@comment.nil?)
   end
@@ -72,8 +75,4 @@ class CommentsController < ApplicationController
   def comment_params
     params.permit(:content, :tags).merge( { user_id: current_user.id } )
   end
-
-  # CR_Priyank: I think we can move this to model's concern
-  # [Fixed]
-  
 end

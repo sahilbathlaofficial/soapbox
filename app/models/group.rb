@@ -3,10 +3,10 @@
 
 class Group < ActiveRecord::Base
 
-  # CR_Priyank: Try to avoid habtm relationships and use has many through instead
-  # [Fixed] - Using has many through
+  # CR_Priyank: I think we must have dependent destroy in this association
   has_many :group_memberships
   has_many :users, through: :group_memberships
+  
   # FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
   # [Fixed] Scope added
   has_many :posts, -> { order("created_at DESC") }, dependent: :destroy
@@ -14,25 +14,23 @@ class Group < ActiveRecord::Base
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
   validates :name, :company_id, :admin_id, presence: true
   validates :name, uniqueness: { scope: [:company_id] }
+
+  # CR_Priyank: This is not required, study has_many through thoroughly
   after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id, state: 1) }
 
   def admin?(user)
-    # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
-    # [Fixed] - Done so
     self.admin.id == user.id
   end
 
   def self.manage_groups(user, allowed_params)
     if(user.is_admin?)
       Group.transaction do 
-        # CR_Priyank: Use where instead of find
-        # [Fixed] Using find_by instead
-        # CR_Priyank: What if object is not destroyed ?
-        # [Fixed] Case added for destroy error
         (allowed_params[:to_ban].split || []).each do |group_id|
           begin
+            # CR_Priyank: What are we rescuing here ?
             Group.find_by(id: group_id).destroy
           rescue ActiveRecord::Rollback
+            # CR_Priyank: Indent properly
            return false
           end
         end

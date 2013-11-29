@@ -1,6 +1,3 @@
-# CR_Priyank: Revisit routes
-#[Fixed] - Removed Duplicate routes
-
 AppName.constantize::Application.routes.draw do
 
 root 'users#wall',  defaults: { id: '1' }
@@ -9,11 +6,6 @@ root 'users#wall',  defaults: { id: '1' }
 match 'api/fetch_posts', to: 'api#fetch_posts', via: [:get,:post]
 
 scope '/:company' do
-  # CR_Priyank: No controller for companies
-  # [Fixed] - Removed route for company
-  # CR_Priyank: when we made these routes when we already have resources for them
-  # [Fixed] - Reduced Duplicacy
-
   post 'followings/:followee_id', to: 'followings#create', as: 'followings'
   delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 
@@ -27,8 +19,6 @@ scope '/:company' do
   end
 
   resources :users, only: [:edit, :update, :show, :destroy] do
-    # CR_Priyank: routes should be like followers/followees
-    #[Fixed] - Done so
     get 'followees' , on: :member
     get 'followers' , on: :member
     get 'wall', on: :member

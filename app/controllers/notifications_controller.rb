@@ -1,7 +1,5 @@
 class NotificationsController < ApplicationController
   def index
-    # CR_Priyank: We may want to move this query to a scope with other params so can be used in next action
-    # [Fixed] - Common scope added to check notification
     @notifications = PublicActivity::Activity.fetch_notifications(current_user.id)
     respond_to do |format|
       format.html {}

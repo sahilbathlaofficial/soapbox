@@ -1,3 +1,4 @@
+# CR_Priyank: Why are we requiring uri here ?
 require 'uri'
 
 module AuthenticationConcern
@@ -10,15 +11,11 @@ module AuthenticationConcern
 
   def extract_domain_from_email
     email = params[:user][:email]
-    # CR_Priyank: we can also use email.present?
-    # [Fixed] - using present
     email = email.split('@').last.split('.').first if (email.present?)
     email
   end
 
   def extract_company
-    # CR_Priyank: Improve logic below, also I am not sure why we are extracting from user's email. So if user's email is abc@gmail.com then we will end up creating a company named as gmail
-    #[Fixed] - Extracting company name from email for now
     company_name = extract_domain_from_email
     return false if company_name.empty?
     company = Company.find_by("name = ?", company_name)
@@ -32,11 +29,4 @@ module AuthenticationConcern
       current_user.save
     end
   end
-
-  # CR_Priyank: Must be moved in model
-  # [Fixed] - Moved to User model
-
-  # Must be moved in model's concern
-  # [Fixed]
-    
 end

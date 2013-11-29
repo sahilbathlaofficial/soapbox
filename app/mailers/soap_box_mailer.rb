@@ -4,6 +4,7 @@ class SoapBoxMailer < ActionMailer::Base
  
   def welcome_email(user)
     @user = user
+    # CR_Priyank: Why are we hardcoding route here ?
     @url  = 'http://localhost:3000/'
     mail(to: @user.email, subject: 'Welcome to My Awesome Site')
   end
