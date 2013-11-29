@@ -14,8 +14,6 @@ class Comment < ActiveRecord::Base
 
 
   def owner?(user)
-    # CR_Priyank: We shall try to compare using ids as integer comparison takes comparatively less time
-    # [Fixed] - Done so
     self.user.id == user.id
   end
 

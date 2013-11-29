@@ -9,8 +9,6 @@ class FollowingsController < ApplicationController
         #FIXME_AB: Should avoid saving html format in db. Just save pointers and generate html when you want to display. We may change the way we display notification in future, so in that case we won't have to bother about what we have in DB
         #[Fixed] Added public activities
         format.html do
-          # CR_Priyank: I think this can be moved in model's concern
-          # [Fixed] - moved to following model
           flash[:notice] = "You are now following #{ @following.followee.firstname } " 
           redirect_to_back_or_default_url 
         end
@@ -24,6 +22,7 @@ class FollowingsController < ApplicationController
 
 
   def destroy
+    # CR_Priyank: What if following is not destroyed ?
     @following.destroy
     respond_to do |format|
       format.html do
