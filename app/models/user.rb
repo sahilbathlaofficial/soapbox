@@ -2,10 +2,10 @@ class User < ActiveRecord::Base
 
   include EncryptionConcern
   #FIXME_AB: What I am getting is, following company is a company. If yes the we should name it as a company[Fixed]
-  #FIX : Renamed to company
+  #[Fixed] - Renamed to company
   belongs_to :company
-  #FIXME_AB: Think about when a user is destroyed[Fixed]
-  #Fixed: Don't destroy associated models
+  #FIXME_AB: Think about when a user is destroyed
+  #[Fixed] - Don't destroy associated models
   has_many :followings
   has_many :followees, through: :followings
   has_many :inverse_followings, class_name: 'Following', foreign_key: 'followee_id'
@@ -15,10 +15,10 @@ class User < ActiveRecord::Base
   has_many :group_memberships
   has_many :groups, through: :group_memberships
   #FIXME_AB: We need a better way to handle a user's destroy. Please think and share how should we handle destroy of various entities
-  #[Fixed]
+  #[Fixed] - removed dependent destroy
   has_many :groups_owned, foreign_key: 'admin_id', class_name: 'Group', dependent: :destroy
-  #FIXME_AB: For ordering use scope[Fixed]
-  #FIX: Scope added
+  #FIXME_AB: For ordering use scope
+  #[Fixed] - Scope added
   has_many :posts, -> { order("created_at DESC") }
 
   has_many :likes
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 
 
   #FIXME_AB: No need to use ActionController::Base.helpers.asset_path just pass 'missing.jpg' because in any way we will be using image_tag to display the image, which will take care of this
-  #[Fixed]
+  #[Fixed] - Removed
 
   has_attached_file :avatar, :default_url => 'missing.png'
 
@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   #FIXME_AB: following mehtod should be named as display_name as I guess will be used for display purpose only.
-  #To discuss
+  #[To do] - Sticking to name for now
   def name
     # CR_Priyank: This can achieved with join, [firstname, lastname].join(' ').capitalize
     (firstname.try(:capitalize) || '') + ' ' + (lastname.try(:capitalize) || '')
@@ -115,7 +115,5 @@ class User < ActiveRecord::Base
   def send_welcome_email
     SoapBoxMailer.delay.welcome_email(self)
   end
-
-  # handle_asynchronously :send_welcome_email
 
 end

@@ -14,6 +14,7 @@ class Group < ActiveRecord::Base
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
   validates :name, :company_id, :admin_id, presence: true
   validates :name, uniqueness: { scope: [:company_id] }
+  validates :name, format: { with: OnlyWordRegex, multiline: true }
 
   # CR_Priyank: This is not required, study has_many through thoroughly
   after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id, state: 1) }

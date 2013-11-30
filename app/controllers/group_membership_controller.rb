@@ -20,7 +20,7 @@ before_action :set_group, except: :approve_membership
 
   def destroy
     #FIXME_AB: group.admin?(current_user)
-    #[Fixed]
+    #[Fixed] - Method added in model
     # CR_Priyank: I am not sure what we are trying to do here.
     if(@group.admin?(current_user))
       flash[:notice] = "You deleted your own group"

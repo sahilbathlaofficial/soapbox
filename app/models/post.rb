@@ -12,14 +12,14 @@ class Post < ActiveRecord::Base
 end
 
 #FIXME_AB: validations please[Fixed]
-#FIX: Post Content should not be nil , it has user_id and company_id but group_id is optional
+#[Fixed] - Post Content should not be nil , it has user_id and company_id but group_id is optional
 
 #FIXME_AB: Post can belongs to a user or a group. How about making it a polymorphic? 
-#FIX: To Discuss
+#[Fixed] - Block belongs to both user and group(or nil for all company)
 
 #FIXME_AB: How can I share a URL or an image like we do it on. Please plan accordingly
-# To Implement
+#[Fixed] - Added URl Parsed Content
 
 #FIXME_AB: We also can have tagging with posts
-# To Implement
+#[Fixed] - Added tags
 
