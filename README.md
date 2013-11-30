@@ -7,10 +7,10 @@ This application is a social engine for companies, where users from same company
 
 - You need to have mysql running on your machine and the mysql adapter for rails. Follow the given or any other command to install them
 
-```
-sudo apt-get install mysql-server mysql-client
-sudo apt-get install libmysql-ruby libmysqlclient-dev
-```
+  ```
+  sudo apt-get install mysql-server mysql-client
+  sudo apt-get install libmysql-ruby libmysqlclient-dev
+  ```
 
 - Install sphinx for conversation search feature. Here is a tutorial to install sphink :- <a href="http://pat.github.io/thinking-sphinx/installing_sphinx.html">Installing Sphinx</a>
 
