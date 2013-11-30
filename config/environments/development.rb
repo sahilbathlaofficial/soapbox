@@ -36,7 +36,7 @@ AppName.constantize::Application.configure do
     port:                 587,
     domain:               'example.com',
     user_name:            'timepass.vela@gmail.com',
-    password:             'nevabackdown',
+    password:             '',
     authentication:       'plain',
     enable_starttls_auto: true  }
   end

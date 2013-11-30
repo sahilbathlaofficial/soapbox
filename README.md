@@ -1,23 +1,31 @@
 soapbox
 =======
 
-This app is social engine for companies, where users from same company can interact with other users od the same company. Also check out the api for using this application here :- <a href="https://github.com/sahilbathlavinsol/soapbox_api">Soapbox Api</a>
+This application is a social engine for companies, where users from same company can interact with other. Also check out the api for using this application here :- <a href="https://github.com/sahilbathlavinsol/soapbox_api">Soapbox Api</a>
 
 ## Pre-Requisites
 
-- You need to have mysql running on your machine and the mysql adapter for rails
+- You need to have mysql running on your machine and the mysql adapter for rails. Follow the given or any other command to install them
+
+```
+sudo apt-get install mysql-server mysql-client
+sudo apt-get install libmysql-ruby libmysqlclient-dev
+```
+
 - Install sphinx for conversation search feature. Here is a tutorial to install sphink :- <a href="http://pat.github.io/thinking-sphinx/installing_sphinx.html">Installing Sphinx</a>
 
 ## Installation
 
 - Fork this repository
 - Run bundle install
+- Setup config/database.yml similar to config/database_example.yml
 - Run rake db:create ( MySql required to be installed on your system )
 - Run rake db:migrate
 
 ## Optional Rake Tasks
 
 - Run users:admin to make any normal user of this website an admin
+- Edit development.rb to setup for gmail mailing account
 - Run rake jobs:work for delayed jobs (After running the server) - IF you want to use the mailing feature
 - Run rake ts:index ( To index the search from conversation content )
 - Run rake ts:start ( To start the searchd daemon )
