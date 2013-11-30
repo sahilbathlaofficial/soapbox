@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_one :url_parsed_content, dependent: :destroy
   has_many :comments, dependent: :destroy
-  scope :extract_posts, lambda { |users, groups|  where('user_id in (?) and (group_id in (?) or group_id is ? )', users, groups, nil).order('created_at DESC') }
+  scope :extract_posts, lambda { |users, groups|  where('user_id in (?) or (group_id in (?) or group_id is ? )', users, groups, nil).order('created_at DESC') }
   validates :content, :user_id, presence: true
   after_create :notify_tagged_users
 end

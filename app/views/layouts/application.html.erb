@@ -84,8 +84,8 @@
 
             <div id="userHeading">
 
-              <div id="userAutoCompleteSearch">
-                <%= text_field_tag :user, '', id:"fetchNames", placeholder: 'Search Users or Groups', autocomplete: "off" %>
+              <div id="userAutoCompleteSearch" data-searchConversation="<%= search_posts_path%>">
+                <%= text_field_tag :user, '', id:"fetchNames", placeholder: 'Search on soapBox', autocomplete: "off" %>
                 <div id="userAutoCompleteSearchResults"></div>
               </div>
 

@@ -32,7 +32,7 @@ class PostsController < ApplicationController
   end
 
   def search
-    @search_results = ThinkingSphinx.search params[:query]
+    @search_results = ThinkingSphinx.search (params[:query]  || '') + ' ' + current_user.name
   end
 
   def hash_tags
