@@ -24,7 +24,7 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.html do 
           redirect_to_back_or_default_url
-          flash[:notice] = "Comment wasn't added due to some reason"
+          flash[:error] = "Comment wasn't added due to some reason"
          end
       end
     end
@@ -36,26 +36,20 @@ class CommentsController < ApplicationController
     # CR_Priyank: I think user_provoleged restriction should be moved in model as validation
     #[Fixed] - Moved to user model
     # CR_Priyank: Not fixed
-    # [Discuss - 1]
-    if(current_user.privileged?(@comment))
+    # [Fixed]
       #FIXME_AB: What if it was not destoyed. I think you can make use of destroyed?
       #[Fixed] - used an else case instead    
-      if(@comment.destroy)
-        respond_to do |format|
-          format.html { redirect_to_back_or_default_url }
-        end
-      else
-        respond_to do |format|
-          format.html do 
-            redirect_to_back_or_default_url
-            flash[:notice] = "Comment wasn't deleted due to some reason"
-          end
+    if(@comment.destroy)
+      respond_to do |format|
+        format.html { redirect_to_back_or_default_url }
+      end
+    else
+      respond_to do |format|
+        format.html do 
+          flash[:error] = "Comment wasn't deleted due to some reason"
+          redirect_to_back_or_default_url
         end
       end
-
-    else
-      flash[:notice] = "You can't delete this comment"
-      redirect_to_back_or_default_url
     end
 
   end
@@ -68,7 +62,10 @@ class CommentsController < ApplicationController
     # CR_Priyank: Indent properly
     # [Fixed]: Sorry sir
     @comment = Comment.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@comment.nil?)
+    if(@comment.blank?)
+      flash[:notice] = "Comment not found"
+      redirect_to_back_or_default_url 
+    end
   end
 
   def set_posts

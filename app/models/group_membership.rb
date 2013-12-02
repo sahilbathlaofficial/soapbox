@@ -4,8 +4,8 @@ class GroupMembership < ActiveRecord::Base
   validates :user_id, :group_id, presence: true
 
   # CR_Priyank: Call before_destroy on if admin.
-  # [Discuss - 7]
-  before_destroy :destroy_group_if_admin
+  # [Fixed] - If condition added
+  before_destroy :destroy_group, if: lambda { |group_membership| group_membership.group.admin_id == group_membership.user.id}
 
   state_machine initial: :pending do
     state :pending, value: 0
@@ -16,11 +16,9 @@ class GroupMembership < ActiveRecord::Base
     end
   end
 
-  
-
-  def destroy_group_if_admin
+  def destroy_group
     # CR_Priyank: I do not see a reason why group and user is taken in variable
     # [Fixed] - bad mistake, removed
-    group.destroy if(group.admin_id == user.id)
+    group.destroy 
   end
 end

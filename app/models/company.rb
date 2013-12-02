@@ -8,18 +8,18 @@ class Company < ActiveRecord::Base
 
   def self.manage_companies(user, allowed_params)
     if(user.is_admin?)
-      Company.transaction do 
-        (allowed_params[:to_ban].split || []).each do |company_id|
-          begin
+      begin
+        Company.transaction do 
+          (allowed_params[:to_ban].split || []).each do |company_id|
             # CR_Priyank: What are we rescuing here ?
-            # [Discuss - 6]
-            Company.find_by(id: company_id).try(:destroy)
-          rescue ActiveRecord::Rollback
-            # CR_Priyank: Indent properly
-            # [Fixed] Done so
-            return false
+            # [Fixed] - Rescued outside
+            Company.find_by(id: company_id).try(:destroy!)
           end
-        end
+        end   
+      rescue ActiveRecord::Rollback
+        # CR_Priyank: Indent properly
+        # [Fixed] Done so
+        return false
       end
     end
   end

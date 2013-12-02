@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+  include GlobalDataConcern
   include EncryptionConcern
   include NotificationConcern
   #FIXME_AB: What I am getting is, following company is a company. If yes the we should name it as a company[Fixed]
@@ -13,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :inverse_followings, source: :user
   
   # CR_Priyank: I think we must have dependent destroy in this association
-  # [Discuss - 8]
+  # [Fixed] - As discussed, keeping user information after soft delete
   has_many :group_memberships
   has_many :groups, through: :group_memberships
   #FIXME_AB: We need a better way to handle a user's destroy. Please think and share how should we handle destroy of various entities
@@ -41,6 +42,9 @@ class User < ActiveRecord::Base
  
   before_create :provide_dummy_names
   after_create :send_welcome_email
+  before_destroy { |comment| current_user.privileged? }
+
+  scope :match_users, lambda { |query, company_id| where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', query, query, company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name') }
 
   #[Note] - Commented as may be added as a part of this app in future as the need may be
   # CR_Priyank: Indent properly
@@ -59,11 +63,11 @@ class User < ActiveRecord::Base
   #          password: Devise.friendly_token[0,20],
   #          name: data["name"])
   #     #FIXME_AB: whay hardcoading username
-  #     #To Discuss
+  #     #[Fixed] - To give user a random name
   #     user.username = 'ViceLikePillow' + user.id.to_s
   #     #FIXME_AB: How would you handle if an exectpion is railsed by save!
-  #     #To Discuss
-  #     user.save!
+  #     # [Fixed] - Using save instead
+  #     user.save
   #   end
   #   user
   # end
@@ -82,9 +86,8 @@ class User < ActiveRecord::Base
 
   def privileged?(entity = nil )
     # CR_Priyank: Why are we taking self into a variable
-    # [Discuss - 9]
-    user = self
-    if(user.is_admin? || user.is_moderator? || entity.try(:user) == user )
+    # [Fixed] - Removed self context
+    if( is_admin? || is_moderator? || entity.try(:user) == self )
       return true
     else
       return false
@@ -107,7 +110,7 @@ class User < ActiveRecord::Base
         (allowed_params[:make_moderators].split || []).each do |user_id|
           user = find_by(id: user_id)
           # CR_Priyank: move this to a method as we are using this in multiple places
-          # [Discuss - 10]
+          # [Fixed] - Not required as only used to make and remove moderators
           user.update_attributes(is_moderator: true)
         end
       end

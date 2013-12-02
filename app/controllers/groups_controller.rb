@@ -31,18 +31,16 @@ class GroupsController < ApplicationController
 
   def destroy
     # CR_Priyank: This can be moved to model validation
-    # [Discuss -1]
-    if(current_user.privileged?(@group))
-      # CR_Priyank: What is not destroyed ?
-      # [Fixed] - Added the case
-      if(@group.destroy)
-        respond_to do |format|
-          format.html { redirect_to root_path, notice: 'Group destroyed' }
-        end
-      else
-        respond_to do |format|
-          format.html { redirect_to root_path, error: 'Group not destroyed' }
-        end
+    # [Fixed] - Moved
+    # CR_Priyank: What is not destroyed ?
+    # [Fixed] - Added the case
+    if(@group.destroy)
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'Group destroyed' }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, error: 'Group not destroyed' }
       end
     end
   end

@@ -23,16 +23,14 @@ class UsersController < ApplicationController
 
   def destroy
     # CR_Priyank: Move this to validation
-    # [Discuss - 1]
-    if(current_user.priviledged?(@user))
-      if(@user.destroy)
-        respond_to do |format|
-          format.html { redirect_to root_path, notice: 'User destroyed' }
-        end
-      else
-        respond_to do |format|
-          format.html { redirect_to root_path, error: 'User not destroyed' }
-        end
+    # [Fixed]
+    if(@user.destroy)
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'User destroyed' }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, error: 'User not destroyed' }
       end
     end
   end
@@ -53,9 +51,9 @@ class UsersController < ApplicationController
 
   def autocomplete
     # CR_Priyank: Move query in model scope
-    #[Pending]
-    @users = current_company.users.where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', params[:query].downcase, params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name')
-    @users += current_company.groups.where('(LOWER(name) like ?) AND company_id = ?', params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'name');
+    # [Fixed] - Moved to scope
+    @users = current_company.users.match_users(params[:query].downcase, current_user.company_id)
+    @users += current_company.groups.match_groups(params[:query].downcase, current_user.company_id)
     respond_to do |format|
       format.json { render json: @users }
     end

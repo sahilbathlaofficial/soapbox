@@ -27,17 +27,23 @@ class LikesController < ApplicationController
 
   def set_likes
     # CR_Priyank: What are we trying by returning false
-    # [Discuss - 2]
-    return false if !( @like = @post.likes.find_by(user_id: params[:user_id], post_id: params[:post_id]) )
+    # [Fixed]
+    unless ( @like = @post.likes.find_by(user_id: params[:user_id], post_id: params[:post_id]) )
+      flash.now[:alert] = "some error occured"
+      render action: params[:action]
+    end
   end
 
   def set_post
     # CR_Priyank: This should be under user's scope
-    # [Fixed] - Added user's scope
-    @post = current_user.post.find_by(id: params[:post_id]) 
+    # [Discuss - 11]
+    @post = Post.find_by(id: params[:post_id]) 
     # CR_Priyank: What are we trying by returning false
-    # [Discuss - 2]
-    return false if !(@post.nil?)
+    # [Fixed]
+    if (@post.blank?)
+      flash.now[:alert] = "some error occured"
+      render action: params[:action]
+    end
   end
 
   def like_params

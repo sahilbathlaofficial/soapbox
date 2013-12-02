@@ -6,12 +6,18 @@
 class Comment < ActiveRecord::Base
   include PublicActivity::Common
   include NotificationConcern
+  include GlobalDataConcern
   belongs_to :user
   belongs_to :post
   validates :content, :user_id, :post_id, presence: true
+  before_destroy { |comment| current_user.privileged?(comment) }
   after_create :notify_commented_on
   after_create :notify_tagged_users
 
+
+  def current_user
+    Thread.current[:user]
+  end
 
   def owner?(user)
     self.user.id == user.id

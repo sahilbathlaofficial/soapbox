@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  include GlobalDataConcern
   include PublicActivity::Common
   include NotificationConcern
   belongs_to :user
@@ -10,6 +11,7 @@ class Post < ActiveRecord::Base
   scope :find_by_hash_tag, lambda { |hash_tag, users| where('content like ? and user_id in (?)', '%' + hash_tag + '%', users) }
   validates :content, :user_id, presence: true
   after_create :notify_tagged_users
+  before_destroy { |comment| current_user.privileged?(comment) }
 end
 
 #FIXME_AB: validations please[Fixed]

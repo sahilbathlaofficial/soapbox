@@ -9,22 +9,34 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)  
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if (params[:post][:extra_content].present?)
     # CR_Priyank: I think "current_user.posts << @post" is not required. We can do @post.create
-    # [Discuss - 3]
-    current_user.posts << @post
-    do_tweet(@post.content)
-    respond_to do |format|
-      format.html { redirect_to :back }
+    # [Fixed] - Using @post.save
+    if(@post.save)
+      do_tweet(@post.content)
+      respond_to do |format|
+        format.html do 
+          flash[:notice] = "Your post was succesful"
+          redirect_to_back_or_default_url 
+        end
+      end
+    else
+      respond_to do |format|
+        format.html do 
+          flash[:error] = "Your post failed"
+          redirect_to_back_or_default_url 
+        end
+      end
     end
   end
 
   def destroy
     # CR_Priyank: This must be moved to model validation
-    # [Discuss - 1]
-    if current_user.privileged?(@post)
-      if @post.destroy
-        redirect_to :back
-      end
+    # [Fixed]
+    if @post.destroy
+      flash[:notice] = "Post destroyed"
+    else
+      flash[:error] = "Post not destroyed"
     end
+    redirect_to_back_or_default_url
   end
 
   def show
@@ -64,7 +76,7 @@ class PostsController < ApplicationController
 
   def do_tweet(tweet)
     # CR_Priyank: This can be moved to twitter API module which can be included in use model. (Discuss)
-    # [Discuss - 4]
+    # [Pending]
     if(current_user.twitter_authorize_token.present?)
 
       access_token = current_user.twitter_authorize_token.split # assuming @user

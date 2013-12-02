@@ -42,8 +42,8 @@ class GroupMembershipController < ApplicationController
 
   def pending_memberships
     # CR_Priyank: eager load user in this query
-    # [Pending]
-    @pending_memberships = @group.group_memberships.with_state(:pending)
+    # [Fixed] - Eager loaded user data
+    @pending_memberships = @group.group_memberships.includes(:user).with_state(:pending)
     @pending_users = []
     # CR_Priyank: We can use collect here.
     # [Fixed] - Using collect
@@ -52,7 +52,7 @@ class GroupMembershipController < ApplicationController
 
   def approve_membership
     # CR_Priyank: eager load user and group in this query
-    # [Pending]
+    # [Fixed] - Eager loaded user data
     # CR_Priyank: I think finding user and group here is not important, we can get them from @membership in views
     # [Fixed] - Removed
     if (@membership.approve)

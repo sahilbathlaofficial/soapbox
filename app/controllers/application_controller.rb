@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = I18n.default_locale
     end
+    Thread.current[:user] = current_user
   end
 
   def authorize

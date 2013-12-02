@@ -3,6 +3,7 @@
 
 class Group < ActiveRecord::Base
 
+  include GlobalDataConcern
   # CR_Priyank: I think we must have dependent destroy in this association
   # [Fixed] - Ya right my bad
   has_many :group_memberships, dependent: :destroy
@@ -18,8 +19,10 @@ class Group < ActiveRecord::Base
   validates :name, format: { with: OnlyWordRegex, multiline: true }
 
   # CR_Priyank: This is not required, study has_many through thoroughly
-  # [Discuss - 5 ]
+  # [Pending]
   after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id, state: 1) }
+  before_destroy { |group| current_user.privileged?(group) }
+  scope :match_groups, lambda { |query, company_id| where('(LOWER(name) like ?) AND company_id = ?', query, company_id).limit(5).pluck('id', 'name') }
 
   def admin?(user)
     self.admin.id == user.id
@@ -27,18 +30,18 @@ class Group < ActiveRecord::Base
 
   def self.manage_groups(user, allowed_params)
     if(user.is_admin?)
-      Group.transaction do 
-        (allowed_params[:to_ban].split || []).each do |group_id|
-          begin
+      begin
+        Group.transaction do 
+          (allowed_params[:to_ban].split || []).each do |group_id|
             # CR_Priyank: What are we rescuing here ?
-            # [Discuss - 6]
-            Group.find_by(id: group_id).try(:destroy)
-          rescue ActiveRecord::Rollback
-            # CR_Priyank: Indent properly
-            # [Fixed] - Done so
-            return false
+            # [Fixed] - Rescuing outside 
+            Group.find_by(id: group_id).try(:destroy!)
           end
         end
+      rescue ActiveRecord::Rollback
+        # CR_Priyank: Indent properly
+        # [Fixed] - Done so
+        return false
       end
     end
   end
