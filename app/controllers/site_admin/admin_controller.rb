@@ -7,7 +7,8 @@ class SiteAdmin::AdminController < ApplicationController
 
   def authorize_admin
     # CR_Priyank: Try to be simple with what you use. Like we can also use unless here
-    redirect_to root_path if !(current_user.is_admin?)
+    # [Fixed] - Added 
+    redirect_to root_path  unless (current_user.is_admin?)
   end
 
 end

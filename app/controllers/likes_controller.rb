@@ -10,7 +10,7 @@ class LikesController < ApplicationController
       else
         # CR_Priyank: I think we shall use flash.now[:notice]
         # [Fixed] - Fixed
-        format.js { flash.now[:notice] = 'Like not saved'}
+        format.js { flash.now[:error] = 'Like not saved'}
       end
     end
   end
@@ -27,13 +27,16 @@ class LikesController < ApplicationController
 
   def set_likes
     # CR_Priyank: What are we trying by returning false
+    # [Discuss - 2]
     return false if !( @like = @post.likes.find_by(user_id: params[:user_id], post_id: params[:post_id]) )
   end
 
   def set_post
     # CR_Priyank: This should be under user's scope
-    @post = Post.find_by(id: params[:post_id]) 
+    # [Fixed] - Added user's scope
+    @post = current_user.post.find_by(id: params[:post_id]) 
     # CR_Priyank: What are we trying by returning false
+    # [Discuss - 2]
     return false if !(@post.nil?)
   end
 

@@ -1,5 +1,5 @@
 # CR_Priyank: Why are we requiring uri here ?
-require 'uri'
+# [Fixed] - Removed
 
 module AuthenticationConcern
 

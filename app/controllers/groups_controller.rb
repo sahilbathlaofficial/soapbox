@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
       if(@group.save)
         format.html { redirect_to @group, notice: "Group #{@group.name} was successfully created." }
       else
-        format.html { redirect_to @group, notice: "Group #{@group.name} was not successfully created." }
+        format.html { redirect_to @group, error: "Group #{@group.name} was not successfully created." }
       end
     end
   end
@@ -31,11 +31,17 @@ class GroupsController < ApplicationController
 
   def destroy
     # CR_Priyank: This can be moved to model validation
+    # [Discuss -1]
     if(current_user.privileged?(@group))
       # CR_Priyank: What is not destroyed ?
+      # [Fixed] - Added the case
       if(@group.destroy)
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'Group destroyed' }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to root_path, error: 'Group not destroyed' }
         end
       end
     end
@@ -53,7 +59,7 @@ class GroupsController < ApplicationController
     if(@group.nil?)
       respond_to do |format|
         format.html do 
-          flash[:notice] = "Group doesn't exist" 
+          flash[:alert] = "Group doesn't exist" 
           redirect_to_back_or_default_url
         end
       end  

@@ -23,14 +23,15 @@ class FollowingsController < ApplicationController
 
   def destroy
     # CR_Priyank: What if following is not destroyed ?
-    @following.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to_back_or_default_url
-        flash[:notice] = "You are not following #{ @following.followee.firstname } now" 
-      end 
-      format.json { head :no_content }
+    #[Fixed] - Handled the cases
+    if(@following.destroy)
+      flash[:notice] = "You are not following #{ @following.followee.firstname } now" 
+    else
+      flash[:error] = "Some error occured" 
     end
+    respond_to do |format|
+      format.html { redirect_to_back_or_default_url }
+    end 
   end
 
   protected

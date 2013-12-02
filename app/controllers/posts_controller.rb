@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   # CR_Priyank: Why are we expiring fragment on all actions
-  before_action { |post| post.expire_fragment('my_posts') }
+  # [Fixed]: OOps sorry, only required in create and destroy
+  before_action only: [:create, :destroy] { |post| post.expire_fragment('my_posts') }
   before_action :set_post, only: [:destroy, :show]
   before_action :parse_url, only: [:extract_url_content]
 
@@ -8,6 +9,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.build(post_params)  
     @post.url_parsed_content = URLParsedContent.new(set_parsed_content)  if (params[:post][:extra_content].present?)
     # CR_Priyank: I think "current_user.posts << @post" is not required. We can do @post.create
+    # [Discuss - 3]
     current_user.posts << @post
     do_tweet(@post.content)
     respond_to do |format|
@@ -17,6 +19,7 @@ class PostsController < ApplicationController
 
   def destroy
     # CR_Priyank: This must be moved to model validation
+    # [Discuss - 1]
     if current_user.privileged?(@post)
       if @post.destroy
         redirect_to :back
@@ -37,7 +40,8 @@ class PostsController < ApplicationController
 
   def hash_tags
     # CR_Priyank: Move this query to model scope
-    @posts = Post.where('content like ? and user_id in (?)', '%' + params[:hash_tag] + '%', current_company.users)
+    # [Fixed] - Moved 
+    @posts = Post.find_by_hash_tag(params[:hash_tag], current_company.users)
   end
 
   def extract_url_content
@@ -60,6 +64,7 @@ class PostsController < ApplicationController
 
   def do_tweet(tweet)
     # CR_Priyank: This can be moved to twitter API module which can be included in use model. (Discuss)
+    # [Discuss - 4]
     if(current_user.twitter_authorize_token.present?)
 
       access_token = current_user.twitter_authorize_token.split # assuming @user

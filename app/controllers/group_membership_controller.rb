@@ -1,6 +1,8 @@
 class GroupMembershipController < ApplicationController
 # CR_Priyank: Indent properly
-before_action :set_group, except: :approve_membership
+# [Fixed]: Indentation taken care of :(
+  before_action :set_group, except: :approve_membership
+  before_action :set_membership, only: :approve_membership
 
   def index
   end
@@ -13,7 +15,8 @@ before_action :set_group, except: :approve_membership
     else
       respond_to do |format|
         # CR_Priyank: Unexpected behaviour notice should be in alert or error flash
-        format.html { redirect_to @group, notice: "User #{current_user.firstname} was not added to the group." }
+        # [Fixed] - Would keep it in mind from now on 
+        format.html { redirect_to @group, error: "User #{current_user.firstname} was not added to the group." }
       end
     end
   end
@@ -22,12 +25,16 @@ before_action :set_group, except: :approve_membership
     #FIXME_AB: group.admin?(current_user)
     #[Fixed] - Method added in model
     # CR_Priyank: I am not sure what we are trying to do here.
-    if(@group.admin?(current_user))
-      flash[:notice] = "You deleted your own group"
+    # [Fixed] - Sir basically if you quit your own group you delete everything associated with it
+    if (GroupMembership.find_by(group_id: @group.id, user_id: current_user.id).try(:destroy))
+      if(@group.admin?(current_user))
+        flash[:notice] = "You deleted your own group"
+      else
+        flash[:notice] = "You are not following the group #{ @group.name.humanize }"
+      end
     else
-      flash[:notice] = "You are not following the group #{ @group.name.humanize }"
+      flash[:error] = "You couldn't unjoin the group due to some reason" 
     end
-    flash[:notice] = "You couldn't unjoin the group due to some reason" if !(GroupMembership.find_by(group_id: @group.id, user_id: current_user.id).try(:destroy))
     respond_to do |format|
       format.html { redirect_to root_url }
     end  
@@ -35,24 +42,24 @@ before_action :set_group, except: :approve_membership
 
   def pending_memberships
     # CR_Priyank: eager load user in this query
+    # [Pending]
     @pending_memberships = @group.group_memberships.with_state(:pending)
     @pending_users = []
     # CR_Priyank: We can use collect here.
-    @pending_memberships.each do |pending_membership|
-      @pending_users << pending_membership.user
-    end
+    # [Fixed] - Using collect
+    @pending_users = @pending_memberships.collect { |pending_membership| pending_membership.user }
   end
 
   def approve_membership
     # CR_Priyank: eager load user and group in this query
-    @membership  = GroupMembership.find_by(id: params[:id])
+    # [Pending]
     # CR_Priyank: I think finding user and group here is not important, we can get them from @membership in views
-    @user = @membership.user
-    @group = @membership.group
+    # [Fixed] - Removed
     if (@membership.approve)
       respond_to do |format|
         # CR_Priyank: notify user that action is successful
-        format.js { }
+        #[Fixed] - Notice set
+        format.js { flash.now[:notice] = "Member approved" }
       end
     else
       flash.now[:notice] = "Can't approve due to some fault"
@@ -63,7 +70,12 @@ before_action :set_group, except: :approve_membership
 
   def set_group
     @group = Group.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@group.nil?)
+    redirect_to_back_or_default_url if(@group.blank?)
+  end
+
+  def set_membership
+    @membership  = GroupMembership.find_by(id: params[:id])
+    redirect_to_back_or_default_url if(@membership.blank?)
   end
 
 end

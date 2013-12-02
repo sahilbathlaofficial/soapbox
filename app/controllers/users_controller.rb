@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def show
     if(current_user.company_id != @user.company_id)
-      flash[:notice] = 'User doesn\'t exist'
+      flash[:alert] = 'User doesn\'t exist'
       redirect_to root_path
     end
   end
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         format.html { redirect_to @user, notice: "User #{@user.firstname} was successfully updated." }
       else
-        format.html { render action: 'edit' }
+        format.html { render action: 'edit', error: "Profile not updated" }
       end
 
     end
@@ -23,10 +23,15 @@ class UsersController < ApplicationController
 
   def destroy
     # CR_Priyank: Move this to validation
+    # [Discuss - 1]
     if(current_user.priviledged?(@user))
       if(@user.destroy)
         respond_to do |format|
           format.html { redirect_to root_path, notice: 'User destroyed' }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to root_path, error: 'User not destroyed' }
         end
       end
     end
@@ -48,7 +53,7 @@ class UsersController < ApplicationController
 
   def autocomplete
     # CR_Priyank: Move query in model scope
-    #[To-do]
+    #[Pending]
     @users = current_company.users.where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', params[:query].downcase, params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name')
     @users += current_company.groups.where('(LOWER(name) like ?) AND company_id = ?', params[:query].downcase, current_user.company_id).limit(5).pluck('id', 'name');
     respond_to do |format|
@@ -103,8 +108,9 @@ class UsersController < ApplicationController
 
   def set_user
     # CR_Priyank: Indent properly
-      @user = User.find_by(id: params[:id])
-      redirect_to_back_or_default_url if(@user.nil?)
+    # [Fixed] Sorry sir
+    @user = User.find_by(id: params[:id])
+    redirect_to_back_or_default_url if(@user.nil?)
   end
 
   def user_params

@@ -4,11 +4,12 @@
 class Group < ActiveRecord::Base
 
   # CR_Priyank: I think we must have dependent destroy in this association
-  has_many :group_memberships
+  # [Fixed] - Ya right my bad
+  has_many :group_memberships, dependent: :destroy
   has_many :users, through: :group_memberships
   
   # FIXME_AB: Since order is depricated in association, please make a scope[Fixed]
-  # [Fixed] Scope added
+  # [Fixed] - Scope added
   has_many :posts, -> { order("created_at DESC") }, dependent: :destroy
   belongs_to :company
   belongs_to :admin, foreign_key:'admin_id', class_name: 'User'
@@ -17,6 +18,7 @@ class Group < ActiveRecord::Base
   validates :name, format: { with: OnlyWordRegex, multiline: true }
 
   # CR_Priyank: This is not required, study has_many through thoroughly
+  # [Discuss - 5 ]
   after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id, state: 1) }
 
   def admin?(user)
@@ -29,10 +31,12 @@ class Group < ActiveRecord::Base
         (allowed_params[:to_ban].split || []).each do |group_id|
           begin
             # CR_Priyank: What are we rescuing here ?
-            Group.find_by(id: group_id).destroy
+            # [Discuss - 6]
+            Group.find_by(id: group_id).try(:destroy)
           rescue ActiveRecord::Rollback
             # CR_Priyank: Indent properly
-           return false
+            # [Fixed] - Done so
+            return false
           end
         end
       end

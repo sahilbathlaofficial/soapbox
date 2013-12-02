@@ -1,21 +1,18 @@
 <% for comment in post.comments %>
-<div class="comments">
-  <%# CR_Priyank: Move this to a helper method %>
-  <%if !(comment.tags.nil?) %>
-    <% for user in extract_tags_from_comment(comment.tags) %>
-       <% comment.content.gsub!(/#{user.name}/i) {|user_name|  link_to(user_name, user_path(id: user.id), class: 'tags') } %> 
+  <div class = "comments">
+    <%# CR_Priyank: Move this to a helper method %>
+    <%# [Fixed] %>
+    <% extract_tags_from_comment(comment) if(comment.tags.present?) %>
+    
+    <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
+    <%= link_to comment.user.name, comment.user %>:
+    <%= sanitize(comment.content,tags: %w(a))  %>
+    <% if(current_user.privileged?(comment)) %>
+    
+    <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
     <% end %>
-  <% end %>
 
-  <%= image_tag comment.user.avatar, class: 'thumbnailImage' %>
-  <%= link_to comment.user.name, comment.user %>:
-  <%= sanitize(comment.content,tags: %w(a))  %>
-  <% if(current_user.privileged?(comment)) %>
-  
-  <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
-  <% end %>
-
-</div>
+  </div>
 <% end %>
 <div class="createComment">
   <%= form_tag comments_path(post_id: post.id) do %>

@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   include NotificationConcern
 
   before_action :set_comments, only: [:destroy]
+  before_action :set_posts, only: [:create]
 
   # CR_Priyank: I think we can move comments create to posts controller using nested attributes
   #[To do]
@@ -9,12 +10,7 @@ class CommentsController < ApplicationController
     #FIXME_AB: You are relying on the post_id passed in the params. This could be a issue. Find the post with that id and make sure that post exists. Then do post.comments.build
     # [Fixed] Done so
     # CR_Priyank: This should be moved to a before_action and not found condition can be handled there
-    @post = Post.find_by(id: params[:post_id])
-    if(@post.nil?)  
-      flash[:notice] = "Post not found"
-      redirect_to_back_or_default_url
-      return false
-    end
+    # [Fixed] - Moved to before action
     @post.comments.build(comment_params)
     #FIXME_AB: What is comment is not saved due to some reason
     #[Fixed] - else case added
@@ -40,6 +36,7 @@ class CommentsController < ApplicationController
     # CR_Priyank: I think user_provoleged restriction should be moved in model as validation
     #[Fixed] - Moved to user model
     # CR_Priyank: Not fixed
+    # [Discuss - 1]
     if(current_user.privileged?(@comment))
       #FIXME_AB: What if it was not destoyed. I think you can make use of destroyed?
       #[Fixed] - used an else case instead    
@@ -69,8 +66,17 @@ class CommentsController < ApplicationController
     #FIXME_AB: What if the comment is not found with this id?
     #[Fixed] - checked comment nil case
     # CR_Priyank: Indent properly
-      @comment = Comment.find_by(id: params[:id])
-      redirect_to_back_or_default_url if(@comment.nil?)
+    # [Fixed]: Sorry sir
+    @comment = Comment.find_by(id: params[:id])
+    redirect_to_back_or_default_url if(@comment.nil?)
+  end
+
+  def set_posts
+    @post = Post.find_by(id: params[:post_id])
+    if (@post.blank?)
+      flash[:error] = "Post not found to comment on "
+      redirect_to_back_or_default 
+    end
   end
 
   def comment_params

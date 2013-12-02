@@ -40,9 +40,10 @@ class ApplicationController < ActionController::Base
 
   def current_company
     # CR_Priyank: Use where instead of find
-    # [Fixed] - Discussed
+    # [Fixed] - Fixed
     # CR_Priyank: Not Fixed
-    @current_company ||= Company.find(session[:company]) if(session[:company])
+    # [Fixed] - Sorry sir :( - Fixed now
+    @current_company ||= Company.find_by(id: session[:company]) if(session[:company])
   end
 
   def default_url_options(options = {})

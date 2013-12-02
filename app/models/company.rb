@@ -12,10 +12,12 @@ class Company < ActiveRecord::Base
         (allowed_params[:to_ban].split || []).each do |company_id|
           begin
             # CR_Priyank: What are we rescuing here ?
-            Company.find_by(id: company_id).destroy
+            # [Discuss - 6]
+            Company.find_by(id: company_id).try(:destroy)
           rescue ActiveRecord::Rollback
             # CR_Priyank: Indent properly
-           return false
+            # [Fixed] Done so
+            return false
           end
         end
       end

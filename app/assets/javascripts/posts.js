@@ -1,12 +1,11 @@
 // CR_Priyank: Indent your code
 // [Fixed]: Indented my code
 
-$(document).ready(function(){
+$(document).ready(function() {
   var regex_url = /((((ht|f)tps?:\/\/)?(www\.))|(((ht|f)tps?:\/\/)))[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>"\,\{\}\\|\\\^\[\]`]+)?\s/
   
   // Giving a position to the background div
-  setPostContentBox = function()
-  {
+  setPostContentBox = function() {
     if($('#composePostContent').length === 1)
     {
       $('#composePostContent').autosize();
@@ -19,7 +18,7 @@ $(document).ready(function(){
 
     if($('.commentText').length >= 1)
     {
-      $('.commentText').each(function(){
+      $('.commentText').each(function() {
         $(this).autosize();
         $(this).prev('.composeTextCopy').css('top', $(this).top)
         .css('left', $(this).left)
@@ -39,7 +38,7 @@ $(document).ready(function(){
 
   addUserTags = function(e) {
   
-    $(document).on('keyup','#composePostContent, .commentText', function(e){
+    $(document).on('keyup','#composePostContent, .commentText', function(e) {
 
       var text_box_id= $(this).attr('id');
       var text_input = $(this).val();
