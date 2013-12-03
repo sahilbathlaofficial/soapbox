@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+  include TwitterConcern
   before_filter :set_user, :except => [:autocomplete, :tag_list, :wall, :twitter_auth]
 
   def show
@@ -61,38 +62,12 @@ class UsersController < ApplicationController
 
   def tag_list
     users = current_user.followers + current_user.followees + [current_user] 
-    @users = current_company.users.where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  params[:query].downcase, users).limit(5)
+    @users = current_company.users.extract_tags(params[:query].downcase, users)
     respond_to do |format|
       format.js {}
     end
   end
 
-  def twitter_auth
-    client = TwitterOAuth::Client.new(
-      :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
-      :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE'
-      )
-    if(params[:oauth_verifier])
-      request_token = session[:request_token]
-      access_token = client.authorize(
-        request_token.token,
-        request_token.secret,
-        :oauth_verifier => params[:oauth_verifier]
-      )
-      user = current_user
-      user.twitter_authorize_token = access_token.token + " " + access_token.secret
-      user.save!
-      redirect_to edit_user_path(current_user)
-    else
-      request_token = client.request_token(:oauth_callback => twitter_auth_users_url )
-      #:oauth_callback required for web apps, since oauth gem by default force PIN-based flow
-      #( see http://groups.google.com/group/twitter-development-talk/browse_thread/thread/472500cfe9e7cdb9/848f834227d3e64d 
-
-      session[:request_token] = request_token
-      redirect_to request_token.authorize_url
-      # http://twitter.com/oauth/authorize?oauth_token=TOKEN
-    end
-  end
 
   def api_token
     current_user.set_api_token
@@ -108,7 +83,7 @@ class UsersController < ApplicationController
     # CR_Priyank: Indent properly
     # [Fixed] Sorry sir
     @user = User.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@user.nil?)
+    redirect_to_back_or_default_url if(@user.blank?)
   end
 
   def user_params

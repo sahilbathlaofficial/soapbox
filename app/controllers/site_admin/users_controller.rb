@@ -1,14 +1,8 @@
 class SiteAdmin::UsersController < SiteAdmin::AdminController
   def show
     # CR_Priyank: This can be achieved with a single scope
-    # [Pending]
-    if(params[:group_id].blank?)
-      @users = User.all
-    elsif(params[:company_id].blank?) 
-      @users = Group.find_by(id: params[:group_id]).users
-    else
-      @users = Company.find_by(id: params[:company_id]).groups.find_by(id: params[:group_id]).users
-    end
+    # [Fixed] - Moved to scope
+    User.extract_users(params[:company_id],  params[:group_id])
   end
 
   def manage_users
@@ -45,10 +39,7 @@ class SiteAdmin::UsersController < SiteAdmin::AdminController
 
   def set_moderator
     @user = User.find_by(id: params[:user_id])
-    if(@user.blank?)
-      flash.now[:alert] = "User not found"
-      return false
-    end
+    flash.now[:alert] = "User not found" if(@user.blank?)
   end
 
 end

@@ -45,6 +45,7 @@ class User < ActiveRecord::Base
   before_destroy { |comment| current_user.privileged? }
 
   scope :match_users, lambda { |query, company_id| where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', query, query, company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name') }
+  scope :extract_tags, lambda { |query, users| where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  query, users).limit(5) }
 
   #[Note] - Commented as may be added as a part of this app in future as the need may be
   # CR_Priyank: Indent properly
@@ -116,6 +117,16 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def self.extract_users(group_id, company_id)
+    if(group_id.blank?)
+      @users = User.all
+    elsif(company_id.blank?) 
+      @users = Group.find_by(id: group_id).users
+    else
+      @users = Company.find_by(id: company_id).groups.find_by(id: params[:group_id]).users
+    end
+  end 
   
   private
 

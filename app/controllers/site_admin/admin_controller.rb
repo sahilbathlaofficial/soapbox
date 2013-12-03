@@ -1,6 +1,6 @@
 class SiteAdmin::AdminController < ApplicationController
-  layout 'site_admin'
   
+  layout 'site_admin'
   before_action :authorize_admin
 
   protected 

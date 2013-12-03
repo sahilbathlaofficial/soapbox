@@ -11,7 +11,6 @@ class PostsController < ApplicationController
     # CR_Priyank: I think "current_user.posts << @post" is not required. We can do @post.create
     # [Fixed] - Using @post.save
     if(@post.save)
-      do_tweet(@post.content)
       respond_to do |format|
         format.html do 
           flash[:notice] = "Your post was succesful"
@@ -74,28 +73,13 @@ class PostsController < ApplicationController
 
   protected
 
-  def do_tweet(tweet)
-    # CR_Priyank: This can be moved to twitter API module which can be included in use model. (Discuss)
-    # [Pending]
-    if(current_user.twitter_authorize_token.present?)
-
-      access_token = current_user.twitter_authorize_token.split # assuming @user
-      client = TwitterOAuth::Client.new(
-        # CR_Priyank: Move these keys to a constant and then use
-        :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
-        :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
-        :token => access_token[0],
-        :secret => access_token[1]
-      )
-
-      client.update(tweet)
-    end
-
-  end
 
   def set_post
     @post = Post.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@post.nil?)
+    if(@post.nil?)
+      flash[:alert] = "Post not found"
+      redirect_to_back_or_default_url 
+    end
   end
 
   def set_parsed_content

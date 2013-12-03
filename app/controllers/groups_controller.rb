@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
   def create
     #FIXME_AB: company.groups.build
     #[Fixed] - Done so
-    @group = current_company.groups.build(group_params)
+    @group = current_user.groups.build(group_params)
     respond_to do |format|
       #FIXME_AB: I prefer not to push like below. instead group.add_user(user). So that we can have all the logic related to joining at one place.
       #[Fixed] - Logic changed 

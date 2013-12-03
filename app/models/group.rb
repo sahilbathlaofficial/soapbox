@@ -19,8 +19,12 @@ class Group < ActiveRecord::Base
   validates :name, format: { with: OnlyWordRegex, multiline: true }
 
   # CR_Priyank: This is not required, study has_many through thoroughly
-  # [Pending]
-  after_create { |group| GroupMembership.create(group_id: group.id, user_id: group.admin_id, state: 1) }
+  # [Fixed] - Changes made but not sure if correct
+  after_create do
+    |group| group.users << group.admin
+    group.group_memberships.first.approve 
+  end
+  
   before_destroy { |group| current_user.privileged?(group) }
   scope :match_groups, lambda { |query, company_id| where('(LOWER(name) like ?) AND company_id = ?', query, company_id).limit(5).pluck('id', 'name') }
 

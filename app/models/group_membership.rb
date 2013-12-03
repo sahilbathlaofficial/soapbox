@@ -19,6 +19,7 @@ class GroupMembership < ActiveRecord::Base
   def destroy_group
     # CR_Priyank: I do not see a reason why group and user is taken in variable
     # [Fixed] - bad mistake, removed
-    group.destroy 
+    # Avoid callbacks to run as it will create an infinite loop
+    group.delete 
   end
 end

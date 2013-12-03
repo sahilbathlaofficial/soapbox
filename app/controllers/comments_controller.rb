@@ -63,7 +63,7 @@ class CommentsController < ApplicationController
     # [Fixed]: Sorry sir
     @comment = Comment.find_by(id: params[:id])
     if(@comment.blank?)
-      flash[:notice] = "Comment not found"
+      flash[:alert] = "Comment not found"
       redirect_to_back_or_default_url 
     end
   end
@@ -71,7 +71,7 @@ class CommentsController < ApplicationController
   def set_posts
     @post = Post.find_by(id: params[:post_id])
     if (@post.blank?)
-      flash[:error] = "Post not found to comment on "
+      flash[:alert] = "Post not found to comment on "
       redirect_to_back_or_default 
     end
   end

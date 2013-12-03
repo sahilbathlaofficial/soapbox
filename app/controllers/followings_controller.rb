@@ -14,7 +14,7 @@ class FollowingsController < ApplicationController
         end
         format.json { render action: 'show', status: :created, location: @following }
       else
-        format.html { redirect_to current_user, notice: "An error occured while following #{ @following.followee } " }
+        format.html { redirect_to current_user, error: "An error occured while following #{ @following.followee } " }
         format.json { render json: @following.errors, status: :unprocessable_entity }
       end
     end
@@ -38,7 +38,10 @@ class FollowingsController < ApplicationController
 
     def set_following
       @following = current_user.followings.find_by(followee_id: params[:followee_id])
-      redirect_to_back_or_default_url if(@following.nil?)
+      if(@following.blank?)
+        flash[:alert] = "Some problem occured"
+        redirect_to_back_or_default_url 
+      end
     end
 
     def following_params

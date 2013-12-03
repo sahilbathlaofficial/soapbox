@@ -62,7 +62,7 @@ class GroupMembershipController < ApplicationController
         format.js { flash.now[:notice] = "Member approved" }
       end
     else
-      flash.now[:notice] = "Can't approve due to some fault"
+      flash.now[:error] = "Can't approve due to some fault"
     end
   end
 
@@ -70,12 +70,18 @@ class GroupMembershipController < ApplicationController
 
   def set_group
     @group = Group.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@group.blank?)
+    if(@group.blank?)
+      flash[:alert] = "Group not found"
+      redirect_to_back_or_default_url
+    end 
   end
 
   def set_membership
     @membership  = GroupMembership.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@membership.blank?)
+    if(@membership.blank?)
+      flash[:alert] = "It seems like u are not a member"
+      redirect_to_back_or_default_url
+    end
   end
 
 end
