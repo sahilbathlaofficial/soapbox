@@ -570,6 +570,11 @@
   vertical-align: middle;
 }
 
+#cancelEditProfile
+{
+  display: inline-block;
+}
+
 /* Generalized border */
 
 .borderAbove

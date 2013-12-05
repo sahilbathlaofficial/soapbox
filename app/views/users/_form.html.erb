@@ -59,8 +59,10 @@
     </div>
 
     <div class="rightAlign" id="updateProfile">
-    <%= f.submit 'Update', :class => 'btn btn-success' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")), user_path(@user), :class => 'btn btn-success colorWhite' %>
+      <%= f.submit 'Update', :class => 'btn btn-success' %>
+      <div id='cancelEditProfile'>
+        <%= button_to t('.cancel', :default => t("helpers.links.cancel")), user_path(@user), :class => 'btn btn-success colorWhite' %>
+      </div>
     </div>
 
   </div>
