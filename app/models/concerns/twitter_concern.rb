@@ -4,7 +4,7 @@ module TwitterConcern
   
   def do_tweet
     # CR_Priyank: This can be moved to twitter API module which can be included in use model.
-    # [Fixed] _ added Twitter Concern
+    # [Fixed] - added Twitter Concern
     if(current_user.twitter_authorize_token.present?)
 
       access_token = current_user.twitter_authorize_token.split # assuming @user

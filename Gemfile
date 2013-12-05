@@ -96,3 +96,8 @@ gem 'state_machine'
 
 #Thinking Sphinx
 gem 'thinking-sphinx', '3.0.6'
+
+#Shoulda Matcher
+group :test do
+  gem 'shoulda-matchers'
+end

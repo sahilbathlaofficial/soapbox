@@ -120,19 +120,19 @@ class User < ActiveRecord::Base
 
   def self.extract_users(group_id, company_id)
     if(group_id.blank?)
-      @users = User.all
+      all
     elsif(company_id.blank?) 
-      @users = Group.find_by(id: group_id).users
+      Group.find_by(id: group_id).users
     else
-      @users = Company.find_by(id: company_id).groups.find_by(id: params[:group_id]).users
+      Company.find_by(id: company_id).groups.find_by(id: params[:group_id]).users
     end
   end 
   
   private
 
   def provide_dummy_names
-      self.firstname = 'soapBox User'
-      self.lastname = (last.try(:id) || 0 + 1).to_s
+    self.firstname = 'soapBox User'
+    self.lastname = (User.last.try(:id) || 0 + 1).to_s
   end
 
   # CR_Priyank: Not a part of this model, move to concern

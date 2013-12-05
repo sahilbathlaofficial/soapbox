@@ -3,14 +3,25 @@ require 'spec_helper'
 describe Comment do
 
   before(:all) do
-    User.create(email: 'dsfx@dfsfx.com',password: 'yoyoyoyo') 
+    Company.create(name: 'vinsol')
+    User.create(email: 'dsfx@dfsfx.com',password: 'yoyoyoyo', company_id: Company.last.id) 
+    Thread.current[:user] = User.first
     Post.create(content: "hello", user_id: User.last.id) 
-    User.create(email: 'dsfxs@dfsfx.com',password: 'yoyoyoyo') 
+    User.create(email: 'dsfxs@dfsfx.com', password: 'yoyoyoyo', company_id: Company.last.id) 
   end
 
-   it "should have some content" do
-    Comment.new(content: "hello", user_id: "1", post_id: "2").should be_valid
-    Comment.new(content: "", user_id: "1",post_id: "2").should_not be_valid
+  describe "validation" do
+    describe "content" do
+      context "when present" do
+        comment = Comment.new(content: "hello", user_id: "1", post_id: "2")
+        it { comment.should be_valid }
+      end
+
+      context "when empty" do
+        comment = Comment.new(content: "", user_id: "1", post_id: "2")
+        it { comment.should_not be_valid}
+      end
+    end
   end
 
   it "should have some valid user" do
@@ -42,6 +53,7 @@ describe Comment do
   after(:all) do
     User.destroy_all
     Post.destroy_all
+    Company.destroy_all
   end
 
 end

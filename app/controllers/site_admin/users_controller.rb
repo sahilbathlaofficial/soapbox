@@ -2,7 +2,7 @@ class SiteAdmin::UsersController < SiteAdmin::AdminController
   def show
     # CR_Priyank: This can be achieved with a single scope
     # [Fixed] - Moved to scope
-    User.extract_users(params[:company_id],  params[:group_id])
+    User.extract_users(params[:group_id],  params[:company_id])
   end
 
   def manage_users

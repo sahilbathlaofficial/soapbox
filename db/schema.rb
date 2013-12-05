@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20131127134939) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
+    t.string   "type"
     t.string   "description"
     t.integer  "company_id"
     t.datetime "created_at"

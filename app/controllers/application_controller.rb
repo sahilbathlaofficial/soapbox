@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authorize  
   before_action :set_locale
+  before_action :set_current_user_thread
   helper_method :current_company
  
   protected
@@ -14,6 +15,9 @@ class ApplicationController < ActionController::Base
     else
       I18n.locale = I18n.default_locale
     end
+  end
+
+  def set_current_user_thread
     Thread.current[:user] = current_user
   end
 
