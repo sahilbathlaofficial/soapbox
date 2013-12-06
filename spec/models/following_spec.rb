@@ -2,26 +2,40 @@ require 'spec_helper'
 
 describe Following do
 
-  before(:all) do
-    Company.create(name:'vinsol')
-    @user_alpha = User.create(email: 'dsfx@dfsfx.com',password: 'yoyoyoyo', company_id: Company.last.id)
-    @user_beta = User.create(email: 'dsfxs@dfsfx.com',password: 'yoyoyoyo', company_id: Company.last.id)
+  describe 'validations' do
+    describe 'presence' do
+
+      context 'user_id' do
+        it { should validate_presence_of(:user_id) }
+      end
+
+      context 'followee_id' do
+        it { should validate_presence_of(:followee_id) }
+      end
+
+    end
+
+    describe 'uniqueness' do
+      context 'user_id scope followee_id' do
+        it { should validate_uniqueness_of(:user_id).scoped_to(:followee_id)  }
+      end
+    end
   end
 
-  it "should have a user_id and followee_id" do
-    Following.new(user_id: "1", followee_id: "2").should be_valid
-    Following.new(user_id: "1", followee_id: nil).should_not be_valid
-    Following.new(user_id: nil, followee_id: "1").should_not be_valid
+  describe 'belongs to' do
+    context 'user' do
+      it { should belong_to(:user) }
+    end
+
+    context 'followee' do
+      it { should belong_to(:followee).class_name('User') }
+    end
   end
 
-  it "should have a unique following" do
-    Following.skip_callback(:create, :after, :notify_followee)
-    Following.create(user_id: @user_alpha.id, followee_id: @user_beta.id)
-    Following.new(user_id: @user_alpha.id, followee_id: @user_beta.id).should_not be_valid
+  describe 'include PublicActivity' do
+    context 'respond to enable?' do
+      it { expect(Following.new.public_activity_enabled?).to eq(true) }
+    end 
   end
 
-  after(:all) do
-    Company.destroy_all
-    User.destroy_all
-  end
 end

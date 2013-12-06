@@ -23,6 +23,7 @@ x
 /coverage/
 /db/*.javadb/
 /db/*.sqlite3-journal
+/db/sphinx/*
 /doc/api/
 /doc/app/
 /doc/features.html

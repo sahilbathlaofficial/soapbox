@@ -2,19 +2,65 @@ require 'spec_helper'
 
 describe Company do
 
-  before(:each) do
-    @company = Company.new(name: "vinsol")
+  let(:admin) do
+    User.create(email: 'sahil@vinsol.com', is_admin: true)
   end
 
-  it "should have a name" do
-    @company.should be_valid
-    Company.new(name: "").should_not be_valid
+  let(:company) do
+    Company.create(name: 'vinsol')
   end
 
-  it "should be unique" do
-    Company.create(name: "vinsol")
-    @company.should_not be_valid
-    Company.new(name: "Vinsol").should_not be_valid
+  describe 'validation' do
+    
+    describe 'presence' do
+      context 'name' do
+        it { should validate_presence_of(:name) }
+      end
+    end
+
+    describe 'uniqueness - case_insensitive' do
+      describe 'name' do
+        it { should validate_uniqueness_of(:name).case_insensitive }
+      end
+    end
+
   end
+
+  describe 'has_many' do
+
+    context 'users' do
+      it { should have_many(:users) }
+    end
+
+    context 'groups' do
+      it { should have_many(:groups) }
+    end
+
+  end
+
+  describe 'manage_companies' do
+
+    context 'not an admin ' do
+      it { expect(Company.manage_companies(User.first, nil)).to eq(nil) }
+    end
+
+    context 'admin but no params[:to_ban] passed' do
+      it { expect(Company.manage_companies(admin, nil)).to eq(true) }
+    end
+
+    context 'admin and param[:to_ban] junk' do
+      it { expect(Company.manage_companies(admin, "sdsdsd")).to eq(false) }
+    end
+
+    context 'admin and param[:to_ban] contains records not in DB' do
+      it { expect(Company.manage_companies(admin, "-1 -2")).to eq(false) }
+    end
+
+    context 'admin and param[:to_ban] correct' do
+      it { expect(Company.manage_companies(admin, {to_ban: company.id.to_s} )).to eq(true) }
+    end
+
+  end
+
   
 end
