@@ -20,9 +20,11 @@ class Group < ActiveRecord::Base
 
   # CR_Priyank: This is not required, study has_many through thoroughly
   # [Fixed] - Changes made but not sure if correct
-  after_create do
-    |group| group.users << group.admin
-    group.group_memberships.first.approve 
+  after_create do |group| 
+    if group.valid?
+      group.users << group.admin
+      group.group_memberships.first.approve 
+    end
   end
   
   before_destroy { |group| current_user.privileged?(group) }
