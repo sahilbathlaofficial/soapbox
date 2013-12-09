@@ -1,47 +1,135 @@
 require 'spec_helper'
 
 describe User do
-  it "should have a email" do
-    User.new(email: "company@vinsol.com",password: "yoyoyoyo").should be_valid
-    User.new(email: "",password: "yoyoyoyo").should_not be_valid
-    User.new(email: "sdsdsdsdsdsd",password: "yoyoyoyo").should_not be_valid
+
+  let(:user) do
+    User.create(email: 'sahila@vinsol.com', company_id: '1', password: '12345678')
+  end
+  
+  describe 'validation on' do
+    describe 'presence of' do
+      
+      context 'email' do
+        it { should validate_presence_of(:email) }
+      end
+
+      context 'password' do
+        it { should validate_presence_of(:password) }
+      end
+
+    end
+
+    describe 'uniqueness of' do
+      context 'email' do
+        it { should validate_uniqueness_of(:email) }
+      end
+    end
+
   end
 
-  it "should have a password of atleast 8 letters" do
-    User.new(email: "company@vinsol.com",password: "yoyoyoyo").should be_valid
-    User.new(email: "",password: nil).should_not be_valid
-    User.new(email: nil,password: "sdsds").should_not be_valid
-    User.new(email: nil,password: 232323).should_not be_valid
+  describe 'association' do
+    
+    describe 'belongs to' do
+      context 'company' do
+        it { should belong_to(:company) }
+      end
+    end
+  
+    describe 'has_many' do
+      
+      context 'following' do
+        it { should have_many(:followings) }
+      end
+      
+      context 'followees' do
+        it { should have_many(:followees).through(:followings) }
+      end
+    
+      context 'inverse following' do
+        it { should have_many(:inverse_followings).with_foreign_key(:followee_id).class_name(:Following) }
+      end
+    
+      context 'followers' do
+        # source option not working in shoulda matcher
+        it { should have_many(:followers).through(:inverse_followings).source(:user) }
+      end
+    
+      context 'group_memberships' do
+        it { should have_many(:group_memberships) }
+      end
+
+      context 'groups' do
+        it { should have_many(:groups).through(:group_memberships) }
+      end
+
+      context 'group owned' do
+        it { should have_many(:groups_owned).with_foreign_key(:admin_id).class_name(:Group).dependent(:destroy) }
+      end
+
+      context 'posts' do
+        it { should have_many(:posts).order('created_at DESC') }
+      end
+
+      context 'likes' do
+        it { should have_many(:likes) }
+      end
+
+      context 'comments' do
+        it { should have_many(:comments) }
+      end
+
+    end
   end
 
-  it "should provide dummy names on creation" do
-    u = User.new(email: "company@vinsol.com",password: "yoyoyoyo")
-    initially_name = u.name
-    u.save
-    expect([initially_name.blank?, u.name.blank?]).to eq([true, false])
+  describe 'name' do
+    
+    context 'when firstname and lastname nil' do
+      it do
+        user.firstname = nil
+        user.lastname = nil
+        expect(user.name).to eq(' ') 
+      end
+    end
+
+    context 'when firstname nil' do
+      it do
+        user.firstname = nil
+        expect(user.name).to eq((' ' + user.lastname).titleize) 
+      end
+    end
+
+    context 'when firstname and lastname nil' do
+      it do
+        user.lastname  = nil 
+        expect(user.name).to eq((user.firstname + ' ').titleize) 
+      end 
+    end
+
+    context 'when firstname and lastname present' do
+      it do
+        expect(user.name).to eq((user.firstname + ' ' + user.lastname).titleize) 
+      end 
+    end
+
   end
 
-  it "name should exactly match firstname + lastname" do
-    u = User.new(email: "company@vinsol.com",password: "yoyoyoyo")
-    u.save
-    expect(u.name).to eq(u.firstname.capitalize + " " + u.lastname.capitalize)
+
+  describe 'to_param' do
+    it { expect(user.to_param).to eq((user.id.to_s + '-' + user.firstname).parameterize) }
   end
 
-  it "should have valid parameterization" do
-    u = User.new(email: "company@vinsol.com",password: "yoyoyoyo")
-    u.save
-    expect(u.to_param).to eq("#{u.id}-#{u.firstname.parameterize}")
-  end
+  describe 'privileged?' do
+    context 'when site admin' do
+    end
 
-  it "should be privileged only if admin or moderator" do
-    u = User.new(email: "company@vinsol.com",password: "yoyoyoyo")
-    expect(u.privileged?(self)).to eq(false)
+    context 'when site moderator' do
+    end
 
-    u = User.new(email: "company@vinsol.com",password: "yoyoyoyo",is_admin: true)
-    expect(u.privileged?(self)).to eq(true)
+    context 'when owner' do
+    end
 
-    u = User.new(email: "company@vinsol.com",password: "yoyoyoyo",is_moderator: true)
-    expect(u.privileged?(self)).to eq(true)
+    context 'when not privileged' do
+    end
   end
 
 end

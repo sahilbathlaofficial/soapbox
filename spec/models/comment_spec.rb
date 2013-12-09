@@ -36,30 +36,38 @@ describe Comment do
   end
 
   describe 'owner?' do
+   
     context 'user is owner' do
-      comment = Comment.new(content: 'hi', user_id: User.first.id, post_id: '2')
-      it { expect(comment.owner?(Thread.current[:user])).to eq(true)  }
+      it do
+        comment = Comment.new(content: 'hi', user_id: User.first.id, post_id: '2')
+        expect(comment.owner?(Thread.current[:user])).to eq(true)  
+      end
     end
 
     context 'user is not owner' do
-      comment = Comment.new(content: 'hi', user_id: User.first.id, post_id: '2')
-      it { expect(comment.owner?(User.last)).to eq(false)  }
+      it do
+        comment = Comment.new(content: 'hi', user_id: User.first.id, post_id: '2')
+        expect(comment.owner?(User.last)).to eq(false)  
+      end
     end
+
   end
 
   describe 'current user' do 
     context 'current user is same as Thread.current[:user]' do
-      comment = Comment.new(content: 'hi', user_id: User.first.id, post_id: '2')
-      it { expect(comment.current_user).to eq(Thread.current[:user])  }
+      it do
+        comment = Comment.new(content: 'hi', user_id: User.first.id, post_id: '2')
+        expect(comment.current_user).to eq(Thread.current[:user])  
+      end
     end
   end
 
 
 
   after(:all) do
-    User.destroy_all
-    Post.destroy_all
-    Company.destroy_all
+    User.delete_all
+    Post.delete_all
+    Company.delete_all
   end
 
 end

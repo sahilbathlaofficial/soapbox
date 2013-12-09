@@ -109,6 +109,7 @@ describe Post do
   end
 
   describe 'destroy' do
+    
     context 'if privileged' do
       it do
         Thread.current[:user] = user

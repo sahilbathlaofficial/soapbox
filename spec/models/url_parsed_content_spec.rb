@@ -14,6 +14,7 @@ describe URLParsedContent do
     describe 'format of' do
       context 'url' do
         it { should allow_value('http://www.ruby.com', 'https://www.ruby.com' ,'http://www.ruby.com?id=2&x=y').for(:url) }
+        # disallow method not working in shoulda matcher 
         it { should_not allow_value('ruby.com').for(:url) } 
         it { should_not allow_value('ruby').for(:url) } 
         it { should_not allow_value('xyz://ruby.com').for(:url) } 
