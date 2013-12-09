@@ -37,11 +37,14 @@ class Group < ActiveRecord::Base
   def self.manage_groups(user, allowed_params)
     if(user.is_admin?)
       begin
-        Group.transaction do 
-          (allowed_params[:to_ban].split || []).each do |group_id|
-            # CR_Priyank: What are we rescuing here ?
-            # [Fixed] - Rescuing outside 
-            Group.find_by(id: group_id).try(:destroy!)
+        if(allowed_params.present?)
+          return false unless allowed_params.is_a?(Hash)
+          Group.transaction do 
+            (allowed_params[:to_ban] || []).split.each do |group_id|
+              # CR_Priyank: What are we rescuing here ?
+              # [Fixed] - Rescuing outside 
+              Group.find_by(id: group_id).destroy!
+            end
           end
         end
       rescue ActiveRecord::Rollback
@@ -49,6 +52,7 @@ class Group < ActiveRecord::Base
         # [Fixed] - Done so
         return false
       end
+      true
     end
   end
 

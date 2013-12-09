@@ -10,6 +10,7 @@ class Company < ActiveRecord::Base
     if(user.is_admin?)
       begin
         if(allowed_params.present?)
+          return false unless allowed_params.is_a?(Hash)
           Company.transaction do 
             (allowed_params[:to_ban] || []).split.each do |company_id|
               # CR_Priyank: What are we rescuing here ?
@@ -17,13 +18,13 @@ class Company < ActiveRecord::Base
               Company.find_by(id: company_id).destroy!
             end
           end
-        end  
-        true   
-      rescue
+        end     
+      rescue ActiveRecord::Rollback
         # CR_Priyank: Indent properly
         # [Fixed] Done so
         return false
       end
+      true
     end
   end
 

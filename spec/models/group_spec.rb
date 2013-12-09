@@ -1,6 +1,23 @@
 require 'spec_helper'
 
 describe Group do
+
+  let(:site_admin) do
+    User.create(email: 'sahilb@vinsol.com', company_id: '1', password: '12345678', is_admin: true)
+  end
+
+  let(:group_admin) do
+    User.create(email: 'sahil@vinsol.com', company_id: '1', password: '12345678')
+  end
+
+  let(:user) do
+    User.create(email: 'sahila@vinsol.com', company_id: '1', password: '12345678')
+  end
+
+  let(:group) do
+    Group.create(admin_id: group_admin.id, company_id: '1', name: 'xyz')
+  end
+
   describe 'associations' do
     describe 'has_many' do
 
@@ -63,4 +80,44 @@ describe Group do
     end
 
   end
+
+  describe 'admin?' do
+    context 'user is admin' do
+      it { expect(group.admin?(group_admin)).to eq(true) }
+    end
+
+    context 'user is not an admin' do
+      it do 
+        expect(group.admin?(user)).to eq(false) 
+      end
+    end
+  end
+
+  describe 'manage_groups' do
+
+    context 'not an admin ' do
+      it { expect(Group.manage_groups(user, nil)).to eq(nil) }
+    end
+
+    context 'admin but no params[:to_ban] passed' do
+      it { expect(Group.manage_groups(site_admin, nil)).to eq(true) }
+    end
+
+    context 'admin and param[:to_ban] junk' do
+      it { expect(Group.manage_groups(site_admin, "sdsdsd")).to eq(false) }
+    end
+
+    context 'admin and param[:to_ban] contains records not in DB' do
+      it { expect(Group.manage_groups(site_admin, "-1 -2")).to eq(false) }
+    end
+
+    context 'admin and param[:to_ban] correct' do
+      it do
+        Thread.current[:user] = site_admin
+        expect(Group.manage_groups(site_admin, { to_ban: group.id.to_s } )).to eq(true) 
+      end
+    end
+
+  end
+
 end
