@@ -2,60 +2,128 @@ require 'spec_helper'
 
 describe Post do
 
-  before(:all) do
-    @company = Company.create(name: 'vinsol')
-    @user = User.create(email: 'dsfx@dfsfx.com', password: 'yoyoyoyo', company_id: @company.id) 
-    @group = Group.create(name: 'ror',admin_id: @user.id, company_id: @company.id)
+  let(:user) do
+    User.create(email: 'sahila@vinsol.com', company_id: '1', password: '12345678')
   end
 
-  before(:each) do
-     @post = Post.new(content: "hello", user_id: @user.id, tags: @user.id.to_s)
-     @post.stub(:email_tagged_users) { true }
-  end
-  
-  it "should have some content" do
-    Post.new(content: "hello", user_id: @user.id).should be_valid
-    Post.new(content: "", user_id: @user.id).should_not be_valid
+  let(:post) do
+    Post.create(content: '#hash', user_id: user.id)
   end
 
-  it "should have some valid user" do
+  describe 'association' do
+    describe 'belongs to' do
+   
+      context 'group' do
+       it { should belong_to(:group) }
+      end
+
+      context 'user' do
+       it { should belong_to(:user) }
+      end
+
+   end
+
+    describe 'has many' do
+   
+      context 'likes' do
+        it { should have_many(:likes).dependent(:destroy) }
+      end
+
+      context 'comments' do
+        it { should have_many(:comments).dependent(:destroy) }
+      end
+     
+    end
+
+    describe 'has one url parsed content' do
+   
+      context 'url parsed content' do
+        it { should have_one(:url_parsed_content).dependent(:destroy) }
+      end
+    end
+
+  end
+
+  describe 'validation' do
+    describe 'presence of' do
+      
+      context 'post' do
+       it { should validate_presence_of(:content) }
+      end
+      
+      context 'user_id' do
+       it { should validate_presence_of(:user_id) }
+      end
     
-    post = Post.new(content: "hello", user_id: @user.id)
-    post.user.should be_valid
-
-    post = Post.new(content: "hello", user_id: nil)
-    expect(post.user).to eq(nil)
+    end
   end
 
-  it "should have some valid group or no group at all" do
+  describe 'scope' do
+   
+    describe 'extract posts' do
     
-    post = Post.new(content: "hello", user_id: @user)
-    expect(post.group).to eq(nil)
+      context 'no user no group' do
+        it { expect(Post.extract_posts(nil,nil) - Post.all).to eq([]) }
+      end
+      
+      context 'no user but groups present' do
+        it { expect(Post.extract_posts(nil, [Group.last]).is_a?(ActiveRecord::Relation)).to eq(true) }
+      end
 
-    post = Post.new(content: "hello", user_id: @user.id, group_id: @group.id)
-    expect(post.group).to eq(@group)
+      context 'users present but no group' do
+        it { expect(Post.extract_posts([User.last], nil).is_a?(ActiveRecord::Relation)).to eq(true) }
+      end
 
-    post = Post.new(content: "hello", user_id: @user.id, group_id: "-1")
-    expect(post.group).to eq(nil)  
+      context 'Users and groups present' do
+        it { expect(Post.extract_posts([User.last], [Group.last]).is_a?(ActiveRecord::Relation)).to eq(true) }
+      end
+
+    end
+
+    describe 'find_by_hash_tag' do
+      
+      context 'no user no content' do
+        it { expect(Post.find_by_hash_tag('', nil).empty?).to eq(true) }
+      end
+
+      context 'no user with content' do
+        it { expect(Post.find_by_hash_tag('hash', nil).empty?).to eq(true) }
+      end
+
+      context 'no content with users' do
+        it do
+          Thread.current[:user] = user
+          expect(Post.find_by_hash_tag('', [user]).empty?).to eq(true) 
+        end
+      end
+
+      context 'no content with users' do
+        it do
+          Thread.current[:user] = user
+          expect(Post.find_by_hash_tag(post.content, [user]).empty?).to eq(false) 
+        end 
+      end
+
+    end
 
   end
 
-  it "should notify tagged users" do
-    notifications_count = PublicActivity::Activity.where(owner_id: @user.id).count 
-    @post.save
-    expect(PublicActivity::Activity.where(owner_id: @user.id).count).to eq(notifications_count + 1)
-  end
+  describe 'destroy' do
+    context 'if privileged' do
+      it do
+        Thread.current[:user] = user
+        post.destroy
+        expect(post.destroyed?).to eq(true)
+      end
+    end
 
-  it "should destroy associated comments, likes and url_parsed content with on deletion" do
-    @post.save
-    @post.destroy
-    expect([Comment.where(post_id: @post.id), Like.where(post_id: @post.id), URLParsedContent.where(post_id: @post.id)]).to eq([[], [], []])
-  end
+    context 'if not privileged' do
+      it do
+        post.destroy
+        expect(post.destroyed?).to eq(false)
+      end
+    end
 
-  after(:all) do
-    @company.destroy
-    @user.destroy
-    @group.destroy
   end
 
 end

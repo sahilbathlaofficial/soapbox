@@ -6,11 +6,11 @@ class Post < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   has_many :likes, dependent: :destroy
-  has_one :url_parsed_content, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_one :url_parsed_content, dependent: :destroy
+  validates :content, :user_id, presence: true
   scope :extract_posts, lambda { |users, groups|  where('user_id in (?) or (group_id in (?) or group_id is ? )', users, groups, nil).order('created_at DESC') }
   scope :find_by_hash_tag, lambda { |hash_tag, users| where('content like ? and user_id in (?)', '%' + hash_tag + '%', users) }
-  validates :content, :user_id, presence: true
   after_create :notify_tagged_users
   after_create :do_tweet
   before_destroy { |comment| current_user.privileged?(comment) }
