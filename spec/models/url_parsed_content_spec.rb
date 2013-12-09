@@ -2,17 +2,34 @@ require 'spec_helper'
 
 describe URLParsedContent do
   
-  before(:each) do
-    @url_content = URLParsedContent.new(url: "http://company.vinsol.com", post_id: "1")
+  describe 'validation' do
+    describe 'presence of ' do
+    
+      context 'post_id' do
+        it { should  validate_presence_of(:post_id) }
+      end
+    
+    end
+
+    describe 'format of' do
+      context 'url' do
+        it { should allow_value('http://www.ruby.com', 'https://www.ruby.com' ,'http://www.ruby.com?id=2&x=y').for(:url) }
+        it { should_not allow_value('ruby.com').for(:url) } 
+        it { should_not allow_value('ruby').for(:url) } 
+        it { should_not allow_value('xyz://ruby.com').for(:url) } 
+        it { should_not allow_value('xyz').for(:url) } 
+      end
+    end
   end
 
-  it "should have a valid url if any " do
-    URLParsedContent.new(url: "company@vinsol.com").should_not be_valid
-    URLParsedContent.new(url: "").should_not be_valid
-    @url_content.should be_valid
+  describe 'association' do
+    describe 'belongs to ' do
+    
+      context 'post' do
+        it { should  belong_to(:post) }
+      end
+    
+    end
   end
 
-  it "should have a valid post id" do
-    @url_content.should be_valid
-  end
 end
