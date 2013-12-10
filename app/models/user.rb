@@ -95,24 +95,36 @@ class User < ActiveRecord::Base
   end
 
   def set_api_token
-    encrypter = Encrypt.new("soapBox key")
-    self.consumer_key = encrypter.encrypt(self.email)
-    self.consumer_secret = SecureRandom.hex
-    self.save
+    if(self == current_user)
+      encrypter = Encrypt.new("soapBox key")
+      self.consumer_key = encrypter.encrypt(self.email)
+      self.consumer_secret = SecureRandom.hex
+      self.save
+    end
   end
 
   def self.manage_users(user, allowed_params)
     if(user.is_admin?)
       # CR_Priyank: Do we need User here
       # [Fixed] - Removed User
-      transaction do 
-        destroy_all(id: allowed_params[:to_ban].split)
-        (allowed_params[:make_moderators].split || []).each do |user_id|
-          user = find_by(id: user_id)
-          # CR_Priyank: move this to a method as we are using this in multiple places
-          # [Fixed] - Not required as only used to make and remove moderators
-          user.update_attributes(is_moderator: true)
+      return false unless allowed_params.is_a?(Hash)
+      if(allowed_params[:to_ban].present?)
+        begin
+          transaction do 
+            destroy_all(id: allowed_params[:to_ban].split)
+            if(allowed_params[:make_moderators].present?)
+              (allowed_params[:make_moderators] || []).split.each do |user_id|
+                user = find_by(id: user_id)
+                # CR_Priyank: move this to a method as we are using this in multiple places
+                # [Fixed] - Not required as only used to make and remove moderators
+                user.update_attributes(is_moderator: true)
+              end
+            end
+          end
+        rescue ActiveRecord::Rollback
+          return false
         end
+        true
       end
     end
   end
@@ -123,7 +135,7 @@ class User < ActiveRecord::Base
     elsif(company_id.blank?) 
       Group.find_by(id: group_id).users
     else
-      Company.find_by(id: company_id).groups.find_by(id: params[:group_id]).users
+      Company.find_by(id: company_id).groups.find_by(id: group_id).users
     end
   end 
   

@@ -6,6 +6,10 @@ describe Company do
     User.create(email: 'sahil@vinsol.com', is_admin: true)
   end
 
+  let(:user) do
+    User.create(email: 'sahila@vinsol.com')
+  end
+
   let(:company) do
     Company.create(name: 'vinsol')
   end
@@ -41,7 +45,7 @@ describe Company do
   describe 'manage_companies' do
 
     context 'not an admin ' do
-      it { expect(Company.manage_companies(User.first, nil)).to eq(nil) }
+      it { expect(Company.manage_companies(user, nil)).to eq(nil) }
     end
 
     context 'admin but no params[:to_ban] passed' do

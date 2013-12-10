@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Following do
+Following.skip_callback :create, :after, :notify_followee
 
   describe 'validations' do
     describe 'presence' do

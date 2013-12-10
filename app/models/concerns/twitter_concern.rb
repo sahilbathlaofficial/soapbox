@@ -5,18 +5,20 @@ module TwitterConcern
   def do_tweet
     # CR_Priyank: This can be moved to twitter API module which can be included in use model.
     # [Fixed] - added Twitter Concern
-    if(current_user.twitter_authorize_token.present?)
+    if(current_user)
+      if(current_user.twitter_authorize_token.present?)
 
-      access_token = current_user.twitter_authorize_token.split # assuming @user
-      client = TwitterOAuth::Client.new(
-        # CR_Priyank: Move these keys to a constant and then use
-        :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
-        :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
-        :token => access_token[0],
-        :secret => access_token[1]
-      )
+        access_token = current_user.twitter_authorize_token.split # assuming @user
+        client = TwitterOAuth::Client.new(
+          # CR_Priyank: Move these keys to a constant and then use
+          :consumer_key => 'CRCKDPmqhidBGtMbBliD8Q',
+          :consumer_secret => '9l4NlQaZTIKijnNHGFZskkr79aesVEY1IKAV8vOIOE',
+          :token => access_token[0],
+          :secret => access_token[1]
+        )
 
-      client.update(self.content)
+        client.update(self.content)
+      end
     end
   end
 

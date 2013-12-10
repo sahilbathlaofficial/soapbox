@@ -11,11 +11,11 @@ class Company < ActiveRecord::Base
       begin
         if(allowed_params.present?)
           return false unless allowed_params.is_a?(Hash)
-          Company.transaction do 
+          transaction do 
             (allowed_params[:to_ban] || []).split.each do |company_id|
               # CR_Priyank: What are we rescuing here ?
               # [Fixed] - Rescued outside
-              Company.find_by(id: company_id).destroy!
+              find_by(id: company_id).destroy!
             end
           end
         end     

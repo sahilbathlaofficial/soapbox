@@ -6,6 +6,10 @@ describe Post do
     User.create(email: 'sahila@vinsol.com', company_id: '1', password: '12345678')
   end
 
+  let(:other_user) do
+    User.create(email: 'sahila@vinsol.com', company_id: '1', password: '12345678')
+  end
+
   let(:post) do
     Post.create(content: '#hash', user_id: user.id)
   end
@@ -120,7 +124,8 @@ describe Post do
 
     context 'if not privileged' do
       it do
-        post.destroy
+        Thread.current[:user] = other_user
+        post.try(:destroy)
         expect(post.destroyed?).to eq(false)
       end
     end
