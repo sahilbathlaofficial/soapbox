@@ -1,19 +1,22 @@
-<%for user in users %>
+<%for group_membership in group_memberships %>
   <div class="showListItem">
     <div class="floatLeft">
-      <%= link_to image_tag(user.avatar,width:"50", height: "50", class: "higlightPicture"), user  %>
+      <%= link_to image_tag(group_membership.user.avatar,width:"50", height: "50", class: "higlightPicture"), group_membership.user  %>
     </div>
 
     <div class="middleContent">      
-      <div><%=link_to (user.firstname + ' ' + user.lastname).humanize, user %></div>
+      <div><%=link_to group_membership.user.name.humanize, group_membership.user %></div>
       <div>This is a sample description</div>
+      <% if group_membership.group.admin == current_user %>
+        <div><%= link_to 'Remove from group', group_membership_path(group_membership), method: :delete, class: 'blackButBlueOnHover underLine' %></div> 
+      <% end %>
     </div>
 
     <div class="floatRight">
       <% if(params[:action] == 'pending_memberships') %>
-        <%= button_to 'Approve', approve_membership_group_membership_path(user.group_memberships.find_by(group_id: @group.id)), class: 'btn-success', remote: true %>
+        <%= button_to 'Approve', approve_membership_group_membership_path(group_membership), class: 'btn-success', remote: true %>
       <% else %>
-        <%= render :partial => 'users/following_status', locals: { user: user } %>
+        <%= render :partial => 'users/following_status', locals: { user: group_membership.user } %>
       <% end %>
     </div>
 

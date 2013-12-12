@@ -1,7 +1,7 @@
 class GroupMembershipController < ApplicationController
 # CR_Priyank: Indent properly
 # [Fixed]: Indentation taken care of :(
-  before_action :set_group, except: :approve_membership
+  before_action :set_group, except: [:approve_membership, :destroy]
   before_action :set_membership, only: :approve_membership
 
   def index
@@ -26,11 +26,12 @@ class GroupMembershipController < ApplicationController
     #[Fixed] - Method added in model
     # CR_Priyank: I am not sure what we are trying to do here.
     # [Fixed] - Sir basically if you quit your own group you delete everything associated with it
-    if (GroupMembership.find_by(group_id: @group.id, user_id: current_user.id).try(:destroy))
-      if(@group.admin?(current_user))
+    @group_membership = GroupMembership.find_by(id: params[:id])
+    if ( @group_membership.try(:destroy) )
+      if(@group_membership.group.admin?(current_user))
         flash[:notice] = "You deleted your own group"
       else
-        flash[:notice] = "You are not following the group #{ @group.name.humanize }"
+        flash[:notice] = "You are not following the group #{ @group_membership.group.name.humanize }"
       end
     else
       flash[:error] = "You couldn't unjoin the group due to some reason" 
@@ -44,10 +45,8 @@ class GroupMembershipController < ApplicationController
     # CR_Priyank: eager load user in this query
     # [Fixed] - Eager loaded user data
     @pending_memberships = @group.group_memberships.includes(:user).with_state(:pending)
-    @pending_users = []
     # CR_Priyank: We can use collect here.
     # [Fixed] - Using collect
-    @pending_users = @pending_memberships.collect { |pending_membership| pending_membership.user }
   end
 
   def approve_membership

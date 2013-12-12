@@ -3,7 +3,7 @@
   <div id="memberList" class="normalText showList"> 
     <div class="showListItem">Listing all the members of this group</div> 
     
-    <%= render partial: 'members_list', locals: {users: @group.users} %>
+    <%= render partial: 'members_list', locals: {group_memberships: @group.group_memberships} %>
 
   </div>
   <div class="groupPageFinished normalText centerAlignText">End of page</div>

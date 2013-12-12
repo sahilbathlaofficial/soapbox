@@ -8,7 +8,7 @@ class GroupsController < ApplicationController
   def index
     #FIXME_AB: company.groups.where
     #[Fixed] - added where condition
-    @groups = Group.where("company_id = ?", current_user.company_id)
+    @groups = Group.includes(:group_memberships).where("company_id = ?", current_user.company_id)
   end 
 
   def create

@@ -1,11 +1,9 @@
-<% if(group.name != group.company.name.downcase) %>
-  <% if(group.users.exists?(current_user)) %>
-    <div class="buttonToggle">
-      <%# Why these 2 buttons are exactly same ? %>
-      <%= button_to "Joined", group_membership_path(group), method: :delete, confirm: 'Are you sure you want to quit this group?', class: 'btn-success original-button' %>
-      <%= button_to "Unjoin", group_membership_path(group), method: :delete, confirm: 'Are you sure you want to quit this group?', class: 'btn-danger hovered-button' %>
-    </div>
-  <% else %>
-    <%= button_to "Join us", { controller: :group_membership, action: :create, id: group.id}, class: 'btn-success'%>
-  <% end %>
+<% if(group.users.exists?(current_user)) %>
+  <div class="buttonToggle">
+    <%# Why these 2 buttons are exactly same ? %>
+    <%= button_to "Joined", group_membership_path(group.group_memberships.find_by(user_id: current_user.id)), method: :delete, confirm: 'Are you sure you want to quit this group?', class: 'btn-success original-button' %>
+    <%= button_to "Unjoin", group_membership_path(group.group_memberships.find_by(user_id: current_user.id)), method: :delete, confirm: 'Are you sure you want to quit this group?', class: 'btn-danger hovered-button' %>
+  </div>
+<% else %>
+  <%= button_to "Join us", { controller: :group_membership, action: :create, id: group.id}, class: 'btn-success'%>
 <% end %>
