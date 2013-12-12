@@ -51,8 +51,10 @@ class ApplicationController < ActionController::Base
     @current_company ||= Company.find_by(id: session[:company]) if(session[:company])
   end
 
-  def default_url_options(options = {})
-    { company: current_company.try(:name) || AppName }
-  end
+
+  # Company scope removed for now but may be added by user later
+  # def default_url_options(options = {})
+  #   { company: current_company.try(:name) || AppName }
+  # end
 
 end

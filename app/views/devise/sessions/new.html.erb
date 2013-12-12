@@ -13,12 +13,12 @@
       
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
       <div>
-        <%= f.email_field :email, :autofocus => true, :class => 'inputField', :placeholder => t(:email_holder), :size => '40'  %>
+        <%= f.email_field :email, :autofocus => true, :class => 'inputField', :placeholder => t(:email_holder), :size => '40', maxlength: '200'  %>
       </div>
 
       <div>
         <%= f.password_field :password, :class => 'inputField', :placeholder => t(:password), :size => '30' %>
-        <%= f.submit t(:sign_in), class: "button" %>
+        <%= f.submit t(:sign_in), class: "button", maxlength: '200' %>
       </div>
 
       <div>

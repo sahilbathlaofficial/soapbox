@@ -3,7 +3,7 @@ $(document).ready(function(){
     alert("Some error occured")
   <% else %>
   $("#like_post_<%= @like.post.id %>_count").text("<%= pluralize(@like.post.likes.count, 'Like') %>")
-  $("#like_post_<%= @like.post.id %>").html('<a class="postOptionsLink" data-method="delete" data-remote="true" href="/company/likes/<%= @like.id %>/'
+  $("#like_post_<%= @like.post.id %>").html('<a class="postOptionsLink" data-method="delete" data-remote="true" href="likes/<%= @like.id %>/'
     + '?post_id=<%= @like.post.id %>&amp;user_id=<%= current_user.id %>" id="like_post_<%= @like.post.id %>" rel="nofollow">Unlike</a>');
   <% end %>
 });

@@ -5,57 +5,55 @@ root 'users#wall',  defaults: { id: '1' }
 #[To Do] :  Add namespace 
 match 'api/fetch_posts', to: 'api#fetch_posts', via: [:get,:post]
 
-scope '/:company' do
-  post 'followings/:followee_id', to: 'followings#create', as: 'followings'
-  delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
+post 'followings/:followee_id', to: 'followings#create', as: 'followings'
+delete 'followings/:followee_id', to: 'followings#destroy', as: 'following'
 
-  resources :posts, only: [:create, :destroy, :show] do
-    get 'extract_url_content', on: :collection
-    get 'hash_tags', on: :collection
-    get 'search', on: :collection
+resources :posts, only: [:create, :destroy, :show] do
+  get 'extract_url_content', on: :collection
+  get 'hash_tags', on: :collection
+  get 'search', on: :collection
+end
+
+resources :notifications, only: [:index] do
+  get 'get_new_notifications', on: :collection
+end
+
+resources :users, only: [:edit, :update, :show, :destroy] do
+  get 'followees' , on: :member
+  get 'followers' , on: :member
+  get 'wall', on: :member
+  get 'autocomplete', on: :collection
+  get 'tag_list',on: :collection
+  get 'twitter_auth', on: :collection
+  get 'api_token', on: :member
+end
+
+resources :groups
+resources :group_membership, only: [:create, :destroy, :index] do
+  get 'pending_memberships', on: :collection
+  post 'approve_membership', on: :member
+end
+resources :likes, only: [:create, :destroy]
+resources :comments, only: [:create, :destroy]
+
+
+namespace :site_admin do
+  
+  resource :users, only: [:show] do
+    post 'manage_users'
+    get 'remove_moderator'
   end
 
-  resources :notifications, only: [:index] do
-    get 'get_new_notifications', on: :collection
+  resource :groups, only: [:show] do
+    post 'manage_groups'
   end
 
-  resources :users, only: [:edit, :update, :show, :destroy] do
-    get 'followees' , on: :member
-    get 'followers' , on: :member
-    get 'wall', on: :member
-    get 'autocomplete', on: :collection
-    get 'tag_list',on: :collection
-    get 'twitter_auth', on: :collection
-    get 'api_token', on: :member
+  resource :companies, only: [:show] do
+    post 'manage_companies'
   end
   
-  resources :groups
-  resources :group_membership, only: [:create, :destroy, :index] do
-    get 'pending_memberships', on: :collection
-    post 'approve_membership', on: :member
-  end
-  resources :likes, only: [:create, :destroy]
-  resources :comments, only: [:create, :destroy]
-
-
-  namespace :site_admin do
-    
-    resource :users, only: [:show] do
-      post 'manage_users'
-      get 'remove_moderator'
-    end
-
-    resource :groups, only: [:show] do
-      post 'manage_groups'
-    end
-
-    resource :companies, only: [:show] do
-      post 'manage_companies'
-    end
-    
-  end
-
 end
+
 
 
   devise_for :user, controllers: {
@@ -64,13 +62,13 @@ end
     sessions: "controller_devise/sessions"
   }
 
-  get '/:controller/:action/(:id)', to: redirect('/company/%{controller}/%{action}')
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+
+  # get '/:controller/:action/(:id)', to: redirect('/company/%{controller}/%{action}')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

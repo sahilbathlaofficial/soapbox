@@ -8,7 +8,7 @@ notificationCheck = function() {
 fetchNotification = function() {
   if($('#newNotificationMsg').length != 1)
   {
-    $.getJSON("/x/notifications/get_new_notifications").done(function(data) {
+    $.getJSON("/notifications/get_new_notifications").done(function(data) {
       console.log(data);
       if(data.length != 0)
       {

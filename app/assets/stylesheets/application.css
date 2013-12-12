@@ -48,6 +48,11 @@
   display:inline-block;
 }
 
+#fetchNames
+{
+  overflow:hidden;
+}
+
 
 #userAutoCompleteSearchResults
 {
@@ -57,6 +62,8 @@
   text-align: left;
   margin-top: -0.7em;
   padding: 0.4em;
+  max-width: 20em;
+  overflow: hidden;
 }
 
 #userSettingContainer

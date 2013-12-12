@@ -32,7 +32,7 @@ $(document).ready(function() {
   provideUserTagList = function(user_hint, text_box_id) 
   {
     console.log(user_hint)
-    $.get("/x/users/tag_list",{query: '%' + user_hint + '%', text_box_id: text_box_id}).done(function(){
+    $.get("/users/tag_list",{query: '%' + user_hint + '%', text_box_id: text_box_id}).done(function(){
     });
   }
 
@@ -94,7 +94,7 @@ $(document).ready(function() {
       if(url_match = text.match(regex_url))
       { 
         $('.composePostContentOptions').prepend('<div id="loadingPostPreview" class="centerAlignText"><img src="/assets/loading.gif" class="mediumImage" /></div>');
-        $.get("/company/posts/extract_url_content",{ url: url_match[0] }).done(function() { $('#loadingPostPreview').remove(); })
+        $.get("/posts/extract_url_content",{ url: url_match[0] }).done(function() { $('#loadingPostPreview').remove(); })
         .fail(function(){
          $('#loadingPostPreview').html("Parse Error");
          window.setTimeout(function() { $('#loadingPostPreview').remove() },1000)

@@ -1,2 +1,2 @@
-$('a[href ="<%= user_path(@user)%>"]').closest('.showListItem').remove();
-$('#pendingMembers').text('<%= pluralize(@group.group_memberships.with_state(:pending).size, "Pending Member") %>');
+$('a[href ="<%= user_path(@membership.user)%>"]').closest('.showListItem').remove();
+$('#pendingMembers').text('<%= pluralize(@membership.group.group_memberships.with_state(:pending).size, "Pending Member") %>');

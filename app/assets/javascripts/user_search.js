@@ -27,7 +27,7 @@ autoFetchUsers = function() {
       query = element.val() + '%';
       console.log(query)
 
-      $.getJSON("/x/users/autocomplete", {query: query }).done(function(data){
+      $.getJSON("/users/autocomplete", {query: query }).done(function(data){
         search_terms = data;
         console.log(search_terms);
         $('#userAutoCompleteSearchResults').html('');
@@ -56,7 +56,7 @@ autoFetchUsers = function() {
               image = '<img class="thumbnailImage" src="/system/users/avatars/000/000/00'+ search_term[0] + '/original/' + search_term[3] + '"></img>'
             }
 
-            $('#userAutoCompleteSearchResults').append('<a class="userAutoCompleteSearchResults" href="/company/users/' + search_term[0] + '"></a>')
+            $('#userAutoCompleteSearchResults').append('<a class="userAutoCompleteSearchResults" href="/users/' + search_term[0] + '"></a>')
               .children('a:last').append('<div>' + display_result + '</div><br>')
               .children('div:first').before(image);
           }
