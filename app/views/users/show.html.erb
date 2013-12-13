@@ -1,6 +1,5 @@
 <div class="page-header">
   <%= render partial: 'mini_profile', locals: {user: @user} %>
-  <% if(current_user.followees.include?(@user)) || (current_user.id == @user.id) %>
   
   <div id="postContainer">
 
@@ -8,12 +7,9 @@
     <% if(current_user.id == @user.id) %>
       <%= render partial: 'posts/compose_post' %>
     <% end %>
-    <% cache 'my_posts', skip_digest: true do %>
-      <%= render partial: 'posts/posts', locals: { posts: @user.posts } %>
+    <% cache 'my_posts' + @user.name, skip_digest: true do %>
+      <%= render partial: 'posts/posts', locals: { posts: extract_viewable_posts(@user, current_user) } %>
     <% end %>
   </div>
   
-  <% else %>
-    <div class="centerAlignText borderAbove" id="followNoticeBox">Follow the user to see his/her conversation</div>
-  <% end %>
-</div>
+  </div>

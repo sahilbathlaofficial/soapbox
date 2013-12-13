@@ -13,8 +13,13 @@ class Post < ActiveRecord::Base
   scope :find_by_hash_tag, lambda { |hash_tag, users| includes(:comments).where('( posts.content like ? or comments.content like ? )and posts.user_id in (?)', '%' + hash_tag + '%', '%' + hash_tag + '%', users).order('posts.updated_at DESC') }
   after_create :notify_tagged_users
   after_create :do_tweet
-  before_destroy { |post| current_user.privileged?(post) }
+  before_destroy :check_priviledge
 end
+
+  def check_priviledge
+    # if user is privileged(admin, moderator or owner) or is the group owner if post belongs to group
+    current_user.privileged?(self) || group.try(:admin) == current_user  
+  end
 
 #FIXME_AB: validations please[Fixed]
 #[Fixed] - Post Content should not be nil , it has user_id and company_id but group_id is optional
