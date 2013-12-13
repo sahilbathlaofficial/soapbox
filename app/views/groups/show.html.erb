@@ -6,7 +6,7 @@
       <%= render partial: 'posts/compose_post',locals: { not_posting_in_a_group: false } %>
     </div> <!-- end of post container -->
 
-      <%= render partial: 'posts/posts', locals: {posts: @group.posts} %>
+      <%= render partial: 'posts/posts', locals: {posts: @group.posts.order('updated_at DESC')} %>
   <% else %>
     <hr/>
     <% if current_user.group_memberships.find_by(group_id: @group.id).try(:pending?) %>

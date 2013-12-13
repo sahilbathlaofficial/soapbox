@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   include NotificationConcern
   include GlobalDataConcern
   belongs_to :user
-  belongs_to :post
+  belongs_to :post, touch: true
   validates :content, :user_id, :post_id, presence: true
   before_destroy { |comment| current_user.privileged?(comment) }
   after_create :notify_commented_on
