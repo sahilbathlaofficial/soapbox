@@ -4,14 +4,14 @@
     <div class="control-group">
       <%= f.label :firstname, :class => '""' %>
       <div class="">
-        <%= f.text_field :firstname, :class => 'text_field' %>
+        <%= f.text_field :firstname, :class => 'text_field', maxlength: '100' %>
       </div>
     </div>
 
     <div class="control-group">
       <%= f.label :lastname, :class => '""' %>
       <div class="">
-        <%= f.text_field :lastname, :class => 'text_field' %>
+        <%= f.text_field :lastname, :class => 'text_field', maxlength: '100' %>
       </div>
     </div>
     
