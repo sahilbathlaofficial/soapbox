@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
  
   before_create :provide_dummy_names
   after_create :send_welcome_email
-  before_destroy { |comment| current_user.privileged? }
+  before_destroy :check_user_privileged
 
   scope :match_users, lambda { |query, company_id| where('(LOWER(firstname) like ? OR LOWER(lastname) like ?) AND company_id = ? ', query, query, company_id).limit(5).pluck('id', 'firstname','lastname', 'avatar_file_name') }
   scope :extract_tags, lambda { |query, users| where('(CONCAT(LOWER(firstname), " ", LOWER(lastname)) like ?) AND id in (?)',  query, users).limit(5) }
@@ -108,24 +108,22 @@ class User < ActiveRecord::Base
       # CR_Priyank: Do we need User here
       # [Fixed] - Removed User
       return false unless allowed_params.is_a?(Hash)
-      if(allowed_params[:to_ban].present?)
-        begin
-          transaction do 
-            destroy_all(id: allowed_params[:to_ban].split)
-            if(allowed_params[:make_moderators].present?)
-              (allowed_params[:make_moderators] || []).split.each do |user_id|
-                user = find_by(id: user_id)
-                # CR_Priyank: move this to a method as we are using this in multiple places
-                # [Fixed] - Not required as only used to make and remove moderators
-                user.update_attributes(is_moderator: true)
-              end
+      begin
+        transaction do 
+          destroy_all(id: allowed_params[:to_ban].split) if(allowed_params[:to_ban].present?)
+          if(allowed_params[:make_moderators].present?)
+            (allowed_params[:make_moderators] || []).split.each do |user_id|
+              user = find_by(id: user_id)
+              # CR_Priyank: move this to a method as we are using this in multiple places
+              # [Fixed] - Not required as only used to make and remove moderators
+              user.update_attributes(is_moderator: true)
             end
           end
-        rescue ActiveRecord::Rollback
-          return false
         end
-        true
+      rescue ActiveRecord::Rollback
+        return false
       end
+      true
     end
   end
 
@@ -145,6 +143,11 @@ class User < ActiveRecord::Base
     self.firstname = 'soapBox User'
     self.lastname = (User.last.try(:id) || 0 + 1).to_s
   end
+
+  def check_user_privileged
+    current_user.privileged?
+  end
+
 
   # CR_Priyank: Not a part of this model, move to concern
   # [Fixed] - move to notification concern

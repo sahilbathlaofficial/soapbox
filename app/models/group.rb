@@ -20,14 +20,9 @@ class Group < ActiveRecord::Base
 
   # CR_Priyank: This is not required, study has_many through thoroughly
   # [Fixed] - Changes made but not sure if correct
-  after_create do |group| 
-    if group.valid?
-      group.users << group.admin
-      group.group_memberships.first.approve 
-    end
-  end
+  after_create :create_membership_for_admin
+  before_destroy :check_user_priviledge 
   
-  before_destroy { |group| current_user.privileged?(group) }
   scope :match_groups, lambda { |query, company_id| where('(LOWER(name) like ?) AND company_id = ?', query, company_id).limit(5).pluck('id', 'name') }
 
   def admin?(user)
@@ -53,6 +48,19 @@ class Group < ActiveRecord::Base
         return false
       end
       true
+    end
+  end
+
+  private
+
+  def check_user_priviledge
+    current_user.privileged?(self) 
+  end
+
+  def create_membership_for_admin
+    if valid?
+      users << admin
+      group_memberships.first.approve 
     end
   end
 

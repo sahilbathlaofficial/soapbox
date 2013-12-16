@@ -10,7 +10,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :post, touch: true
   validates :content, :user_id, :post_id, presence: true
-  before_destroy { |comment| current_user.privileged?(comment) }
+  before_create :in_valid_group?
+  before_destroy :check_user_priviledge
   after_create :notify_commented_on
   after_create :notify_tagged_users
 
@@ -22,5 +23,21 @@ class Comment < ActiveRecord::Base
   def owner?(user)
     self.user.id == user.id
   end
+
+  private
+
+  def check_user_priviledge
+    current_user.privileged?(self) 
+  end
+
+  def in_valid_group?
+    #remember nil means public group 
+    if group.present?
+      group.users.to_a.include?(user)
+    else
+      true
+    end
+  end
+
 
 end

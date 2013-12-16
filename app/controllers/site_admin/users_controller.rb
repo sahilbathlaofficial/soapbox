@@ -1,8 +1,9 @@
 class SiteAdmin::UsersController < SiteAdmin::AdminController
+  before_action :set_moderator, only: :remove_moderator
   def show
     # CR_Priyank: This can be achieved with a single scope
     # [Fixed] - Moved to scope
-    User.extract_users(params[:group_id],  params[:company_id])
+    @users = User.extract_users(params[:group_id],  params[:company_id])
   end
 
   def manage_users
@@ -15,7 +16,7 @@ class SiteAdmin::UsersController < SiteAdmin::AdminController
       flash[:error] = 'Changes not saved'
     end 
     respond_to do |format|
-      format.html { redirect_to action: 'show'}
+      format.html { redirect_to_back_or_default_url }
     end
   end
 
