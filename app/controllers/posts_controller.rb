@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   # CR_Priyank: Why are we expiring fragment on all actions
   # [Fixed]: OOps sorry, only required in create and destroy
-  before_action only: [:create, :destroy] { |post| post.expire_fragment('my_posts') }
+  before_action only: [:create, :destroy] { |post| post.expire_fragment('my_posts' + current_user.name) }
   before_action :set_post, only: [:destroy, :show]
   before_action :parse_url, only: [:extract_url_content]
 

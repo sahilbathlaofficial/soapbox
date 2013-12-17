@@ -24,7 +24,11 @@ class ApplicationController < ActionController::Base
   def authorize
     #FIXME_AB: if !(current_user) is used to check whether user is logged in or not. So define to method for that, logged_in? and annonymous?
     #[Fixed] - Made two methods for the same
-    redirect_to new_user_session_path if anonymous?
+    if deleted?
+      sign_out @user 
+      flash[:notice] = "You are banned"
+    end
+    redirect_to new_user_session_path if anonymous? 
   end
 
   def anonymous?
@@ -33,6 +37,10 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     ! anonymous?
+  end
+
+  def deleted?
+    current_user.deleted_at? if(current_user)
   end
 
   def redirect_to_back_or_default_url(url = root_path)

@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
   validates :content, :user, presence: true
   scope :extract_posts, lambda { |users, groups|  where('user_id in (?) or (group_id in (?) or group_id is ? )', users, groups, nil).order('created_at DESC') }
   scope :find_by_hash_tag, lambda { |hash_tag, users| includes(:comments).where('( posts.content like ? or comments.content like ? )and posts.user_id in (?)', '%' + hash_tag + '%', '%' + hash_tag + '%', users).order('posts.updated_at DESC') }
-  before_create :in_valid_group
+  before_create :in_valid_group?
   after_create :notify_tagged_users
   after_create :do_tweet
   before_destroy :check_user_priviledge
@@ -26,7 +26,7 @@ class Post < ActiveRecord::Base
   def in_valid_group?
     #remember nil means public group
     if group.present?
-      group.users.to_a.include?(user)
+      !!group.users.exists?(id: user.id)
     else
       true
     end

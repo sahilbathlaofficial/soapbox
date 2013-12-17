@@ -97,6 +97,9 @@ gem 'state_machine'
 #Thinking Sphinx
 gem 'thinking-sphinx', '3.0.6'
 
+#soft-delete
+gem 'permanent_records'
+
 #Shoulda Matcher
 group :test do
   gem 'shoulda-matchers'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131127134939) do
+ActiveRecord::Schema.define(version: 20131217065729) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(version: 20131127134939) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
-    t.string   "type"
     t.string   "description"
     t.integer  "company_id"
     t.datetime "created_at"
@@ -163,6 +162,7 @@ ActiveRecord::Schema.define(version: 20131127134939) do
     t.text     "twitter_authorize_token"
     t.text     "consumer_key"
     t.text     "consumer_secret"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
