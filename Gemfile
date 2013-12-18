@@ -100,6 +100,9 @@ gem 'thinking-sphinx', '3.0.6'
 #soft-delete
 gem 'permanent_records'
 
+#role based management
+gem 'cancan'
+
 #Shoulda Matcher
 group :test do
   gem 'shoulda-matchers'
