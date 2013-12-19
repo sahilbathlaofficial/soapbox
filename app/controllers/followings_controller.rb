@@ -38,7 +38,7 @@ class FollowingsController < ApplicationController
 
     def set_following
       @following = current_user.followings.find_by(followee_id: params[:followee_id])
-      if(@following.blank?)
+      unless (@following)
         flash[:alert] = "Some problem occured"
         redirect_to_back_or_default_url 
       end

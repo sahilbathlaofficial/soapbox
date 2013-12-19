@@ -17,7 +17,7 @@ module NotificationConcern
         # CR_Priyank: Do not use find
         # [Fixed]: Removed
         @user = User.find_by(id: user_id)
-        if (@user.present?)
+        if (@user)
           post.create_activity key: 'post.tagged', owner: @user
           email_tagged_users(@user, post)
         end

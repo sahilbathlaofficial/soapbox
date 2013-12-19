@@ -32,8 +32,8 @@ class Comment < ActiveRecord::Base
 
   def in_valid_group?
     #remember nil means public group 
-    if group.present?
-      group.users.to_a.include?(user)
+    if group
+      !!group.users.exists?(user)
     else
       true
     end

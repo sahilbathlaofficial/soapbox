@@ -40,7 +40,7 @@ class LikesController < ApplicationController
     @post = Post.find_by(id: params[:post_id]) 
     # CR_Priyank: What are we trying by returning false
     # [Fixed]
-    if (@post.blank?)
+    unless (@post)
       flash.now[:alert] = "some error occured"
       render action: params[:action]
     end

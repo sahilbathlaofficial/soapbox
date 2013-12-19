@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
 
   def in_valid_group?
     #remember nil means public group
-    if group.present?
+    if group
       !!group.users.exists?(id: user.id)
     else
       true

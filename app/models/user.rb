@@ -87,11 +87,7 @@ class User < ActiveRecord::Base
   def privileged?(entity = nil )
     # CR_Priyank: Why are we taking self into a variable
     # [Fixed] - Removed self context
-    if( is_admin? || is_moderator? || entity.try(:user) == self )
-      return true
-    else
-      return false
-    end
+    is_admin? || is_moderator? || entity.try(:user) == self 
   end
 
   def set_api_token
@@ -141,7 +137,7 @@ class User < ActiveRecord::Base
 
   def provide_dummy_names
     self.firstname = 'soapBox User'
-    self.lastname = (User.last.try(:id) || 0 + 1).to_s
+    self.lastname = ((User.last.try(:id) || 0) + 1).to_s
   end
 
   def check_user_privileged

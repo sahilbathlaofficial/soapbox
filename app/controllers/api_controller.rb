@@ -14,6 +14,6 @@ class ApiController < ApplicationController
 
   def authorize_acess
     @user = User.find_by(consumer_key: params[:consumer_key], consumer_secret: params[:consumer_secret])
-    respond_with({}) if (@user.blank?)
+    respond_with({}) unless (@user)
   end
 end

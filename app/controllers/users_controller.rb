@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     # CR_Priyank: Indent properly
     # [Fixed] Sorry sir
     @user = User.find_by(id: params[:id])
-    redirect_to_back_or_default_url if(@user.blank?)
+    redirect_to_back_or_default_url if(@user.nil?)
   end
 
   def user_params

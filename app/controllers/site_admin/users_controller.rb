@@ -40,7 +40,7 @@ class SiteAdmin::UsersController < SiteAdmin::AdminController
 
   def set_moderator
     @user = User.find_by(id: params[:user_id])
-    flash.now[:alert] = "User not found" if(@user.blank?)
+    flash.now[:alert] = "User not found" unless (@user)
   end
 
 end
