@@ -21,7 +21,10 @@ class GroupsController < ApplicationController
       if(@group.save)
         format.html { redirect_to @group, notice: "Group #{@group.name} was successfully created." }
       else
-        format.html { redirect_to @group, error: "Group #{@group.name} was not created. Note:- Special symbols not allowed in groups" }
+        format.html do
+          flash[:error] = "Group #{@group.name} was not created. Note:- Special symbols not allowed in groups"
+          redirect_to root_path
+        end
       end
     end
   end

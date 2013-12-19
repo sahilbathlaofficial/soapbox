@@ -126,7 +126,7 @@
 
  #createGroupTextField
  {
-  width:10em;
+  width:70%;
  }
 
  #createGroup
@@ -139,6 +139,11 @@
  {
   margin:0em;
   padding:0em;
+ }
+
+ #cancelCreateGroup
+ {
+  margin-left: 10%;
  }
 
  .PageFinished
@@ -784,7 +789,6 @@
   display: inline-block;
   margin: 2%;
   width: 25%;
-  height:5em;
   vertical-align: top;
   text-align: center;
 }

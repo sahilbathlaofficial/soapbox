@@ -7,8 +7,8 @@ module ApplicationHelper
     User.where(company: current_company).limit(6).order('created_at DESC')
   end
 
-  def fetch_groups
-    Group.where(company: current_company).limit(6).order('created_at DESC')
+  def fetch_groups(options)
+    Group.includes(:group_memberships).where('groups.company_id = ? and group_memberships.user_id != ?', current_company.id, current_user.id).limit(options[:limit]).order('groups.created_at DESC').references(:group_memberships)
   end
 
 end

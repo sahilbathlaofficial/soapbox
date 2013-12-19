@@ -30,10 +30,10 @@ class GroupMembershipController < ApplicationController
       if(@membership.user ==  @membership.group.admin)
         flash[:notice] = "You deleted your own group"
       else
-        flash[:notice] = "You are not following the group #{ @membership.group.name.humanize }"
+        flash[:notice] = "User @membership.user is not a part of the group #{ @membership.group.name.humanize }"
       end
     else
-      flash[:error] = "You couldn't unjoin the group due to some reason" 
+      flash[:error] = "You couldn't unjoin the group due to some reason, Kindly contact the admin of the group" 
     end
     respond_to do |format|
       format.html { redirect_to root_url }
@@ -43,7 +43,7 @@ class GroupMembershipController < ApplicationController
   def pending_memberships
     # CR_Priyank: eager load user in this query
     # [Fixed] - Eager loaded user data
-    @pending_memberships = @group.memberships.includes(:user).with_state(:pending)
+    @pending_memberships = @group.group_memberships.includes(:user).with_state(:pending)
     # CR_Priyank: We can use collect here.
     # [Fixed] - Using collect
   end
@@ -75,7 +75,7 @@ class GroupMembershipController < ApplicationController
   end
 
   def set_membership
-    @membership  = GroupMembership.includes(:group).find_by(id: params[:id])
+    @membership  = GroupMembership.includes(:group, :user).find_by(id: params[:id])
     unless (@membership)
       flash[:alert] = "It seems like u are not a member"
       redirect_to_back_or_default_url

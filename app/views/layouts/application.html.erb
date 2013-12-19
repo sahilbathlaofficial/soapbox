@@ -137,8 +137,8 @@
                   <li>
                     <div id="createGroup">
                       <%= form_tag groups_path do %>
-                        <%= text_field_tag  'group[name]', '', id: 'createGroupTextField', placeholder: 'Group Name' %>
-                        <span id="cancelCreateGroup" class="rightAlign">x</span>
+                        <%= text_field_tag  'group[name]', '', id: 'createGroupTextField', placeholder: 'Group Name', maxlength: "70", autocomplete: 'off' %>
+                        <span id="cancelCreateGroup">x</span>
                       <% end %>
                     </div>
                     <%=link_to "+ Create group",'', id: 'createGroupLink' %>
@@ -176,7 +176,7 @@
               Suggested Groups
             </div>
             <div id="suggestedGroupsContent">
-              <% for group in fetch_groups %>
+              <% for group in fetch_groups(limit: 5) %>
                 <div class="recentMembersContent smallText">
                   <%= link_to(image_tag('ror.png', class: 'thumbnailImage'), group) %>
                   <br>
