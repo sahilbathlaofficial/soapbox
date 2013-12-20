@@ -1,4 +1,4 @@
-ThinkingSphinx::Index.define :post, :with => :active_record do
+ThinkingSphinx::Index.define :post, :delta =>true, :with => :active_record do
   indexes content
   indexes [user.firstname, user.lastname], :as => :post_author
   indexes comments.content, :as => :comment_content

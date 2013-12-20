@@ -554,8 +554,16 @@
 
 .largeImage
 {
-  height:75px;
+  height:auto;
+  min-height: 75px;
   width:75px;
+}
+
+.imageCropDiv
+{
+  height:75px; 
+  width:75px;
+  overflow: hidden;
 }
 
 .minSizeImage40

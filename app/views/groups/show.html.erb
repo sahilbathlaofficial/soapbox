@@ -1,7 +1,7 @@
 <div class="page-header" id="groupPage">
   <%= render partial:'group_profile', locals: {group: @group} %>
 
-  <% if current_user.group_memberships.find_by(group_id: @group.id).try(:approved?) ||  can?(:read, @group) %>
+  <% if current_user.group_memberships.find_by(group_id: @group.id).try(:approved?) ||  can?(:manage, @group) %>
     <div id="postContainer">
       <%= render partial: 'posts/compose_post',locals: { not_posting_in_a_group: false } %>
     </div> <!-- end of post container -->
