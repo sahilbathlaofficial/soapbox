@@ -28,7 +28,11 @@ fetchNotification = function() {
 }
 
 $(document).ready(function(){
+  fetchNotification();
   notificationCheck();
+  $('#notificationSprite').click(function(){
+    $(this).append('<div id="notificationsLoading" class="generalContainer">Loading...</div>')
+  })
 });
 
 /* end of notifications js */

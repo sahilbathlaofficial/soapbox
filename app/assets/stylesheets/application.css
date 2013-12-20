@@ -705,6 +705,12 @@
   margin:25% 0% 0% 110%;
 }
 
+#notificationsLoading
+{
+  width:800%;
+  padding:10%;
+}
+
 #notificationsResult
 {
   margin-top:0%;

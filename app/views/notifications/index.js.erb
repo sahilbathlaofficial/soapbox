@@ -21,7 +21,7 @@ setDynamicModalShow = function() {
     <% end %>
   <% end %> 
   $('#notificationSprite').prepend('<div id="notificationSpriteContent">Notifications</div>').find('a.appLinks').remove();
-  $('#notificationsResult').append('<p class="centerAlignText">More</p>') ;
+  $('#notificationsResult').append('<p class="centerAlignText"><a href="/notifications">More</a></p>') ;
  
   // on click on body hide the notificationResult
   $('body').bind('click keyup', function(event){
@@ -32,6 +32,7 @@ setDynamicModalShow = function() {
  // on click on the tab show the notificationResult
   $('#notificationSprite').bind('click', function(event) {
     event.stopPropagation();
+    $('#notificationsLoading').remove();
     $('#notificationsResult').show();
   });
 

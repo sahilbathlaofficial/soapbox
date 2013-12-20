@@ -1,3 +1,7 @@
 <% for notification in @notifications %>
-<%= render_activity(notification) %>
+  <div class="generalContainer">
+    <h3>Your Notifications</h3>
+    <hr/>
+    <%= render_activity(notification) %>
+  </div>
 <% end %>
