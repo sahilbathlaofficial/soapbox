@@ -11,7 +11,7 @@
   </div>
 </div>  
 <div class="hero-unit-extend">
-  <% if current_user.privileged?(group) %>
+  <% if can? :manage, group %>
     <div class="rightAlign verticalAlign20">
       <%= button_to 'Deactivate', group_path(group), method: :delete, class: 'btn-danger'  %>
     </div>

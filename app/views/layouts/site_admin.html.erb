@@ -84,8 +84,8 @@
 
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="settingsList">
                     <li role="presentation" ><%= link_to "Edit Profile", edit_user_path(current_user), class: 'blackButBlueOnHover' %></li>
-                    <% if(current_user.privileged?(current_user)) %>
-                      <li role="presentation" ><%= link_to "Restore App View", wall_user_path(current_user),class: 'blackButBlueOnHover'  %></li>
+                    <% if current_user.is_admin? %>
+                      <li role="presentation" ><%= link_to "Restore App View", wall_user_path(current_user), class: 'blackButBlueOnHover'  %></li>
                     <% end %>
                     <li role="presentation" class="divider"></li>
                     <li role="presentation" ><%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'blackButBlueOnHover'  %></li>

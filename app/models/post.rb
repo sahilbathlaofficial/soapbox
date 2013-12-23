@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_one :url_parsed_content, dependent: :destroy
   validates :content, :user, presence: true
-  scope :extract_posts, lambda { |users, groups|  where('user_id in (?) or (group_id in (?) or group_id is ? )', users, groups, nil).order('created_at DESC') }
+  scope :extract_posts, lambda { |users, groups, company_id|  where('(posts.user_id in (?) or posts.group_id in (?) or posts.group_id is ?) and users.company_id = ? ', users, groups, nil, company_id ).joins(:user).order('created_at DESC') }
   scope :find_by_hash_tag, lambda { |hash_tag, users| includes(:comments).where('( posts.content like ? or comments.content like ? )and posts.user_id in (?)', '%' + hash_tag + '%', '%' + hash_tag + '%', users).order('posts.updated_at DESC') }
   before_create :in_valid_group?
   after_create :notify_tagged_users

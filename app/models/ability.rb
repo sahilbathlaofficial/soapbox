@@ -8,7 +8,9 @@ class Ability
       if user.is_admin? || user.is_moderator?   
         can :manage, :all
       else
-        can :read, :all
+        can :read, Group
+        can :manage, Comment.where(:user_id => user.id)
+        can :manage, Post.joins(:group).where('posts.user_id = ? or groups.admin_id = ?', user.id, user.id) 
       end
     #
     # The first argument to `can` is the action you are giving the user 

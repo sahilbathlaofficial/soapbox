@@ -8,7 +8,7 @@
     <%= link_to comment.user.name, comment.user %>:
     <% comment.content.gsub!(/#\w+/i) {|hash_tag| link_to hash_tag, hash_tags_posts_path(hash_tag: hash_tag),  class: 'tags'} %>
     <%= sanitize(comment.content,tags: %w(a))  %>
-    <% if(current_user.privileged?(comment)) %>
+    <% if can?(:manage, comment) %>
     
     <%= link_to 'x', comment_path(comment),method: :delete, class: "removeComment rightAlign" %>
     <% end %>

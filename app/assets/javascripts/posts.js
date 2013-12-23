@@ -12,7 +12,8 @@ $(document).ready(function() {
       position_compose_post = $('#composePostContent').position();
       $('#composePostCopy').css('top',position_compose_post.top)
       .css('left', position_compose_post.left)
-      .css('padding',$('#composePostContent').css('padding'))
+      .css('padding-top',$('#composePostContent').css('padding-top'))
+      .css('padding-left',$('#composePostContent').css('padding-left'))
       .width($('#composePostContent').width())
     }
 
@@ -22,7 +23,8 @@ $(document).ready(function() {
         $(this).autosize();
         $(this).prev('.composeTextCopy').css('top', $(this).top)
         .css('left', $(this).left)
-        .css('padding', $(this).css('padding'))
+        .css('padding-top', $(this).css('padding-top'))
+        .css('padding-left', $(this).css('padding-left'))
         .width($(this).width())
         $(this).css('margin-top', -($(this).prev('div.composeTextCopy').height() + parseFloat($(this).prev('div.composeTextCopy').css('padding-top')) ))
       })

@@ -442,12 +442,15 @@
 {
   visibility: hidden;
   position: relative;
+  padding-bottom: 0%;
+  padding-top: 2%; 
   z-index: 10;
 }
 
 #composePostCopy
 {
   position: absolute;
+  padding-top: 1%;
 }
 
 #composePostContainer
@@ -456,7 +459,12 @@
   margin-bottom: 2%;
   padding: 0px !important;
   border-radius: 0.8em;
+}
 
+textarea
+{
+  /*padding-left: 0px !important;*/
+  border: 0px solid white;
 }
 
 
@@ -474,13 +482,12 @@
 
 .commentText
 {
-  width:78%;
+  width:82%;
   vertical-align: top;
   padding-bottom: 0%;
   padding-top: 2%;
   position: relative;
   z-index: 1000;
-  border: 2px solid #eee;
   background: none;
   resize: none !important;
 }
@@ -883,6 +890,7 @@
 {
   text-decoration: underline;
 }
+
 .adminLinks
 {
   margin-top: 0.7% !important;

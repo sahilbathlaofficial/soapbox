@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def wall
     users = current_user.followees + [current_user]
     groups = current_user.group_memberships.with_state(:approved).collect { |group_membership| group_membership.group }
-    @posts = Post.extract_posts(users, groups)
+    @posts = Post.extract_posts(users, groups, current_company.id)
   end
 
   def followees

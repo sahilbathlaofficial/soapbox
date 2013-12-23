@@ -16,7 +16,7 @@
 </div>
 
 <div class="hero-unit-extend">
-  <% if current_user.privileged?(user) %>
+  <% if can? :manage, user %>
   <div class="rightAlign verticalAlign20">
     <%= button_to 'Deactivate', user_path(user), method: :delete, class: 'btn-danger'  %>
   </div>
