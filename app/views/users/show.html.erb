@@ -7,9 +7,9 @@
     <% if(current_user.id == @user.id) %>
       <%= render partial: 'posts/compose_post' %>
     <% end %>
-    <% cache 'my_posts' + @user.name, skip_digest: true do %>
+    <%# cache 'my_posts' + @user.name, skip_digest: true do %>
       <%= render partial: 'posts/posts', locals: { posts: extract_viewable_posts(@user, current_user) } %>
-    <% end %>
+    <%# end %>
   </div>
   
   </div>

@@ -39,4 +39,13 @@ AppName.constantize::Application.configure do
     password:             '',
     authentication:       'plain',
     enable_starttls_auto: true  }
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'hemant-khemani',
+      :access_key_id => 'AKIAIHK2M7O27MPRPMPA',
+      :secret_access_key => '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'
+    }
+  }
   end

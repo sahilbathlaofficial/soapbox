@@ -27,7 +27,7 @@ AppName.constantize::Application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -77,4 +77,14 @@ AppName.constantize::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => 'hemant-khemani',
+      :access_key_id => 'AKIAIHK2M7O27MPRPMPA',
+      :secret_access_key => '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'
+    }
+  }
+  
 end

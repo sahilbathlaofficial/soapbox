@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20131219102452) do
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "comments", force: true do |t|
-    t.string   "content"
+    t.text     "content"
     t.integer  "user_id"
     t.integer  "post_id"
     t.datetime "created_at"

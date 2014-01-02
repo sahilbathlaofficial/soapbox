@@ -7,7 +7,7 @@ gem 'mysql2'
 gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# gem 'sqlite3'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -107,3 +107,15 @@ gem 'cancan'
 group :test do
   gem 'shoulda-matchers'
 end
+
+#Amazon Web Service
+gem 'aws-sdk'
+
+#Heroku gem
+gem 'rails_12factor', group: :production
+
+#PostGre (Lib development version required)
+gem 'pg'
+
+#ruby version
+ruby "1.9.3"

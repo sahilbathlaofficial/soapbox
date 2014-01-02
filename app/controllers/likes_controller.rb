@@ -28,7 +28,7 @@ class LikesController < ApplicationController
   def set_likes
     # CR_Priyank: What are we trying by returning false
     # [Fixed]
-    unless ( @like = @post.likes.find_by(user_id: params[:user_id], post_id: params[:post_id]) )
+    unless ( @like = @post.likes.find_by(id: params[:id]) )
       flash.now[:alert] = "some error occured"
       render action: params[:action]
     end
