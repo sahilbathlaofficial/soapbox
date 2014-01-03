@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 #Mysql gem
-gem 'mysql2'
+# gem 'mysql2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -94,8 +94,8 @@ gem 'twitter_oauth'
 #State Machine
 gem 'state_machine'
 
-#Thinking Sphinx
-gem 'thinking-sphinx', '3.0.6'
+#Thinking Sphinx(Requries mysql2)
+# gem 'thinking-sphinx', '3.0.6'
 
 #soft-delete
 gem 'permanent_records'
