@@ -10,13 +10,16 @@ class UsersController < ApplicationController
     end
   end
 
-
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: "User #{@user.firstname} was successfully updated." }
+      if(can? :manage, @user)
+        if @user.update(user_params)
+          format.html { redirect_to @user, notice: "User #{@user.firstname} was successfully updated." }
+        else
+          format.html { render action: 'edit', error: "Profile not updated" }
+        end
       else
-        format.html { render action: 'edit', error: "Profile not updated" }
+          format.html { redirect_to root_path, alert: "This action is not allowed." }
       end
 
     end

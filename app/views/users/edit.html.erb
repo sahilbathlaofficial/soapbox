@@ -1,8 +1,13 @@
-<%- model_class = User -%>
-<div >
- <!--  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1> -->
-<!--  <h1> Edit Profile </h1> -->
-</div>
-<div class="generalContainer" >
-  <%= render :partial => 'form' %>
-</div>
+<% if can? :manage, @user %>
+  <%- model_class = User -%>
+  <div >
+   <!--  <h1><%=t '.title', :default => [:'helpers.titles.edit', 'Edit %{model}'], :model => model_class.model_name.human.titleize %></h1> -->
+  <!--  <h1> Edit Profile </h1> -->
+  </div>
+  <div class="generalContainer" >
+    <%= render :partial => 'form' %>
+  </div>
+<% else %>
+  <% flash[:alert] = "Action not allowed" %>
+  <%= render template: "users/show" %>
+<% end %>
