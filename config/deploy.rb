@@ -29,7 +29,7 @@ task :check_production do
   end
 end
 
-set :linked_files, %w{config/database.yml config/config.yml}
+set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp vendor/bundle public/system}
 
 before "deploy", "check_production"
