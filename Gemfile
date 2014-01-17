@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 #Mysql gem
 gem 'mysql2'
 
+#unicorn
+gem 'unicorn'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
