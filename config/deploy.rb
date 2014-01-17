@@ -15,7 +15,7 @@ set :ssh_options, {
 }
 
 
-set :deploy_to, "/home/sahil/soapBox"
+set :deploy_to, "/var/www/soapBox"
 
 desc "check production task"
 
@@ -29,8 +29,8 @@ task :check_production do
   end
 end
 
-set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{bin log tmp vendor/bundle public/system}
+# set :linked_files, %w{config/database.yml}
+# set :linked_dirs, %w{bin log tmp vendor/bundle public/system}
 
 before "deploy", "check_production"
 # Default branch is :master

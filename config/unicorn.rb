@@ -1,7 +1,7 @@
 #et path to app that will be used to configure unicorn, 
 # note the trailing slash in this example
-@dir = "/home/sahil/soapBox/shared/"
-@dir_home = "/home/sahil/soapBox/current"
+@dir = "/var/www/soapBox/shared/"
+@dir_home = "/var/www/soapBox/current"
 worker_processes 4
 working_directory "#{@dir_home}"
 
