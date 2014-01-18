@@ -1,11 +1,12 @@
-# Simple Role Syntax
+  # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
 # Don't declare `role :all`, it's a meta role
 # set :user, "production_user"
-server "54.201.233.237", roles: %w{app web db}
+set :rails_env, :production
+server "54.201.148.140", roles: %w{app web db}
 # ssh_options[:keys] = ["~/Downloads/soapBox-alpha.pem"]
 
 # Extended Server Syntax

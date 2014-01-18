@@ -9,11 +9,10 @@ set :application, "soapBox"
 set :repo_url, "git@github.com:sahilbathlavinsol/soapbox.git"
 
 set :ssh_options, {
-  user: 'sahil'
+  user: 'vinsol'
   # forward_agent: true,
   # keys: ["home/sahil/Downloads/soapBox-alpha.pem"]
 }
-
 
 set :deploy_to, "/var/www/soapBox"
 
@@ -29,10 +28,26 @@ task :check_production do
   end
 end
 
-# set :linked_files, %w{config/database.yml}
+# namespace :unicorn do
+#   on roles(:app) do
+#     within release_path do
+#       task :start do 
+#         # run "unicorn_rails -c config/unicorn.rb -D" 
+#         execute "sudo cd #{current_path} && unicorn_rails -c config/unicorn.rb -E production -D"
+#       end
+#       task :restart do
+#         execute "kill -s USR2 `cat #{shared_path}/tmp/pids/unicorn.pid`"
+#       end
+#     end
+#   end
+# end
+
+
+set :linked_files, %w{config/database.yml}
 # set :linked_dirs, %w{bin log tmp vendor/bundle public/system}
 
 before "deploy", "check_production"
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
@@ -83,5 +98,19 @@ namespace :deploy do
       # end
     end
   end
+
+  task :final do
+    on roles(:db) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, :exec, :rake, "db:migrate"
+          # execute :bundle, :exec, :rake, "assets:precompile"
+          execute "unicorn_rails -c /var/www/soapBox/current/config/unicorn.rb -D"
+        end
+      end
+    end
+  end
+
+  after :finishing, "final"
 
 end
