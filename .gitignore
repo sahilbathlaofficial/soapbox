@@ -10,6 +10,7 @@
 db/*.sqlite3
 *log/*
 *tmp/*
+/javascript_exception_handler
 x
 # various artifacts
 **.war
