@@ -3,6 +3,7 @@ class ApiController < ApplicationController
 
   skip_before_action :authorize
   before_action :authorize_accesss, only: :fetch_posts
+  #3
 
   def fetch_posts
     # CR_Priyank: Should be moved to a before_action and user not present condition should be handled there.
