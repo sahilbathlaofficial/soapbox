@@ -1,4 +1,4 @@
-body {  
+body {
   margin:0px;
   margin-top: 0px;
   padding:0px;
@@ -15,7 +15,7 @@ body {
  color:white;
  position:absolute;
  top:1%;
- right:1%; 
+ right:1%;
 }
 #chooseLanguage form
 {
@@ -48,8 +48,9 @@ p.text
 #container
 {
   background: image-url('background.jpg');
-  height:1000px;
-  margin-top: -50px;
+  position:fixed;
+  height:100%;
+  width:100%;
 }
 
 #content
@@ -123,7 +124,7 @@ p.text
 }
 
 #remember
-{ 
+{
   vertical-align:30%;
   margin-top:0px;
   color:Grey;
