@@ -4,7 +4,7 @@ soapbox
 This application is a social engine for companies, where users from same company can interact with other. Also check out the api for using this application here :- <a href="https://github.com/sahilbathlavinsol/soapbox_api">Soapbox Api</a>
 
 ## Demo
-http://soapbox-by-sahil.herokuapp.com/user/sign_in
+http://soapbox-social.herokuapp.com/user/sign_in
 
 Just sign up, or use these credentials :-
 
