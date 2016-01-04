@@ -3,16 +3,24 @@ soapbox
 
 This application is a social engine for companies, where users from same company can interact with other. Also check out the api for using this application here :- <a href="https://github.com/sahilbathlavinsol/soapbox_api">Soapbox Api</a>
 
+## Demo
+http://soapbox-by-sahil.herokuapp.com/user/sign_in
+
+Just sign up, or use these credentials :-
+
+sahil@vinsol.com
+sahil123
+
 ## Pre-Requisites
 
-- You need to have mysql running on your machine and the mysql adapter for rails. Follow the given or any other command to install them
+- You need to have mysql running on your machine and the mysql adapter for rails. Follow the given or any other command to install them on a Ubuntu machine
 
   ```
   sudo apt-get install mysql-server mysql-client
   sudo apt-get install libmysql-ruby libmysqlclient-dev
   ```
 
-- Install sphinx for conversation search feature. Here is a tutorial to install sphink :- <a href="http://pat.github.io/thinking-sphinx/installing_sphinx.html">Installing Sphinx</a>
+- (Optional) Install sphinx for conversation/chat search feature. Here is a tutorial to install sphink :- <a href="http://pat.github.io/thinking-sphinx/installing_sphinx.html">Installing Sphinx</a>
 
 ## Installation
 
@@ -41,7 +49,7 @@ This application is a social engine for companies, where users from same company
 - Admin can also make other users moderators who can do the same as highlighted above
 
 ## Reporting issues
-- If you face any issue, report me at sahil@visnol.com
+- If you face any issue, report me at sahil_goku@yahoo.com
 
 ## Contributing
 
